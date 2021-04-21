@@ -9,11 +9,11 @@ class EnvironmentAgent(id: Int = Ids.environmentAgent, mySim: Simulation, parent
 
     init {
         EnvironmentManager(mySim = mySim, myAgent = this)
-        VehicleArrivalsScheduler(mySim = mySim, myAgent = this)
+        PatientArrivalsScheduler(mySim = mySim, myAgent = this)
 
         addOwnMessage(MessageCodes.init)
-        addOwnMessage(MessageCodes.newVehicle)
-        addOwnMessage(MessageCodes.vehicleLeaving)
+        addOwnMessage(MessageCodes.newPatient)
+        addOwnMessage(MessageCodes.patientLeaving)
     }
 
 }

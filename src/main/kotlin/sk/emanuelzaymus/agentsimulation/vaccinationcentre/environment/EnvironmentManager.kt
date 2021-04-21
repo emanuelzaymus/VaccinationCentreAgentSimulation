@@ -14,7 +14,7 @@ class EnvironmentManager(id: Int = Ids.environmentManager, mySim: Simulation, my
             MessageCodes.init -> startVehicleScheduling()
 
             IdList.finish -> {
-                message.setCode(MessageCodes.vehicleArrival)
+                message.setCode(MessageCodes.patientArrival)
                 message.setAddressee(mySim().findAgent(Ids.modelAgent))
 
                 notice(message)
@@ -24,7 +24,7 @@ class EnvironmentManager(id: Int = Ids.environmentManager, mySim: Simulation, my
 
     private fun startVehicleScheduling() {
         val message = Message(mySim())
-        message.setAddressee(myAgent().findAssistant(Ids.vehicleArrivalsScheduler))
+        message.setAddressee(myAgent().findAssistant(Ids.patientArrivalsScheduler))
 
         startContinualAssistant(message)
     }

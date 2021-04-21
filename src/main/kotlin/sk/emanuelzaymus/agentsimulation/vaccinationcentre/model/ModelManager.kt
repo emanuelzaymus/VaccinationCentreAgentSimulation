@@ -18,15 +18,15 @@ class ModelManager(id: Int = Ids.modelManager, mySim: Simulation, myAgent: Agent
                 notice(message)
             }
 
-            MessageCodes.vehicleArrival -> {
-                message.setCode(MessageCodes.vehicleService)
-                message.setAddressee(mySim().findAgent(Ids.gasStationAgent))
+            MessageCodes.patientArrival -> {
+                message.setCode(MessageCodes.patientRegistration)
+                message.setAddressee(mySim().findAgent(Ids.registrationAgent))
 
                 request(message)
             }
 
-            MessageCodes.vehicleServiceDone -> {
-                message.setCode(MessageCodes.vehicleLeaving)
+            MessageCodes.patientRegistrationDone -> {
+                message.setCode(MessageCodes.patientLeaving)
                 message.setAddressee(mySim().findAgent(Ids.environmentAgent))
 
                 notice(message)

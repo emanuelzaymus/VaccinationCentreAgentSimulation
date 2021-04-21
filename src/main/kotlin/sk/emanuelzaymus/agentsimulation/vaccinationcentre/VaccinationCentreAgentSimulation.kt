@@ -3,14 +3,14 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 import OSPABA.Simulation
 import OSPStat.Stat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.gasstation.GasStationAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
 
-class GasStationSimulation : Simulation() {
+class VaccinationCentreAgentSimulation : Simulation() {
 
     private val modelAgent = ModelAgent(mySim = this)
     private val environmentAgent = EnvironmentAgent(mySim = this, parent = modelAgent)
-    private val gasStationAgent = GasStationAgent(mySim = this, parent = modelAgent)
+    private val registrationAgent = RegistrationAgent(mySim = this, parent = modelAgent)
 
     private lateinit var waitingTimeStat: Stat
     private lateinit var queueLengthStat: Stat
@@ -29,16 +29,16 @@ class GasStationSimulation : Simulation() {
     override fun replicationFinished() {
         super.replicationFinished()
 
-        waitingTimeStat.addSample(gasStationAgent.waitingTimeStat.mean())
+        waitingTimeStat.addSample(registrationAgent.waitingTimeStat.mean())
         println(
             "R${currentReplication()} - Avg waiting time: ${waitingTimeStat.mean()} " +
-                    "(${gasStationAgent.waitingTimeStat.mean()})"
+                    "(${registrationAgent.waitingTimeStat.mean()})"
         )
 
-        queueLengthStat.addSample(gasStationAgent.queueLengthStat().mean())
+        queueLengthStat.addSample(registrationAgent.queueLengthStat().mean())
         println(
             "R${currentReplication()} - Avg queue length: ${queueLengthStat.mean()} " +
-                    "(${gasStationAgent.queueLengthStat().mean()})"
+                    "(${registrationAgent.queueLengthStat().mean()})"
         )
     }
 

@@ -1,21 +1,21 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.gasstation
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration
 
 import OSPABA.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class GasStationManager(id: Int = Ids.gasStationManager, mySim: Simulation, myAgent: Agent) :
+class RegistrationManager(id: Int = Ids.registrationManager, mySim: Simulation, myAgent: Agent) :
     Manager(id, mySim, myAgent) {
 
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
 
-            MessageCodes.vehicleService ->
+            MessageCodes.patientRegistration ->
                 if (myAgent().isWorking) {
                     (message as Message).waitingStart = mySim().currentTime()
 
-                    myAgent().vehicleQueue.enqueue(message)
+                    myAgent().patientQueue.enqueue(message)
                 } else {
                     startWork(message)
                 }
@@ -24,14 +24,14 @@ class GasStationManager(id: Int = Ids.gasStationManager, mySim: Simulation, myAg
                 myAgent().isWorking = false
                 myAgent().waitingTimeStat.addSample((message as Message).waitingTotal)
 
-                if (myAgent().vehicleQueue.size > 0) {
-                    val nextMessage: Message = myAgent().vehicleQueue.dequeue() as Message
+                if (myAgent().patientQueue.size > 0) {
+                    val nextMessage: Message = myAgent().patientQueue.dequeue() as Message
 
                     nextMessage.waitingTotal = mySim().currentTime() - nextMessage.waitingStart
                     startWork(nextMessage)
                 }
 
-                message.setCode(MessageCodes.vehicleServiceDone)
+                message.setCode(MessageCodes.patientRegistrationDone)
 
                 response(message)
             }
@@ -40,11 +40,11 @@ class GasStationManager(id: Int = Ids.gasStationManager, mySim: Simulation, myAg
 
     private fun startWork(message: MessageForm) {
         myAgent().isWorking = true
-        message.setAddressee(myAgent().findAssistant(Ids.vehicleServiceProcess))
+        message.setAddressee(myAgent().findAssistant(Ids.registrationProcess))
 
         startContinualAssistant(message)
     }
 
-    override fun myAgent(): GasStationAgent = super.myAgent() as GasStationAgent
+    override fun myAgent(): RegistrationAgent = super.myAgent() as RegistrationAgent
 
 }

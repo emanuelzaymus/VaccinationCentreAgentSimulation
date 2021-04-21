@@ -5,7 +5,7 @@ import OSPRNG.ExponentialRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class VehicleArrivalsScheduler(id: Int = Ids.vehicleArrivalsScheduler, mySim: Simulation, myAgent: CommonAgent) :
+class PatientArrivalsScheduler(id: Int = Ids.patientArrivalsScheduler, mySim: Simulation, myAgent: CommonAgent) :
     Scheduler(id, mySim, myAgent) {
 
     companion object {
@@ -16,12 +16,12 @@ class VehicleArrivalsScheduler(id: Int = Ids.vehicleArrivalsScheduler, mySim: Si
         when (message.code()) {
 
             IdList.start -> {
-                message.setCode(MessageCodes.newVehicle)
+                message.setCode(MessageCodes.newPatient)
 
                 hold(arrivalsGenerator.sample(), message)
             }
 
-            MessageCodes.newVehicle -> {
+            MessageCodes.newPatient -> {
                 val copy: MessageForm = message.createCopy()
 
                 hold(arrivalsGenerator.sample(), copy)
