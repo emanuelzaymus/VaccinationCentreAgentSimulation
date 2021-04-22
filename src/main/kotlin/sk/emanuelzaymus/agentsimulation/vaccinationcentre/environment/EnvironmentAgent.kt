@@ -12,7 +12,7 @@ class EnvironmentAgent(id: Int = Ids.environmentAgent, mySim: Simulation, parent
         PatientArrivalsScheduler(mySim = mySim, myAgent = this)
 
         addOwnMessage(MessageCodes.init)
-        addOwnMessage(MessageCodes.newPatient)
+        addOwnMessage(MessageCodes.getNewPatient)
         addOwnMessage(MessageCodes.patientLeaving)
     }
 

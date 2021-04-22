@@ -20,28 +20,34 @@ class PatientArrivalsScheduler(id: Int = Ids.patientArrivalsScheduler, mySim: Si
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
 
-            IdList.start -> {
-                debug("PatientArrivalsScheduler - start")
-                message.setCode(MessageCodes.newPatient)
+            IdList.start -> startScheduling(message)
 
-//                hold(.0, message); // To deliver immediately
-                hold(arrivalsGenerator.sample(), message)
-            }
+            MessageCodes.getNewPatient -> getNewPatient(message)
 
-            MessageCodes.newPatient -> {
-                debug("PatientArrivalsScheduler - newPatient")
-                val newPatientMessage = patientMessagePool.acquire()
-
-                // hold(60.0, copy)
-                hold(arrivalsGenerator.sample(), message)
-                assistantFinished(newPatientMessage)
-            }
-
-            MessageCodes.patientLeaving -> {
-                debug("PatientArrivalsScheduler - patientLeaving")
-                patientMessagePool.release(message as PatientMessage)
-            }
+            MessageCodes.patientLeaving -> returnPatient(message)
         }
+    }
+
+    private fun startScheduling(message: MessageForm) {
+        debug("PatientArrivalsScheduler - start")
+        message.setCode(MessageCodes.getNewPatient)
+
+        // hold(.0, message); // To deliver immediately
+        hold(arrivalsGenerator.sample(), message)
+    }
+
+    private fun getNewPatient(message: MessageForm) {
+        debug("PatientArrivalsScheduler - newPatient")
+        val newPatientMessage = patientMessagePool.acquire()
+
+        // hold(60.0, copy)
+        hold(arrivalsGenerator.sample(), message)
+        assistantFinished(newPatientMessage)
+    }
+
+    private fun returnPatient(message: MessageForm) {
+        debug("PatientArrivalsScheduler - patientLeaving")
+        patientMessagePool.release(message as PatientMessage)
     }
 
 }

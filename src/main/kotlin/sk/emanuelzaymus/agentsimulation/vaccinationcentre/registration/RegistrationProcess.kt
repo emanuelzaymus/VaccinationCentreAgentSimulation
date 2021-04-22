@@ -16,18 +16,22 @@ class RegistrationProcess(id: Int = Ids.registrationProcess, mySim: Simulation, 
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
 
-            IdList.start -> {
-                debug("RegistrationProcess - start")
-                message.setCode(MessageCodes.registrationEnd)
+            IdList.start -> startRegistration(message)
 
-                hold(registrationDuration.sample(), message)
-            }
-
-            MessageCodes.registrationEnd -> {
-                debug("RegistrationProcess - registrationEnd")
-                assistantFinished(message)
-            }
+            MessageCodes.registrationEnd -> endRegistration(message)
         }
+    }
+
+    private fun startRegistration(message: MessageForm) {
+        debug("RegistrationProcess - start")
+        message.setCode(MessageCodes.registrationEnd)
+
+        hold(registrationDuration.sample(), message)
+    }
+
+    private fun endRegistration(message: MessageForm) {
+        debug("RegistrationProcess - registrationEnd")
+        assistantFinished(message)
     }
 
 }

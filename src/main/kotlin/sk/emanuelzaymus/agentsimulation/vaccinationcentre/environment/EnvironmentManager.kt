@@ -11,31 +11,35 @@ class EnvironmentManager(id: Int = Ids.environmentManager, mySim: Simulation, my
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
 
-            MessageCodes.init -> {
-                debug("EnvironmentManager - init")
-                startPatientScheduling(message)
-            }
+            MessageCodes.init -> startPatientScheduling(message)
 
-            IdList.finish -> {
-                debug("EnvironmentManager - finish")
-                message.setCode(MessageCodes.patientArrival)
-                message.setAddressee(mySim().findAgent(Ids.modelAgent))
+            IdList.finish -> noticeModelPatientArrival(message)
 
-                notice(message)
-            }
-
-            MessageCodes.patientLeaving -> {
-                debug("EnvironmentManager - patientLeaving")
-                message.setAddressee(myAgent().findAssistant(Ids.patientArrivalsScheduler))
-
-                notice(message)
-            }
+            MessageCodes.patientLeaving -> noticeSchedulerPatientLeaving(message)
         }
     }
 
     private fun startPatientScheduling(message: MessageForm) {
+        debug("EnvironmentManager - init")
         message.setAddressee(myAgent().findAssistant(Ids.patientArrivalsScheduler))
+
         startContinualAssistant(message)
+    }
+
+    private fun noticeModelPatientArrival(message: MessageForm) {
+        debug("EnvironmentManager - finish")
+
+        message.setCode(MessageCodes.patientArrival)
+        message.setAddressee(mySim().findAgent(Ids.modelAgent))
+
+        notice(message)
+    }
+
+    private fun noticeSchedulerPatientLeaving(message: MessageForm) {
+        debug("EnvironmentManager - patientLeaving")
+        message.setAddressee(myAgent().findAssistant(Ids.patientArrivalsScheduler))
+
+        notice(message)
     }
 
 }

@@ -11,7 +11,7 @@ class MessageCodes {
         const val patientRegistrationDone = 4
 
         const val registrationEnd = 5
-        const val newPatient = 6
+        const val getNewPatient = 6
     }
 
 }

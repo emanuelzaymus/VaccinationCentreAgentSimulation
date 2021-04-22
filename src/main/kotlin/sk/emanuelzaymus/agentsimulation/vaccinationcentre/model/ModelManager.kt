@@ -13,29 +13,37 @@ class ModelManager(id: Int = Ids.modelManager, mySim: Simulation, myAgent: Agent
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
 
-            MessageCodes.init -> {
-                debug("ModelManager - init")
-                message.setAddressee(mySim().findAgent(Ids.environmentAgent))
+            MessageCodes.init -> noticeEnvironmentInit(message)
 
-                notice(message)
-            }
+            MessageCodes.patientArrival -> requestPatientRegistration(message)
 
-            MessageCodes.patientArrival -> {
-                debug("ModelManager - patientArrival")
-                message.setCode(MessageCodes.patientRegistration)
-                message.setAddressee(mySim().findAgent(Ids.registrationAgent))
-
-                request(message)
-            }
-
-            MessageCodes.patientRegistrationDone -> {
-                debug("ModelManager - patientRegistrationDone")
-                message.setCode(MessageCodes.patientLeaving)
-                message.setAddressee(mySim().findAgent(Ids.environmentAgent))
-
-                notice(message)
-            }
+            MessageCodes.patientRegistrationDone -> noticeEnvironmentRegistrationDone(message)
         }
+    }
+
+    private fun noticeEnvironmentInit(message: MessageForm) {
+        debug("ModelManager - init")
+        message.setAddressee(mySim().findAgent(Ids.environmentAgent))
+
+        notice(message)
+    }
+
+    private fun requestPatientRegistration(message: MessageForm) {
+        debug("ModelManager - patientArrival")
+
+        message.setCode(MessageCodes.patientRegistration)
+        message.setAddressee(mySim().findAgent(Ids.registrationAgent))
+
+        request(message)
+    }
+
+    private fun noticeEnvironmentRegistrationDone(message: MessageForm) {
+        debug("ModelManager - patientRegistrationDone")
+
+        message.setCode(MessageCodes.patientLeaving)
+        message.setAddressee(mySim().findAgent(Ids.environmentAgent))
+
+        notice(message)
     }
 
 }
