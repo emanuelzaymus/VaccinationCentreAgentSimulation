@@ -13,7 +13,7 @@ class RegistrationManager(id: Int = Ids.registrationManager, mySim: Simulation, 
 
             MessageCodes.patientRegistration ->
                 if (myAgent().isWorking) {
-                    (message as Message).waitingStart = mySim().currentTime()
+                    (message as Message).patient.waitingStart = mySim().currentTime()
 
                     myAgent().patientQueue.enqueue(message)
                 } else {
@@ -22,12 +22,12 @@ class RegistrationManager(id: Int = Ids.registrationManager, mySim: Simulation, 
 
             IdList.finish -> {
                 myAgent().isWorking = false
-                myAgent().waitingTimeStat.addSample((message as Message).waitingTotal)
+                myAgent().waitingTimeStat.addSample((message as Message).patient.waitingTotal)
 
                 if (myAgent().patientQueue.size > 0) {
                     val nextMessage: Message = myAgent().patientQueue.dequeue() as Message
 
-                    nextMessage.waitingTotal = mySim().currentTime() - nextMessage.waitingStart
+                    nextMessage.patient.waitingTotal = mySim().currentTime() - nextMessage.patient.waitingStart
                     startWork(nextMessage)
                 }
 

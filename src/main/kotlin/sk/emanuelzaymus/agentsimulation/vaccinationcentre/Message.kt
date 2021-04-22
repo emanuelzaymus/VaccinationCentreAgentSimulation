@@ -5,14 +5,14 @@ import OSPABA.Simulation
 
 class Message : MessageForm {
 
-    var waitingStart: Double = 0.0
-    var waitingTotal: Double = 0.0
+    val patient: Patient
 
-    constructor(sim: Simulation) : super(sim)
+    constructor(sim: Simulation) : super(sim) {
+        patient = Patient()
+    }
 
     constructor(original: Message) : super(original) {
-        waitingStart = original.waitingStart
-        waitingTotal = original.waitingTotal
+        patient = original.patient.copy()
     }
 
     override fun createCopy(): MessageForm = Message(this)
