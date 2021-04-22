@@ -3,7 +3,8 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
 import OSPABA.Agent
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.InitMessage
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.PatientMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
 class ModelAgent(id: Int = Ids.modelAgent, mySim: Simulation, parent: Agent? = null) : Agent(id, mySim, parent) {
@@ -17,8 +18,7 @@ class ModelAgent(id: Int = Ids.modelAgent, mySim: Simulation, parent: Agent? = n
     }
 
     fun runSimulation() {
-        val message = Message(mySim())
-        message.setCode(MessageCodes.init)
+        val message = InitMessage(mySim())
         message.setAddressee(this)
 
         manager().notice(message)

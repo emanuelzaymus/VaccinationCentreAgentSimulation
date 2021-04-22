@@ -4,6 +4,7 @@ import OSPABA.Agent
 import OSPABA.Manager
 import OSPABA.MessageForm
 import OSPABA.Simulation
+import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
@@ -13,12 +14,14 @@ class ModelManager(id: Int = Ids.modelManager, mySim: Simulation, myAgent: Agent
         when (message.code()) {
 
             MessageCodes.init -> {
+                debug("ModelManager - init")
                 message.setAddressee(mySim().findAgent(Ids.environmentAgent))
 
                 notice(message)
             }
 
             MessageCodes.patientArrival -> {
+                debug("ModelManager - patientArrival")
                 message.setCode(MessageCodes.patientRegistration)
                 message.setAddressee(mySim().findAgent(Ids.registrationAgent))
 
@@ -26,6 +29,7 @@ class ModelManager(id: Int = Ids.modelManager, mySim: Simulation, myAgent: Agent
             }
 
             MessageCodes.patientRegistrationDone -> {
+                debug("ModelManager - patientRegistrationDone")
                 message.setCode(MessageCodes.patientLeaving)
                 message.setAddressee(mySim().findAgent(Ids.environmentAgent))
 

@@ -1,8 +1,9 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration
 
 import OSPABA.*
+import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.PatientMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
 class RegistrationManager(id: Int = Ids.registrationManager, mySim: Simulation, myAgent: Agent) :
@@ -11,24 +12,27 @@ class RegistrationManager(id: Int = Ids.registrationManager, mySim: Simulation, 
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
 
-            MessageCodes.patientRegistration ->
+            MessageCodes.patientRegistration -> {
+                debug("RegistrationManager - patientRegistration")
                 if (myAgent().isWorking) {
-                    (message as Message).patient.waitingStart = mySim().currentTime()
+                    (message as PatientMessage).patient.waitingStart = mySim().currentTime()
 
                     myAgent().patientQueue.enqueue(message)
                 } else {
                     startWork(message)
                 }
+            }
 
             IdList.finish -> {
+                debug("RegistrationManager - finish")
                 myAgent().isWorking = false
-                myAgent().waitingTimeStat.addSample((message as Message).patient.waitingTotal)
+                myAgent().waitingTimeStat.addSample((message as PatientMessage).patient.waitingTotal)
 
                 if (myAgent().patientQueue.size > 0) {
-                    val nextMessage: Message = myAgent().patientQueue.dequeue() as Message
+                    val patientMessage = myAgent().patientQueue.dequeue() as PatientMessage
 
-                    nextMessage.patient.waitingTotal = mySim().currentTime() - nextMessage.patient.waitingStart
-                    startWork(nextMessage)
+                    patientMessage.patient.waitingTotal = mySim().currentTime() - patientMessage.patient.waitingStart
+                    startWork(patientMessage)
                 }
 
                 message.setCode(MessageCodes.patientRegistrationDone)

@@ -2,6 +2,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration
 
 import OSPABA.*
 import OSPRNG.ExponentialRNG
+import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
@@ -16,12 +17,16 @@ class RegistrationProcess(id: Int = Ids.registrationProcess, mySim: Simulation, 
         when (message.code()) {
 
             IdList.start -> {
+                debug("RegistrationProcess - start")
                 message.setCode(MessageCodes.registrationEnd)
 
                 hold(registrationDuration.sample(), message)
             }
-            
-            MessageCodes.registrationEnd -> assistantFinished(message)
+
+            MessageCodes.registrationEnd -> {
+                debug("RegistrationProcess - registrationEnd")
+                assistantFinished(message)
+            }
         }
     }
 
