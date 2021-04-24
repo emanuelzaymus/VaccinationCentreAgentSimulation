@@ -40,6 +40,8 @@ class VaccinationCentreAgentSimulation : Simulation() {
             "R${currentReplication()} - Avg queue length: ${queueLengthStat.mean()} " +
                     "(${registrationAgent.queueLengthStat().mean()})"
         )
+
+//        registrationAgent.checkFinalState()
     }
 
     override fun simulationFinished() {

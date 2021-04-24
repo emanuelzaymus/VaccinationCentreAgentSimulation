@@ -1,45 +1,57 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration
 
 import OSPABA.*
+import sk.emanuelzaymus.agentsimulation.utils.IReusable
+import sk.emanuelzaymus.agentsimulation.utils.busylist.BusyList
 import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.PatientMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
 class RegistrationManager(id: Int = Ids.registrationManager, mySim: Simulation, myAgent: Agent) :
-    Manager(id, mySim, myAgent) {
+    Manager(id, mySim, myAgent), IReusable {
+
+    private val myAgent = myAgent() as RegistrationAgent
+    private val mySim = mySim()
+    private val workers = BusyList(1) { AdministrativeWorker() }
 
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
 
-            MessageCodes.patientRegistration -> registerPatient(message)
+            MessageCodes.patientRegistration -> registerPatient(message as PatientMessage)
 
-            IdList.finish -> patientRegistrationDone(message)
+            IdList.finish -> patientRegistrationDone(message as PatientMessage)
         }
     }
 
-    private fun registerPatient(message: MessageForm) {
+    private fun registerPatient(message: PatientMessage) {
         debug("RegistrationManager - patientRegistration")
 
-        if (myAgent().isWorking) {
-            (message as PatientMessage).patient.waitingStart = mySim().currentTime()
-
-            myAgent().patientQueue.enqueue(message)
-        } else {
+        if (workers.anyAvailable()) {
+            message.administrativeWorker = workers.getRandomAvailable()
             startWork(message)
+
+        } else {
+            message.patient.waitingStart = mySim.currentTime()
+            myAgent.patientQueue.enqueue(message)
         }
     }
 
-    private fun patientRegistrationDone(message: MessageForm) {
+    private fun patientRegistrationDone(message: PatientMessage) {
         debug("RegistrationManager - finish")
 
-        myAgent().isWorking = false
-        myAgent().waitingTimeStat.addSample((message as PatientMessage).patient.waitingTotal)
+        message.administrativeWorker!!.isBusy = false
+        message.administrativeWorker = null
+//        myAgent().isWorking = false
 
-        if (myAgent().patientQueue.size > 0) {
-            val patientMessage = myAgent().patientQueue.dequeue() as PatientMessage
+        myAgent.waitingTimeStat.addSample(message.patient.waitingTotal)
 
-            patientMessage.patient.waitingTotal = mySim().currentTime() - patientMessage.patient.waitingStart
+        if (myAgent.patientQueue.size > 0) {
+            val patientMessage: PatientMessage = myAgent.patientQueue.dequeue()
+
+            // todo: make startWaiting(), stopWaiting() methods
+            patientMessage.patient.waitingTotal = mySim.currentTime() - patientMessage.patient.waitingStart
+            patientMessage.administrativeWorker = workers.getRandomAvailable()
             startWork(patientMessage)
         }
 
@@ -47,13 +59,16 @@ class RegistrationManager(id: Int = Ids.registrationManager, mySim: Simulation, 
         response(message)
     }
 
-    private fun startWork(message: MessageForm) {
-        myAgent().isWorking = true
-        message.setAddressee(myAgent().findAssistant(Ids.registrationProcess))
+    private fun startWork(message: PatientMessage) {
+        message.administrativeWorker!!.isBusy = true
+//        myAgent().isWorking = true
+        message.setAddressee(myAgent.findAssistant(Ids.registrationProcess))
 
         startContinualAssistant(message)
     }
 
-    override fun myAgent(): RegistrationAgent = super.myAgent() as RegistrationAgent
+    override fun checkFinalState() = workers.checkFinalState()
+
+    override fun restart() = workers.restart()
 
 }

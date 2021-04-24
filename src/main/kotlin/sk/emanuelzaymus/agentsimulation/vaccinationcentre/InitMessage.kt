@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 import OSPABA.MessageForm
 import OSPABA.Simulation
 
-class InitMessage(sim: Simulation) : MessageForm(sim) {
+class InitMessage(mySim: Simulation) : MessageForm(mySim) {
 
     init {
         setCode(MessageCodes.init)

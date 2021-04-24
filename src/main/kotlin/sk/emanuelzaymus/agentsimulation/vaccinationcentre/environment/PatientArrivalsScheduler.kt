@@ -11,6 +11,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 class PatientArrivalsScheduler(id: Int = Ids.patientArrivalsScheduler, mySim: Simulation, myAgent: CommonAgent) :
     Scheduler(id, mySim, myAgent) {
 
+    // TODO: maybe it's better to put in into the manager
     private val patientMessagePool = Pool { PatientMessage(mySim) }
 
     companion object {
