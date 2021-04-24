@@ -8,9 +8,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
 
 class VaccinationCentreAgentSimulation : Simulation() {
 
-    private val modelAgent = ModelAgent(mySim = this)
-    private val environmentAgent = EnvironmentAgent(mySim = this, parent = modelAgent)
-    private val registrationAgent = RegistrationAgent(mySim = this, parent = modelAgent)
+    private val modelAgent = ModelAgent(this)
+    private val environmentAgent = EnvironmentAgent(this, modelAgent)
+    private val registrationAgent = RegistrationAgent(this, modelAgent)
 
     private lateinit var waitingTimeStat: Stat
     private lateinit var queueLengthStat: Stat

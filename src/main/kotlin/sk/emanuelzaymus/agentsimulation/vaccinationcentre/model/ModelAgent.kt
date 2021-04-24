@@ -7,10 +7,10 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.InitMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.PatientMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class ModelAgent(id: Int = Ids.modelAgent, mySim: Simulation, parent: Agent? = null) : Agent(id, mySim, parent) {
+class ModelAgent(mySim: Simulation, parent: Agent? = null) : Agent(Ids.modelAgent, mySim, parent) {
 
     init {
-        ModelManager(mySim = mySim, myAgent = this)
+        ModelManager(mySim, this)
 
         addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.patientArrival)

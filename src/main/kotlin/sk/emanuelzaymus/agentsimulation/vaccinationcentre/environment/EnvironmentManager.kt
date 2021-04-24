@@ -5,8 +5,7 @@ import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class EnvironmentManager(id: Int = Ids.environmentManager, mySim: Simulation, myAgent: Agent) :
-    Manager(id, mySim, myAgent) {
+class EnvironmentManager(mySim: Simulation, myAgent: Agent) : Manager(Ids.environmentManager, mySim, myAgent) {
 
     override fun processMessage(message: MessageForm) {
         when (message.code()) {

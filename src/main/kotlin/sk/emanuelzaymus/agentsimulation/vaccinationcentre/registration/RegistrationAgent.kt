@@ -11,16 +11,15 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.PatientMessage
 
-class RegistrationAgent(id: Int = Ids.registrationAgent, mySim: Simulation, parent: Agent) : Agent(id, mySim, parent),
-    IReusable {
+class RegistrationAgent(mySim: Simulation, parent: Agent) : Agent(Ids.registrationAgent, mySim, parent), IReusable {
 
     lateinit var patientQueue: SimQueue<PatientMessage>
     lateinit var waitingTimeStat: Stat
 
-    private val registrationManager = RegistrationManager(mySim = mySim, myAgent = this)
+    private val registrationManager = RegistrationManager(mySim, this)
 
     init {
-        RegistrationProcess(mySim = mySim, myAgent = this)
+        RegistrationProcess(mySim, this)
 
         addOwnMessage(MessageCodes.patientRegistration)
         addOwnMessage(MessageCodes.registrationEnd)

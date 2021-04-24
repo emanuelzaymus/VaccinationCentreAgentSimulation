@@ -8,8 +8,8 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.PatientMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class RegistrationManager(id: Int = Ids.registrationManager, mySim: Simulation, myAgent: Agent) :
-    Manager(id, mySim, myAgent), IReusable {
+class RegistrationManager(mySim: Simulation, myAgent: Agent) : Manager(Ids.registrationManager, mySim, myAgent),
+    IReusable {
 
     private val myAgent = myAgent() as RegistrationAgent
     private val mySim = mySim()

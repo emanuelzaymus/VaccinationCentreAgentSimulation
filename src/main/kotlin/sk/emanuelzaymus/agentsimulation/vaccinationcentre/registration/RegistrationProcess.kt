@@ -6,8 +6,8 @@ import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class RegistrationProcess(id: Int = Ids.registrationProcess, mySim: Simulation, myAgent: CommonAgent) :
-    Process(id, mySim, myAgent) {
+class RegistrationProcess(mySim: Simulation, myAgent: CommonAgent) :
+    Process(Ids.registrationProcess, mySim, myAgent) {
 
     companion object {
         private val registrationDuration = ExponentialRNG(4.0)
@@ -23,7 +23,7 @@ class RegistrationProcess(id: Int = Ids.registrationProcess, mySim: Simulation, 
     }
 
     private fun startRegistration(message: MessageForm) {
-        debug("RegistrationProcess - start")
+        debug("RegistrationProcess - start")s
         message.setCode(MessageCodes.registrationEnd)
 
         hold(registrationDuration.sample(), message)
