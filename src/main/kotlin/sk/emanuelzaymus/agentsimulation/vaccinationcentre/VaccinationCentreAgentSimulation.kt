@@ -6,11 +6,16 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.Environmen
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
 
-class VaccinationCentreAgentSimulation : Simulation() {
+class VaccinationCentreAgentSimulation(
+    numberOfPatients: Int,
+    numberOfAdminWorkers: Int,
+    numberOfDoctors: Int,
+    numberOfNurses: Int
+) : Simulation() {
 
     private val modelAgent = ModelAgent(this)
-    private val environmentAgent = EnvironmentAgent(this, modelAgent)
-    private val registrationAgent = RegistrationAgent(this, modelAgent)
+    private val environmentAgent = EnvironmentAgent(this, modelAgent, numberOfPatients)
+    private val registrationAgent = RegistrationAgent(this, modelAgent, numberOfAdminWorkers)
 
     private lateinit var waitingTimeStat: Stat
     private lateinit var queueLengthStat: Stat

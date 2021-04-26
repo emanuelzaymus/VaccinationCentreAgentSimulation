@@ -9,12 +9,11 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent) :
+class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOfPatients: Int) :
     Scheduler(Ids.patientArrivalsScheduler, mySim, myAgent), IReusable {
 
-    // TODO: maybe it's better to put in into the manager
     private val messagePool = Pool { Message(mySim) }
-    private val requiredCount = 540000
+    private val requiredCount = numberOfPatients
     private var generatedCount = 0
 
     companion object {

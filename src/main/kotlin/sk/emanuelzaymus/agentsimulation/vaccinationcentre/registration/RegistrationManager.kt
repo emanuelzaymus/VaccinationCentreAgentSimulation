@@ -11,8 +11,6 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCe
 class RegistrationManager(mySim: Simulation, private val myAgent: RegistrationAgent) :
     VaccinationCentreManager(Ids.registrationManager, mySim, myAgent) {
 
-    private val workers = BusyList(1) { AdministrativeWorker() }
-
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
 
@@ -27,7 +25,7 @@ class RegistrationManager(mySim: Simulation, private val myAgent: RegistrationAg
 
         message.patient.startWaiting()
 
-        if (workers.anyAvailable())
+        if (myAgent.workers.anyAvailable())
             startRegistration(message)
         else
             myAgent.messageQueue.enqueue(message)
@@ -50,14 +48,10 @@ class RegistrationManager(mySim: Simulation, private val myAgent: RegistrationAg
         message.patient.stopWaiting()
         myAgent.waitingTimeStat.addSample(message.patient.getWaitingTotal())
 
-        message.administrativeWorker = workers.getRandomAvailable().apply { isBusy = true }
+        message.administrativeWorker = myAgent.workers.getRandomAvailable().apply { isBusy = true }
         message.setAddressee(myAgent.findAssistant(Ids.registrationProcess))
 
         startContinualAssistant(message)
     }
-
-    override fun checkFinalState() = workers.checkFinalState()
-
-    override fun restart() = workers.restart()
 
 }

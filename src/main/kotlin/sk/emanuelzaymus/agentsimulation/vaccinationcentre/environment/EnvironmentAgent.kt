@@ -6,15 +6,13 @@ import sk.emanuelzaymus.agentsimulation.utils.IReusable
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class EnvironmentAgent(mySim: Simulation, parent: Agent) : Agent(Ids.environmentAgent, mySim, parent), IReusable {
+class EnvironmentAgent(mySim: Simulation, parent: Agent, numberOfPatients: Int) :
+    Agent(Ids.environmentAgent, mySim, parent), IReusable {
 
-    private val environmentAgent = EnvironmentManager(mySim, this)
-    private val patientArrivalsScheduler = PatientArrivalsScheduler(mySim, this)
+    private val environmentManager = EnvironmentManager(mySim, this)
+    private val patientArrivalsScheduler = PatientArrivalsScheduler(mySim, this, numberOfPatients)
 
     init {
-        EnvironmentManager(mySim, this)
-        PatientArrivalsScheduler(mySim, this)
-
         addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.getNewPatient)
         addOwnMessage(MessageCodes.patientLeaving)
@@ -30,8 +28,6 @@ class EnvironmentAgent(mySim: Simulation, parent: Agent) : Agent(Ids.environment
         patientArrivalsScheduler.checkFinalState()
     }
 
-    override fun restart() {
-
-    }
+    override fun restart() {}
 
 }
