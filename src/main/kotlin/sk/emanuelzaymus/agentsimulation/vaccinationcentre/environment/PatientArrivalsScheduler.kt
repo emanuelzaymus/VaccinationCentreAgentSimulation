@@ -14,7 +14,7 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent) :
 
     // TODO: maybe it's better to put in into the manager
     private val patientMessagePool = Pool { PatientMessage(mySim) }
-    private val requiredCount = 540
+    private val requiredCount = 540000
     private var generatedCount = 0
 
     companion object {

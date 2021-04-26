@@ -11,7 +11,7 @@ class PatientMessage : MessageForm, IPooledObject {
     var administrativeWorker: AdministrativeWorker? = null
 
     constructor(mySim: Simulation) : super(mySim) {
-        patient = Patient()
+        patient = Patient(mySim)
     }
 
     private constructor(original: PatientMessage) : super(original) {
