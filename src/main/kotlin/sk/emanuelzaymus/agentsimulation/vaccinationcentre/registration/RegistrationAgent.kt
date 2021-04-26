@@ -14,9 +14,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 class RegistrationAgent(mySim: Simulation, parent: Agent, numberOfAdminWorkers: Int) :
     Agent(Ids.registrationAgent, mySim, parent), IReusable {
 
-    lateinit var messageQueue: SimQueue<Message>
-    lateinit var waitingTimeStat: Stat
-    val workers = BusyList(numberOfAdminWorkers) { AdministrativeWorker() }
+    val messageQueue = SimQueue<Message>(WStat(mySim()))
+    val waitingTimeStat = Stat()
+    val workers = BusyList(numberOfAdminWorkers) { AdministrativeWorker(WStat(mySim)) }
 
     init {
         RegistrationManager(mySim, this)
@@ -28,11 +28,15 @@ class RegistrationAgent(mySim: Simulation, parent: Agent, numberOfAdminWorkers: 
 
     override fun prepareReplication() {
         super.prepareReplication()
-        messageQueue = SimQueue(WStat(mySim()))
-        waitingTimeStat = Stat()
+        messageQueue.clear()
+        waitingTimeStat.clear()
+
+        restart()
     }
 
     fun queueLengthStat(): WStat = messageQueue.lengthStatistic()
+
+    fun adminsWorkloadMean(): Double = workers.map { it.workloadStat.mean() }.average()
 
     override fun checkFinalState() {
         if (messageQueue.isNotEmpty()) {

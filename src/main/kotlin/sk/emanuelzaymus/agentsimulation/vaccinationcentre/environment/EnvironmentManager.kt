@@ -14,6 +14,7 @@ class EnvironmentManager(mySim: Simulation, myAgent: Agent) :
 
             MessageCodes.init -> startPatientScheduling(message)
 
+            // PatientArrivalScheduler - patient generated
             IdList.finish -> noticeModelPatientArrival(message)
 
             MessageCodes.patientLeaving -> noticeSchedulerPatientLeaving(message)

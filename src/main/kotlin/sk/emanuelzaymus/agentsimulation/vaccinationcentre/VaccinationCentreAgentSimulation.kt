@@ -17,13 +17,15 @@ class VaccinationCentreAgentSimulation(
     private val environmentAgent = EnvironmentAgent(this, modelAgent, numberOfPatients)
     private val registrationAgent = RegistrationAgent(this, modelAgent, numberOfAdminWorkers)
 
-    private lateinit var waitingTimeStat: Stat
-    private lateinit var queueLengthStat: Stat
+    private val waitingTimeStat = Stat()
+    private val queueLengthStat = Stat()
+    private val adminWorkersWorkload = Stat()
 
     override fun prepareSimulation() {
         super.prepareSimulation()
-        waitingTimeStat = Stat()
-        queueLengthStat = Stat()
+        waitingTimeStat.clear()
+        queueLengthStat.clear()
+        adminWorkersWorkload.clear()
     }
 
     override fun prepareReplication() {
@@ -46,6 +48,12 @@ class VaccinationCentreAgentSimulation(
                     "(${registrationAgent.queueLengthStat().mean()})"
         )
 
+        adminWorkersWorkload.addSample(registrationAgent.adminsWorkloadMean())
+        println(
+            "R${currentReplication()} - Avg queue length: ${adminWorkersWorkload.mean()} " +
+                    "(${registrationAgent.adminsWorkloadMean()})"
+        )
+
         registrationAgent.checkFinalState()
         environmentAgent.checkFinalState()
     }
@@ -54,6 +62,7 @@ class VaccinationCentreAgentSimulation(
         super.simulationFinished()
         println("Waiting time mean: ${waitingTimeStat.mean()}") // ~ 16
         println("Queue length mean: ${queueLengthStat.mean()}") // ~ 3.2
+        println("Admins workload mean: ${adminWorkersWorkload.mean()}")
     }
 
 }
