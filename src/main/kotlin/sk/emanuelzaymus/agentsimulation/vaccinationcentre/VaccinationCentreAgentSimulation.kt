@@ -6,6 +6,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.Environmen
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.VaccinationAgent
 
 class VaccinationCentreAgentSimulation(
     numberOfPatients: Int,
@@ -18,16 +19,18 @@ class VaccinationCentreAgentSimulation(
     private val environmentAgent = EnvironmentAgent(this, modelAgent, numberOfPatients)
     private val registrationAgent = RegistrationAgent(this, modelAgent, numberOfAdminWorkers)
     private val examinationAgent = ExaminationAgent(this, modelAgent, numberOfDoctors)
+    private val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
 
-    private val waitingTimeStat = Stat()
-    private val queueLengthStat = Stat()
-    private val adminWorkersWorkload = Stat()
+    private val registrationStats = AgentStats()
+    private val examinationStats = AgentStats()
+    private val vaccinationStats = AgentStats()
 
     override fun prepareSimulation() {
         super.prepareSimulation()
-        waitingTimeStat.clear()
-        queueLengthStat.clear()
-        adminWorkersWorkload.clear()
+
+        registrationStats.clear()
+        examinationStats.clear()
+        vaccinationStats.clear()
     }
 
     override fun prepareReplication() {
@@ -38,33 +41,31 @@ class VaccinationCentreAgentSimulation(
     override fun replicationFinished() {
         super.replicationFinished()
 
-        waitingTimeStat.addSample(registrationAgent.waitingTimeStat.mean())
-        println(
-            "R${currentReplication()} - Avg waiting time: ${waitingTimeStat.mean()} " +
-                    "(${registrationAgent.waitingTimeStat.mean()})"
-        )
+        registrationStats.addStatistics(registrationAgent)
+        examinationStats.addStatistics(examinationAgent)
+        vaccinationStats.addStatistics(vaccinationAgent)
 
-        queueLengthStat.addSample(registrationAgent.queueLengthStat().mean())
-        println(
-            "R${currentReplication()} - Avg queue length: ${queueLengthStat.mean()} " +
-                    "(${registrationAgent.queueLengthStat().mean()})"
-        )
+//        registrationAgent.printStats()
+//        examinationAgent.printStats()
+//        vaccinationAgent.printStats()
 
-        adminWorkersWorkload.addSample(registrationAgent.workersWorkloadMean())
-        println(
-            "R${currentReplication()} - Avg queue length: ${adminWorkersWorkload.mean()} " +
-                    "(${registrationAgent.workersWorkloadMean()})"
-        )
-
-        registrationAgent.checkFinalState()
-        environmentAgent.checkFinalState()
+        checkFinalState()
     }
 
     override fun simulationFinished() {
         super.simulationFinished()
-        println("Waiting time mean: ${waitingTimeStat.mean()}") // ~ 16
-        println("Queue length mean: ${queueLengthStat.mean()}") // ~ 3.2
-        println("Admins workload mean: ${adminWorkersWorkload.mean()}")
+
+        println("-----------------")
+        registrationStats.print("Registration")
+        examinationStats.print("Examination")
+        vaccinationStats.print("Vaccination")
+    }
+
+    private fun checkFinalState() {
+        environmentAgent.checkFinalState()
+        registrationAgent.checkFinalState()
+        examinationAgent.checkFinalState()
+        vaccinationAgent.checkFinalState()
     }
 
 }

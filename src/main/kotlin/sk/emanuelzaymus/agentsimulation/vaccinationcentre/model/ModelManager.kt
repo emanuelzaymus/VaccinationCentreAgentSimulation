@@ -15,11 +15,13 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
 
             MessageCodes.init -> noticeEnvironmentInit(message)
 
-            MessageCodes.patientArrival -> requestPatientRegistration(message)
+            MessageCodes.patientArrival -> requestRegistration(message)
 
-            MessageCodes.patientRegistrationDone -> requestPatientExamination(message)
+            MessageCodes.registrationDone -> requestExamination(message)
 
-            MessageCodes.examinationDone -> noticeEnvironmentDone(message)
+            MessageCodes.examinationDone -> requestVaccination(message)
+
+            MessageCodes.vaccinationDone -> noticeEnvironmentDone(message)
         }
     }
 
@@ -30,20 +32,29 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
         notice(message)
     }
 
-    private fun requestPatientRegistration(message: MessageForm) {
+    private fun requestRegistration(message: MessageForm) {
         debug("ModelManager - patientArrival")
 
-        message.setCode(MessageCodes.patientRegistration)
+        message.setCode(MessageCodes.registration)
         message.setAddressee(mySim().findAgent(Ids.registrationAgent))
 
         request(message)
     }
 
-    private fun requestPatientExamination(message: MessageForm) {
+    private fun requestExamination(message: MessageForm) {
         debug("ModelManager - patientRegistrationDone")
 
         message.setCode(MessageCodes.examination)
         message.setAddressee(mySim().findAgent(Ids.examinationAgent))
+
+        request(message)
+    }
+
+    private fun requestVaccination(message: MessageForm) {
+        debug("ModelManager - examinationDone")
+
+        message.setCode(MessageCodes.vaccination)
+        message.setAddressee(mySim().findAgent(Ids.vaccinationAgent))
 
         request(message)
     }

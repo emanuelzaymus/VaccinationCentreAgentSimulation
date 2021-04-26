@@ -12,12 +12,14 @@ class RegistrationAgent(mySim: Simulation, parent: Agent, numberOfAdminWorkers: 
         Ids.registrationAgent, mySim, parent, numberOfAdminWorkers, { AdministrativeWorker(WStat(mySim)) }
     ) {
 
+    override val statsName = "Registration"
+
     init {
         RegistrationManager(mySim, this)
         RegistrationProcess(mySim, this)
 
-        addOwnMessage(MessageCodes.patientRegistration)
-        addOwnMessage(MessageCodes.registrationEnd)
+        addOwnMessage(MessageCodes.registration)
+        addOwnMessage(MessageCodes.registrationDone)
     }
 
 }

@@ -3,4 +3,6 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreWorker
 
-class Doctor(workloadStat: WStat) : VaccinationCentreWorker(workloadStat)
+class Doctor(workloadStat: WStat) : VaccinationCentreWorker(workloadStat) {
+    override val stringName: String = "Doctor"
+}

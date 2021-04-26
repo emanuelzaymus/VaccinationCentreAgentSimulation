@@ -8,9 +8,11 @@ import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.BusyList
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 
-open class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
+abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
     id: Int, mySim: Simulation, parent: Agent?, numberOfWorkers: Int, init: (Int) -> T
-) : VaccinationCentreAgent(id, mySim, parent) {
+) : VaccinationCentreAgent(id, mySim, parent), IStatisticsAgent {
+
+    protected abstract val statsName: String
 
     val queue = SimQueue<Message>(WStat(mySim()))
     val waitingTimeStat = Stat()
@@ -23,9 +25,11 @@ open class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
         workers.restart()
     }
 
-    fun queueLengthStat(): WStat = queue.lengthStatistic()
+    override fun queueLengthMean(): Double = queue.lengthStatistic().mean()
 
-    fun workersWorkloadMean(): Double = workers.map { it.workloadStat.mean() }.average()
+    override fun waitingTimeMean(): Double = waitingTimeStat.mean()
+
+    override fun workersWorkloadMean(): Double = workers.map { it.workloadStat.mean() }.average()
 
     override fun checkFinalState() {
         if (queue.isNotEmpty()) {
@@ -33,5 +37,14 @@ open class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
         }
         workers.checkFinalState()
     }
+
+    open fun printStats() = println(
+        """
+        $statsName
+        Queue length mean: ${queueLengthMean()}
+        Waiting time mean: ${waitingTimeMean()}
+        Workload mean: ${workersWorkloadMean()}
+        """.trimIndent()
+    )
 
 }

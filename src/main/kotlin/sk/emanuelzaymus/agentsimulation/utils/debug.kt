@@ -1,6 +1,6 @@
 package sk.emanuelzaymus.agentsimulation.utils
 
-private const val DEBUG_MODE = false
+private const val DEBUG_MODE = true
 
 fun debug(info: String) {
     if (DEBUG_MODE)

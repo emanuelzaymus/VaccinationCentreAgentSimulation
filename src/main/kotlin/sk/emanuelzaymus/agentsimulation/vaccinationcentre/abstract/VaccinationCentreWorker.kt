@@ -3,7 +3,9 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.IBusyObject
 
-open class VaccinationCentreWorker(val workloadStat: WStat) : IBusyObject {
+abstract class VaccinationCentreWorker(val workloadStat: WStat) : IBusyObject {
+
+    protected abstract val stringName: String
 
     override var isBusy: Boolean = false
         set(value) {
@@ -18,5 +20,7 @@ open class VaccinationCentreWorker(val workloadStat: WStat) : IBusyObject {
     override fun checkFinalState() {
         if (isBusy) throw IllegalStateException("This worker is still working.")
     }
+
+    override fun toString(): String = "Worker: $stringName"
 
 }

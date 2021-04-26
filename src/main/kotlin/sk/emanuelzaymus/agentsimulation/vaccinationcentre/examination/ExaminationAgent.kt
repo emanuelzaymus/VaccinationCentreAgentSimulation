@@ -12,6 +12,8 @@ class ExaminationAgent(mySim: Simulation, parent: Agent, numberOfDoctors: Int) :
         Ids.examinationAgent, mySim, parent, numberOfDoctors, { Doctor(WStat(mySim)) }
     ) {
 
+    override val statsName = "Examination"
+
     init {
         ExaminationManager(mySim, this)
         ExaminationProcess(mySim, this)
