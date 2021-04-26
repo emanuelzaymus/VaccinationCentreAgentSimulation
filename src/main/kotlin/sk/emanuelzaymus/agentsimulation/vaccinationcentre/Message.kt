@@ -5,7 +5,7 @@ import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.pool.IPooledObject
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.AdministrativeWorker
 
-class PatientMessage : MessageForm, IPooledObject {
+class Message : MessageForm, IPooledObject {
 
     val patient: Patient
     var administrativeWorker: AdministrativeWorker? = null
@@ -14,11 +14,11 @@ class PatientMessage : MessageForm, IPooledObject {
         patient = Patient(mySim)
     }
 
-    private constructor(original: PatientMessage) : super(original) {
+    private constructor(original: Message) : super(original) {
         patient = original.patient.copy()
     }
 
-    override fun createCopy(): MessageForm = PatientMessage(this)
+    override fun createCopy(): MessageForm = Message(this)
 
     override fun restart() {
         if (administrativeWorker != null) {

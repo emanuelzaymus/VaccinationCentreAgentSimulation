@@ -6,14 +6,14 @@ import sk.emanuelzaymus.agentsimulation.utils.IReusable
 import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.PatientMessage
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
 class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent) :
     Scheduler(Ids.patientArrivalsScheduler, mySim, myAgent), IReusable {
 
     // TODO: maybe it's better to put in into the manager
-    private val patientMessagePool = Pool { PatientMessage(mySim) }
+    private val messagePool = Pool { Message(mySim) }
     private val requiredCount = 540000
     private var generatedCount = 0
 
@@ -42,18 +42,18 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent) :
 
     private fun getNewPatient(message: MessageForm) {
         debug("PatientArrivalsScheduler - newPatient")
-        val newPatientMessage = patientMessagePool.acquire()
+        val newMessage = messagePool.acquire()
 
         if (++generatedCount < requiredCount) {
             // hold(60.0, copy)
             hold(arrivalsGenerator.sample(), message)
         }
-        assistantFinished(newPatientMessage)
+        assistantFinished(newMessage)
     }
 
     private fun returnPatient(message: MessageForm) {
         debug("PatientArrivalsScheduler - patientLeaving")
-        patientMessagePool.release(message as PatientMessage)
+        messagePool.release(message as Message)
     }
 
     override fun restart() {

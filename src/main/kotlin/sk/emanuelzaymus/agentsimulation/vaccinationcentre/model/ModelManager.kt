@@ -7,8 +7,9 @@ import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreManager
 
-class ModelManager(mySim: Simulation, myAgent: Agent) : Manager(Ids.modelManager, mySim, myAgent) {
+class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager(Ids.modelManager, mySim, myAgent) {
 
     override fun processMessage(message: MessageForm) {
         when (message.code()) {
