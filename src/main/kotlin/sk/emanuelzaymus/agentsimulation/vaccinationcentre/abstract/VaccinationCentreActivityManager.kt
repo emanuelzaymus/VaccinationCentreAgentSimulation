@@ -25,7 +25,7 @@ abstract class VaccinationCentreActivityManager(
     }
 
     private fun tryStartActivity(message: Message) {
-        debug("$debugName - startActivityMsgCode")
+        debug("$debugName - $startActivityMsgCode")
 
         message.patient.restartWaiting()
         message.patient.startWaiting()

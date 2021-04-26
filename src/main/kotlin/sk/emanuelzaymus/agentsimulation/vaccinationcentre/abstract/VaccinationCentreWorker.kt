@@ -13,10 +13,10 @@ open class VaccinationCentreWorker(val workloadStat: WStat) : IBusyObject {
             workloadStat.addSample(if (value) 1.0 else .0)
         }
 
+    override fun restart() = workloadStat.clear()
+
     override fun checkFinalState() {
         if (isBusy) throw IllegalStateException("This worker is still working.")
     }
-
-    override fun restart() = workloadStat.clear()
 
 }

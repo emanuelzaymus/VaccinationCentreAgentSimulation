@@ -15,7 +15,8 @@ class MyApp : App(MainView::class, Styles::class) {
 
         RNG.setSeedGen(Random(1))
 
-        val sim = VaccinationCentreAgentSimulation(450, 5, 6, 3)
+//        val sim = VaccinationCentreAgentSimulation(450, 5, 6, 3)
+        val sim = VaccinationCentreAgentSimulation(2500, 14, 21, 6)
         sim.onSimulationWillStart { println("Simulating...") }
         sim.simulate(3)
 
