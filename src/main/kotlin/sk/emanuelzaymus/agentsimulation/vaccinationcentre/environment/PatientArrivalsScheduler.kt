@@ -1,23 +1,32 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment
 
 import OSPABA.*
-import OSPRNG.ExponentialRNG
+import OSPRNG.UniformContinuousRNG
+import OSPRNG.UniformDiscreteRNG
 import sk.emanuelzaymus.agentsimulation.utils.IReusable
 import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.NOT_ARRIVING_PATIENTS_MIN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.WORKING_TIME
 
-class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOfPatients: Int) :
+class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, private val numberOfPatients: Int) :
     Scheduler(Ids.patientArrivalsScheduler, mySim, myAgent), IReusable {
 
-    private val messagePool = Pool { Message(mySim) }
-    private val requiredCount = numberOfPatients
-    private var generatedCount = 0
-
     companion object {
-        private val arrivalsGenerator = ExponentialRNG(5.0)
+        private val notArrivingPatients = UniformContinuousRNG(NOT_ARRIVING_PATIENTS_MIN, NOT_ARRIVING_PATIENTS_MAX)
+    }
+
+    private val messagePool = Pool { Message(mySim) }
+
+    private val arrivingPatientNumbers = UniformDiscreteRNG(0, numberOfPatients)
+    private val eventDuration = WORKING_TIME / numberOfPatients
+    private var numberOfNotArrivingPatients = (notArrivingPatients.sample() * (numberOfPatients / 540)).toInt()
+    private var executedArrivals = 0
+
+    override fun restart() {
+        numberOfNotArrivingPatients = (notArrivingPatients.sample() * (numberOfPatients / 540)).toInt()
+        executedArrivals = 0
     }
 
     override fun processMessage(message: MessageForm) {
@@ -35,19 +44,33 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOf
         debug("PatientArrivalsScheduler - start")
         message.setCode(MessageCodes.getNewPatient)
 
-        // hold(.0, message); // To deliver immediately
-        hold(arrivalsGenerator.sample(), message)
+        hold(.0, message) // To deliver immediately
     }
 
     private fun getNewPatient(message: MessageForm) {
         debug("PatientArrivalsScheduler - newPatient")
-        val newMessage = messagePool.acquire()
 
-        if (++generatedCount < requiredCount) {
-            // hold(60.0, copy)
-            hold(arrivalsGenerator.sample(), message)
+        scheduleNextPatientArrival(message)
+
+        assistantFinished(messagePool.acquire())
+    }
+
+    private fun scheduleNextPatientArrival(message: MessageForm) {
+        var duration = eventDuration
+
+        while (true) {
+            if (executedArrivals >= numberOfPatients) {
+                break
+            }
+            executedArrivals++
+
+            if (numberOfNotArrivingPatients < arrivingPatientNumbers.sample()) {
+                hold(duration, message)
+                break
+            } else {
+                duration += eventDuration
+            }
         }
-        assistantFinished(newMessage)
     }
 
     private fun returnPatient(message: MessageForm) {
@@ -55,13 +78,9 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOf
         messagePool.release(message as Message)
     }
 
-    override fun restart() {
-        generatedCount = 0
-    }
-
     override fun checkFinalState() {
-        if (generatedCount != requiredCount)
-            throw Exception("Required count of patient ($requiredCount) was not generated. Only $generatedCount")
+        if (executedArrivals != numberOfPatients)
+            throw Exception("Required count of patient ($numberOfPatients) was not generated. Only $executedArrivals")
     }
 
 }

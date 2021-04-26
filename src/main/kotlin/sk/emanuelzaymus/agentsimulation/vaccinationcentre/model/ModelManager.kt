@@ -1,7 +1,6 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
 
 import OSPABA.Agent
-import OSPABA.Manager
 import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.debug
@@ -18,7 +17,9 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
 
             MessageCodes.patientArrival -> requestPatientRegistration(message)
 
-            MessageCodes.patientRegistrationDone -> noticeEnvironmentRegistrationDone(message)
+            MessageCodes.patientRegistrationDone -> requestPatientExamination(message)
+
+            MessageCodes.examinationDone -> noticeEnvironmentDone(message)
         }
     }
 
@@ -38,7 +39,16 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
         request(message)
     }
 
-    private fun noticeEnvironmentRegistrationDone(message: MessageForm) {
+    private fun requestPatientExamination(message: MessageForm) {
+        debug("ModelManager - patientRegistrationDone")
+
+        message.setCode(MessageCodes.examination)
+        message.setAddressee(mySim().findAgent(Ids.examinationAgent))
+
+        request(message)
+    }
+
+    private fun noticeEnvironmentDone(message: MessageForm) {
         debug("ModelManager - patientRegistrationDone")
 
         message.setCode(MessageCodes.patientLeaving)

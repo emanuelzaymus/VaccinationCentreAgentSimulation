@@ -14,6 +14,7 @@ class ModelAgent(mySim: Simulation) : Agent(Ids.modelAgent, mySim, null) {
         addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.patientArrival)
         addOwnMessage(MessageCodes.patientRegistrationDone)
+        addOwnMessage(MessageCodes.examinationDone)
     }
 
     fun runSimulation() {

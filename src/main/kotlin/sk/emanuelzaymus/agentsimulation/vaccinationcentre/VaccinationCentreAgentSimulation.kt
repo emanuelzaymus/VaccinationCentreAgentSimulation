@@ -3,6 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 import OSPABA.Simulation
 import OSPStat.Stat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
 
@@ -16,6 +17,7 @@ class VaccinationCentreAgentSimulation(
     private val modelAgent = ModelAgent(this)
     private val environmentAgent = EnvironmentAgent(this, modelAgent, numberOfPatients)
     private val registrationAgent = RegistrationAgent(this, modelAgent, numberOfAdminWorkers)
+    private val examinationAgent = ExaminationAgent(this, modelAgent, numberOfDoctors)
 
     private val waitingTimeStat = Stat()
     private val queueLengthStat = Stat()
