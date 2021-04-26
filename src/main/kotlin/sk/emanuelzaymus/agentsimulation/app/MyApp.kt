@@ -17,7 +17,7 @@ class MyApp : App(MainView::class, Styles::class) {
 
         val sim = VaccinationCentreAgentSimulation()
         sim.onSimulationWillStart { println("Simulating...") }
-        sim.simulate(3, 9000000.0)
+        sim.simulate(3)
 
         Platform.exit()
     }

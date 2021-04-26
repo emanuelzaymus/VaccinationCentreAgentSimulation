@@ -41,7 +41,8 @@ class VaccinationCentreAgentSimulation : Simulation() {
                     "(${registrationAgent.queueLengthStat().mean()})"
         )
 
-//        registrationAgent.checkFinalState()
+        registrationAgent.checkFinalState()
+        environmentAgent.checkFinalState()
     }
 
     override fun simulationFinished() {

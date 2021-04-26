@@ -23,7 +23,7 @@ class RegistrationProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     private fun startRegistration(message: MessageForm) {
-        debug("RegistrationProcess - start")s
+        debug("RegistrationProcess - start")
         message.setCode(MessageCodes.registrationEnd)
 
         hold(registrationDuration.sample(), message)

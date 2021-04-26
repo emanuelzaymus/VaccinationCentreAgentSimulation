@@ -2,10 +2,14 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment
 
 import OSPABA.Agent
 import OSPABA.Simulation
+import sk.emanuelzaymus.agentsimulation.utils.IReusable
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 
-class EnvironmentAgent(mySim: Simulation, parent: Agent) : Agent(Ids.environmentAgent, mySim, parent) {
+class EnvironmentAgent(mySim: Simulation, parent: Agent) : Agent(Ids.environmentAgent, mySim, parent), IReusable {
+
+    private val environmentAgent = EnvironmentManager(mySim, this)
+    private val patientArrivalsScheduler = PatientArrivalsScheduler(mySim, this)
 
     init {
         EnvironmentManager(mySim, this)
@@ -14,6 +18,20 @@ class EnvironmentAgent(mySim: Simulation, parent: Agent) : Agent(Ids.environment
         addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.getNewPatient)
         addOwnMessage(MessageCodes.patientLeaving)
+    }
+
+    override fun prepareReplication() {
+        super.prepareReplication()
+
+        patientArrivalsScheduler.restart()
+    }
+
+    override fun checkFinalState() {
+        patientArrivalsScheduler.checkFinalState()
+    }
+
+    override fun restart() {
+
     }
 
 }
