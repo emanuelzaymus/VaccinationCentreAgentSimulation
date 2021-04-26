@@ -1,12 +1,12 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
 
-import OSPABA.Agent
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.InitMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreAgent
 
-class ModelAgent(mySim: Simulation) : Agent(Ids.modelAgent, mySim, null) {
+class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, mySim, null) {
 
     init {
         ModelManager(mySim, this)

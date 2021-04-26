@@ -1,7 +1,6 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration
 
 import OSPABA.*
-import sk.emanuelzaymus.agentsimulation.utils.busylist.BusyList
 import sk.emanuelzaymus.agentsimulation.utils.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
@@ -28,7 +27,7 @@ class RegistrationManager(mySim: Simulation, private val myAgent: RegistrationAg
         if (myAgent.workers.anyAvailable())
             startRegistration(message)
         else
-            myAgent.messageQueue.enqueue(message)
+            myAgent.queue.enqueue(message)
     }
 
     private fun patientRegistrationDone(message: Message) {
@@ -37,8 +36,8 @@ class RegistrationManager(mySim: Simulation, private val myAgent: RegistrationAg
         message.administrativeWorker!!.isBusy = false
         message.administrativeWorker = null
 
-        if (myAgent.messageQueue.size > 0)
-            startRegistration(myAgent.messageQueue.dequeue())
+        if (myAgent.queue.size > 0)
+            startRegistration(myAgent.queue.dequeue())
 
         message.setCode(MessageCodes.patientRegistrationDone)
         response(message)

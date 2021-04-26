@@ -50,10 +50,10 @@ class VaccinationCentreAgentSimulation(
                     "(${registrationAgent.queueLengthStat().mean()})"
         )
 
-        adminWorkersWorkload.addSample(registrationAgent.adminsWorkloadMean())
+        adminWorkersWorkload.addSample(registrationAgent.workersWorkloadMean())
         println(
             "R${currentReplication()} - Avg queue length: ${adminWorkersWorkload.mean()} " +
-                    "(${registrationAgent.adminsWorkloadMean()})"
+                    "(${registrationAgent.workersWorkloadMean()})"
         )
 
         registrationAgent.checkFinalState()

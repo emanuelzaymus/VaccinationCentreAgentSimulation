@@ -27,7 +27,7 @@ class ExaminationManager(mySim: Simulation, private val myAgent: ExaminationAgen
         message.patient.restartWaiting()
         message.patient.startWaiting()
 
-        if (myAgent.doctors.anyAvailable())
+        if (myAgent.workers.anyAvailable())
             startExamination(message)
         else
             myAgent.queue.enqueue(message)
@@ -50,7 +50,7 @@ class ExaminationManager(mySim: Simulation, private val myAgent: ExaminationAgen
         message.patient.stopWaiting()
         myAgent.waitingTimeStat.addSample(message.patient.getWaitingTotal())
 
-        message.doctor = myAgent.doctors.getRandomAvailable().apply { isBusy = true }
+        message.doctor = myAgent.workers.getRandomAvailable().apply { isBusy = true }
         message.setAddressee(myAgent.findAssistant(Ids.examinationProcess))
 
         startContinualAssistant(message)
