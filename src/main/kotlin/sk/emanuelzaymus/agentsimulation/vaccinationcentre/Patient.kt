@@ -27,6 +27,6 @@ data class Patient(val mySim: Simulation) : IPooledObject {
         stopwatch.restart()
     }
 
-    override fun toString(): String = "Patient $id"
+    override fun toString(): String = "$id"
 
 }

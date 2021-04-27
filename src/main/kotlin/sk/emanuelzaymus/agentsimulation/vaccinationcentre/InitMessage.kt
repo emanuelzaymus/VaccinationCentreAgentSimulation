@@ -13,4 +13,6 @@ class InitMessage(mySim: Simulation) : MessageForm(mySim) {
         throw IllegalStateException("Cannot create a copy from InitMessage.")
     }
 
+    override fun toString(): String = "${MessageCodes.getName(code())} - ${super.toString()}"
+
 }

@@ -3,6 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 import OSPABA.Simulation
 import OSPStat.Stat
 import sk.emanuelzaymus.agentsimulation.utils.DEBUG_MODE
+import sk.emanuelzaymus.agentsimulation.utils.PRINT_REPL_STATS
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
@@ -51,7 +52,8 @@ class VaccinationCentreAgentSimulation(
         vaccinationStats.addStatistics(vaccinationAgent)
         waitingStats.addSample(waitingAgent.getWaitingPatientsCountMean())
 
-        if (DEBUG_MODE) {
+        if (PRINT_REPL_STATS) {
+            println("\n" + currentReplication())
             registrationAgent.printStats()
             examinationAgent.printStats()
             vaccinationAgent.printStats()
@@ -68,6 +70,7 @@ class VaccinationCentreAgentSimulation(
         registrationStats.print("Registration")
         examinationStats.print("Examination")
         vaccinationStats.print("Vaccination")
+        println("Waiting\nPatients count mean: " + waitingStats.mean())
     }
 
     private fun checkFinalState() {

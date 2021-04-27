@@ -20,6 +20,13 @@ class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Id
         addOwnMessage(MessageCodes.waitingDone)
     }
 
+    override fun prepareReplication() {
+        super.prepareReplication()
+
+        patientCountStats.clear()
+        waitingPatients = .0
+    }
+
     fun incrementWaitingPatients() {
         waitingPatients++
         patientCountStats.addSample(waitingPatients)

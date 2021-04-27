@@ -22,7 +22,7 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
     }
 
     private fun startWaiting(message: Message) {
-        debug("WaitingManager - startActivity - $message")
+        debug("WaitingManager", message)
 
         myAgent.incrementWaitingPatients()
 
@@ -31,7 +31,7 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
     }
 
     private fun endWaiting(message: Message) {
-        debug("WaitingManager - finish - $message")
+        debug("WaitingManager", message)
 
         myAgent.decrementWaitingPatients()
 

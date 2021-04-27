@@ -1,5 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 
+import OSPABA.IdList
+
 class MessageCodes {
 
     companion object {
@@ -21,6 +23,26 @@ class MessageCodes {
         const val waitingDone = 10
 
         const val patientLeaving = 11
+
+        fun getName(messageCode: Int): String = when (messageCode) {
+            init -> "init"
+            getNewPatient -> "getNewPatient"
+            patientArrival -> "patientArrival"
+            registration -> "registration"
+            registrationDone -> "registrationDone"
+            examination -> "examination"
+            examinationDone -> "examinationDone"
+            vaccination -> "vaccination"
+            vaccinationDone -> "vaccinationDone"
+            waiting -> "waiting"
+            waitingDone -> "waitingDone"
+            patientLeaving -> "patientLeaving"
+
+            IdList.start -> "start"
+            IdList.finish -> "finish"
+
+            else -> throw IllegalArgumentException("Unknown message code.")
+        }
     }
 
 }

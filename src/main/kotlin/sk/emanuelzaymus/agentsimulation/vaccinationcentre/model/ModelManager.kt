@@ -28,7 +28,7 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
     }
 
     private fun noticeEnvironmentInit(message: MessageForm) {
-        debug("ModelManager - init - $message")
+        debug("ModelManager", message)
         message.setAddressee(mySim().findAgent(Ids.environmentAgent))
 
         notice(message)
@@ -36,7 +36,7 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
 
     // TODO: simplify
     private fun requestRegistration(message: MessageForm) {
-        debug("ModelManager - patientArrival - $message")
+        debug("ModelManager", message)
 
         message.setCode(MessageCodes.registration)
         message.setAddressee(mySim().findAgent(Ids.registrationAgent))
@@ -45,7 +45,7 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
     }
 
     private fun requestExamination(message: MessageForm) {
-        debug("ModelManager - patientRegistrationDone - $message")
+        debug("ModelManager", message)
 
         message.setCode(MessageCodes.examination)
         message.setAddressee(mySim().findAgent(Ids.examinationAgent))
@@ -54,7 +54,7 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
     }
 
     private fun requestVaccination(message: MessageForm) {
-        debug("ModelManager - examinationDone - $message")
+        debug("ModelManager", message)
 
         message.setCode(MessageCodes.vaccination)
         message.setAddressee(mySim().findAgent(Ids.vaccinationAgent))
@@ -63,7 +63,7 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
     }
 
     private fun requestWaiting(message: MessageForm) {
-        debug("ModelManager - waitingDone - $message")
+        debug("ModelManager", message)
 
         message.setCode(MessageCodes.waiting)
         message.setAddressee(mySim().findAgent(Ids.waitingAgent))
@@ -72,7 +72,7 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
     }
 
     private fun noticeEnvironmentDone(message: MessageForm) {
-        debug("ModelManager - patientRegistrationDone - $message")
+        debug("ModelManager", message)
 
         message.setCode(MessageCodes.patientLeaving)
         message.setAddressee(mySim().findAgent(Ids.environmentAgent))

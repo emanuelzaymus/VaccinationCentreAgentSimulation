@@ -36,6 +36,7 @@ class Message : MessageForm, IPooledObject {
         patient.restart()
     }
 
-    override fun toString(): String = "$patient, $worker, ${super.toString()}"
+    override fun toString(): String =
+        "${MessageCodes.getName(code())} - Patient: $patient, Worker: $worker ${super.toString()}"
 
 }

@@ -22,7 +22,7 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     private fun startActivity(message: MessageForm) {
-        debug("WaitingProcess - start")
+        debug("WaitingProcess", message)
         message.setCode(MessageCodes.waitingDone)
 
         if (waitingDuration.sample() < WAITING_LESS_PROBABILITY)
@@ -32,7 +32,7 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     private fun endActivity(message: MessageForm) {
-        debug("WaitingProcess - activityDone")
+        debug("WaitingProcess", message)
         assistantFinished(message)
     }
 

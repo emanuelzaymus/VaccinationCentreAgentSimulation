@@ -9,7 +9,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCe
 
 class ExaminationAgent(mySim: Simulation, parent: Agent, numberOfDoctors: Int) :
     VaccinationCentreActivityAgent<Doctor>(
-        Ids.examinationAgent, mySim, parent, numberOfDoctors, { Doctor(WStat(mySim)) }
+        Ids.examinationAgent, mySim, parent, numberOfDoctors, { Doctor(it + 1, WStat(mySim)) }
     ) {
 
     override val statsName = "Examination"

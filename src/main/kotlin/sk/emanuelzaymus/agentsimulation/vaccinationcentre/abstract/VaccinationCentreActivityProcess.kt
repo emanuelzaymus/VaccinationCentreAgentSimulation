@@ -21,14 +21,14 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
     }
 
     private fun startActivity(message: MessageForm) {
-        debug("$debugName - start - $message")
+        debug(debugName, message)
         message.setCode(activityDoneMsgCode)
 
         hold(getDuration(), message)
     }
 
     private fun endActivity(message: MessageForm) {
-        debug("$debugName - activityDone - $message")
+        debug(debugName, message)
         assistantFinished(message)
     }
 

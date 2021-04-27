@@ -22,14 +22,14 @@ class EnvironmentManager(mySim: Simulation, myAgent: Agent) :
     }
 
     private fun startPatientScheduling(message: MessageForm) {
-        debug("EnvironmentManager - init - $message")
+        debug("EnvironmentManager", message)
         message.setAddressee(myAgent().findAssistant(Ids.patientArrivalsScheduler))
 
         startContinualAssistant(message)
     }
 
     private fun noticeModelPatientArrival(message: MessageForm) {
-        debug("EnvironmentManager - finish - $message")
+        debug("EnvironmentManager", message)
 
         message.setCode(MessageCodes.patientArrival)
         message.setAddressee(mySim().findAgent(Ids.modelAgent))
@@ -38,7 +38,7 @@ class EnvironmentManager(mySim: Simulation, myAgent: Agent) :
     }
 
     private fun noticeSchedulerPatientLeaving(message: MessageForm) {
-        debug("EnvironmentManager - patientLeaving - $message")
+        debug("EnvironmentManager", message)
         message.setAddressee(myAgent().findAssistant(Ids.patientArrivalsScheduler))
 
         notice(message)
