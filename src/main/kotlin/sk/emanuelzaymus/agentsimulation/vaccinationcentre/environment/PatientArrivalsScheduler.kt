@@ -4,7 +4,7 @@ import OSPABA.*
 import OSPRNG.UniformContinuousRNG
 import OSPRNG.UniformDiscreteRNG
 import sk.emanuelzaymus.agentsimulation.utils.IReusable
-import sk.emanuelzaymus.agentsimulation.utils.debug
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.NOT_ARRIVING_PATIENTS_MIN

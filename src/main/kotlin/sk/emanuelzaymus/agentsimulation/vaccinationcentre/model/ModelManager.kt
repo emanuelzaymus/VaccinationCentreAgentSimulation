@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
 import OSPABA.Agent
 import OSPABA.MessageForm
 import OSPABA.Simulation
-import sk.emanuelzaymus.agentsimulation.utils.debug
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreManager

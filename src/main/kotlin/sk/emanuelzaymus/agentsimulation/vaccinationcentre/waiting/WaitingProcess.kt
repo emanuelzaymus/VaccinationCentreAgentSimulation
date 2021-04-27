@@ -2,7 +2,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting
 
 import OSPABA.*
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.utils.debug
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 
 class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :

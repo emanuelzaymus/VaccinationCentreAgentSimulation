@@ -1,7 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract
 
 import OSPABA.*
-import sk.emanuelzaymus.agentsimulation.utils.debug
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
 abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) :
     Process(id, mySim, myAgent) {

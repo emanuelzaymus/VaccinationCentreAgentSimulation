@@ -2,8 +2,6 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 
 import OSPABA.Simulation
 import OSPStat.Stat
-import sk.emanuelzaymus.agentsimulation.utils.DEBUG_MODE
-import sk.emanuelzaymus.agentsimulation.utils.PRINT_REPL_STATS
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
@@ -52,12 +50,13 @@ class VaccinationCentreAgentSimulation(
         vaccinationStats.addStatistics(vaccinationAgent)
         waitingStats.addSample(waitingAgent.getWaitingPatientsCountMean())
 
+        println("Repl: " + currentReplication())
         if (PRINT_REPL_STATS) {
-            println("\n" + currentReplication())
             registrationAgent.printStats()
             examinationAgent.printStats()
             vaccinationAgent.printStats()
             waitingAgent.printStats()
+            println()
         }
 
         checkFinalState()
