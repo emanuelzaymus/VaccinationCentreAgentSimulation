@@ -10,6 +10,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.Administr
 class Message : MessageForm, IPooledObject {
 
     val patient: Patient
+
     var worker: VaccinationCentreWorker? = null
         set(value) {
             if (field != null && value != null)

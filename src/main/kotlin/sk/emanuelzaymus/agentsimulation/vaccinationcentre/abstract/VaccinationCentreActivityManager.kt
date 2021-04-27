@@ -25,7 +25,7 @@ abstract class VaccinationCentreActivityManager(
     }
 
     private fun tryStartActivity(message: Message) {
-        debug("$debugName - startActivity")
+        debug("$debugName - startActivity $message")
 
         message.patient.restartWaiting()
         message.patient.startWaiting()
@@ -37,7 +37,7 @@ abstract class VaccinationCentreActivityManager(
     }
 
     private fun activityDone(message: Message) {
-        debug("$debugName - finish")
+        debug("$debugName - finish - $message")
 
         message.worker!!.isBusy = false
         message.worker = null

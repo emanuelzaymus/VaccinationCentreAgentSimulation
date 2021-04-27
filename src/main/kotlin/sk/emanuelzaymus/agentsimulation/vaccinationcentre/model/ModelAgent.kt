@@ -16,6 +16,7 @@ class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, myS
         addOwnMessage(MessageCodes.registrationDone)
         addOwnMessage(MessageCodes.examinationDone)
         addOwnMessage(MessageCodes.vaccinationDone)
+        addOwnMessage(MessageCodes.waitingDone)
     }
 
     fun runSimulation() {

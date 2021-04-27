@@ -41,14 +41,14 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, private 
     }
 
     private fun startScheduling(message: MessageForm) {
-        debug("PatientArrivalsScheduler - start")
+        debug("PatientArrivalsScheduler - start - $message")
         message.setCode(MessageCodes.getNewPatient)
 
         hold(.0, message) // To deliver immediately
     }
 
     private fun getNewPatient(message: MessageForm) {
-        debug("PatientArrivalsScheduler - newPatient")
+        debug("PatientArrivalsScheduler - newPatient - $message")
 
         scheduleNextPatientArrival(message)
 
@@ -74,7 +74,7 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, private 
     }
 
     private fun returnPatient(message: MessageForm) {
-        debug("PatientArrivalsScheduler - patientLeaving")
+        debug("PatientArrivalsScheduler - patientLeaving - $message")
         messagePool.release(message as Message)
     }
 

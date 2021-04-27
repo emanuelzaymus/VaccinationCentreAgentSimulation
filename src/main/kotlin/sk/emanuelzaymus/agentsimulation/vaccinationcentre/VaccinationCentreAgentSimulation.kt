@@ -2,11 +2,13 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 
 import OSPABA.Simulation
 import OSPStat.Stat
+import sk.emanuelzaymus.agentsimulation.utils.DEBUG_MODE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.VaccinationAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting.WaitingAgent
 
 class VaccinationCentreAgentSimulation(
     numberOfPatients: Int,
@@ -20,10 +22,12 @@ class VaccinationCentreAgentSimulation(
     private val registrationAgent = RegistrationAgent(this, modelAgent, numberOfAdminWorkers)
     private val examinationAgent = ExaminationAgent(this, modelAgent, numberOfDoctors)
     private val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
+    private val waitingAgent = WaitingAgent(this, modelAgent)
 
     private val registrationStats = AgentStats()
     private val examinationStats = AgentStats()
     private val vaccinationStats = AgentStats()
+    private val waitingStats = Stat()
 
     override fun prepareSimulation() {
         super.prepareSimulation()
@@ -31,6 +35,7 @@ class VaccinationCentreAgentSimulation(
         registrationStats.clear()
         examinationStats.clear()
         vaccinationStats.clear()
+        waitingStats.clear()
     }
 
     override fun prepareReplication() {
@@ -44,10 +49,14 @@ class VaccinationCentreAgentSimulation(
         registrationStats.addStatistics(registrationAgent)
         examinationStats.addStatistics(examinationAgent)
         vaccinationStats.addStatistics(vaccinationAgent)
+        waitingStats.addSample(waitingAgent.getWaitingPatientsCountMean())
 
-//        registrationAgent.printStats()
-//        examinationAgent.printStats()
-//        vaccinationAgent.printStats()
+        if (DEBUG_MODE) {
+            registrationAgent.printStats()
+            examinationAgent.printStats()
+            vaccinationAgent.printStats()
+            waitingAgent.printStats()
+        }
 
         checkFinalState()
     }
@@ -66,6 +75,7 @@ class VaccinationCentreAgentSimulation(
         registrationAgent.checkFinalState()
         examinationAgent.checkFinalState()
         vaccinationAgent.checkFinalState()
+        waitingAgent.checkFinalState()
     }
 
 }

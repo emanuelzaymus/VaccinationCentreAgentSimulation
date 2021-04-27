@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract
 import OSPABA.*
 import sk.emanuelzaymus.agentsimulation.utils.debug
 
-abstract class VaccinationCentreProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) :
+abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) :
     Process(id, mySim, myAgent) {
 
     protected abstract val debugName: String
@@ -21,14 +21,14 @@ abstract class VaccinationCentreProcess(id: Int, mySim: Simulation, myAgent: Com
     }
 
     private fun startActivity(message: MessageForm) {
-        debug("$debugName - start")
+        debug("$debugName - start - $message")
         message.setCode(activityDoneMsgCode)
 
         hold(getDuration(), message)
     }
 
     private fun endActivity(message: MessageForm) {
-        debug("$debugName - activityDone ($activityDoneMsgCode)")
+        debug("$debugName - activityDone - $message")
         assistantFinished(message)
     }
 

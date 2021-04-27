@@ -1,15 +1,16 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
 
+import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.TriangularRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VACCINATION_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VACCINATION_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VACCINATION_DURATION_MODE
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreActivityProcess
 
-class VaccinationProcess(mySim: Simulation, myAgent: VaccinationAgent) :
-    VaccinationCentreProcess(Ids.vaccinationProcess, mySim, myAgent) {
+class VaccinationProcess(mySim: Simulation, myAgent: CommonAgent) :
+    VaccinationCentreActivityProcess(Ids.vaccinationProcess, mySim, myAgent) {
 
     companion object {
         private val vaccinationDuration =
