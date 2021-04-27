@@ -7,7 +7,7 @@ const val PRINT_REPL_STATS = false
 
 fun debug(name: String, message: Message) {
     if (DEBUG_MODE)
-        debug(name, message.toString())
+        printDebug(name, message.toString())
 }
 
 fun debug(name: String, messageForm: MessageForm) {
@@ -21,10 +21,10 @@ fun debug(name: String, messageForm: MessageForm) {
 
 private fun debug(name: String, initMessage: InitMessage) {
     if (DEBUG_MODE)
-        debug(name, initMessage.toString())
+        printDebug(name, initMessage.toString())
 }
 
-private fun debug(name: String, message: String) {
+private fun printDebug(name: String, message: String) {
     if (DEBUG_MODE)
         println("$name - $message")
 }

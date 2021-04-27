@@ -16,6 +16,8 @@ abstract class VaccinationCentreActivityManager(
     protected abstract val activityProcessId: Int
 
     override fun processMessage(message: MessageForm) {
+        debug(debugName, message)
+
         when (message.code()) {
 
             startActivityMsgCode -> tryStartActivity(message as Message)
@@ -25,8 +27,6 @@ abstract class VaccinationCentreActivityManager(
     }
 
     private fun tryStartActivity(message: Message) {
-        debug(debugName, message)
-
         message.patient.restartWaiting()
         message.patient.startWaiting()
 
@@ -37,8 +37,6 @@ abstract class VaccinationCentreActivityManager(
     }
 
     private fun activityDone(message: Message) {
-        debug(debugName, message)
-
         message.worker!!.isBusy = false
         message.worker = null
 

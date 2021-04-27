@@ -12,6 +12,8 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
     protected abstract fun getDuration(): Double
 
     override fun processMessage(message: MessageForm) {
+        debug(debugName, message)
+
         when (message.code()) {
 
             IdList.start -> startActivity(message)
@@ -21,14 +23,12 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
     }
 
     private fun startActivity(message: MessageForm) {
-        debug(debugName, message)
         message.setCode(activityDoneMsgCode)
 
         hold(getDuration(), message)
     }
 
     private fun endActivity(message: MessageForm) {
-        debug(debugName, message)
         assistantFinished(message)
     }
 

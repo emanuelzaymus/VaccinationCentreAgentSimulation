@@ -13,6 +13,8 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     override fun processMessage(message: MessageForm) {
+        debug("WaitingProcess", message)
+
         when (message.code()) {
 
             IdList.start -> startActivity(message)
@@ -22,7 +24,6 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     private fun startActivity(message: MessageForm) {
-        debug("WaitingProcess", message)
         message.setCode(MessageCodes.waitingDone)
 
         if (waitingDuration.sample() < WAITING_LESS_PROBABILITY)
@@ -32,7 +33,6 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     private fun endActivity(message: MessageForm) {
-        debug("WaitingProcess", message)
         assistantFinished(message)
     }
 

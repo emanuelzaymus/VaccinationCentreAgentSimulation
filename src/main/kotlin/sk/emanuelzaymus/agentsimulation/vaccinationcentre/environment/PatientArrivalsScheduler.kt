@@ -30,6 +30,8 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, private 
     }
 
     override fun processMessage(message: MessageForm) {
+        debug("PatientArrivalsScheduler", message)
+
         when (message.code()) {
 
             IdList.start -> startScheduling(message)
@@ -41,15 +43,12 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, private 
     }
 
     private fun startScheduling(message: MessageForm) {
-        debug("PatientArrivalsScheduler", message)
         message.setCode(MessageCodes.getNewPatient)
 
         hold(.0, message) // To deliver immediately
     }
 
     private fun getNewPatient(message: MessageForm) {
-        debug("PatientArrivalsScheduler", message)
-
         scheduleNextPatientArrival(message)
 
         assistantFinished(messagePool.acquire())
@@ -74,7 +73,6 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, private 
     }
 
     private fun returnPatient(message: MessageForm) {
-        debug("PatientArrivalsScheduler", message)
         messagePool.release(message as Message)
     }
 

@@ -13,6 +13,8 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
     VaccinationCentreManager(Ids.waitingManager, mySim, myAgent) {
 
     override fun processMessage(message: MessageForm) {
+        debug("WaitingManager", message)
+
         when (message.code()) {
 
             MessageCodes.waiting -> startWaiting(message as Message)
@@ -22,8 +24,6 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
     }
 
     private fun startWaiting(message: Message) {
-        debug("WaitingManager", message)
-
         myAgent.incrementWaitingPatients()
 
         message.setAddressee(Ids.waitingProcess)
@@ -31,8 +31,6 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
     }
 
     private fun endWaiting(message: Message) {
-        debug("WaitingManager", message)
-
         myAgent.decrementWaitingPatients()
 
         message.setCode(MessageCodes.waitingDone)
