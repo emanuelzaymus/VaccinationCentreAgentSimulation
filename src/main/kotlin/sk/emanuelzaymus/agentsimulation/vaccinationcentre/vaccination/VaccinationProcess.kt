@@ -22,4 +22,9 @@ class VaccinationProcess(mySim: Simulation, myAgent: CommonAgent) :
 
     override fun getDuration(): Double = vaccinationDuration.sample()
 
+    override fun startActivity(message: Message) {
+        (message.worker as Nurse).decrementInjectionsLeft()
+        super.startActivity(message)
+    }
+
 }

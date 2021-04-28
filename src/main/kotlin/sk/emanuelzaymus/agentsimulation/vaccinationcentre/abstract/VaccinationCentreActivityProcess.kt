@@ -1,6 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract
 
 import OSPABA.*
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
 abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) :
@@ -16,18 +17,23 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
 
         when (message.code()) {
             // Manager - start activity
-            IdList.start -> startActivity(message)
+            IdList.start -> startActivity(message as Message)
 
-            activityEndMsgCode -> endActivity(message)
+            activityEndMsgCode -> endActivity(message as Message)
         }
     }
 
-    private fun startActivity(message: MessageForm) {
+    protected open fun startActivity(message: Message) {
+        message.worker!!.isBusy = true
         message.setCode(activityEndMsgCode)
 
         hold(getDuration(), message)
     }
 
-    private fun endActivity(message: MessageForm) = assistantFinished(message)
+    private fun endActivity(message: Message) {
+        message.worker!!.isBusy = false
+
+        assistantFinished(message)
+    }
 
 }

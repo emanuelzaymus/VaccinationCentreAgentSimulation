@@ -7,6 +7,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.Examinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.VaccinationAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting.WaitingAgent
 
 class VaccinationCentreAgentSimulation(
@@ -22,11 +23,13 @@ class VaccinationCentreAgentSimulation(
     private val examinationAgent = ExaminationAgent(this, modelAgent, numberOfDoctors)
     private val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
     private val waitingAgent = WaitingAgent(this, modelAgent)
+    private val injectionsAgent = InjectionsAgent(this, vaccinationAgent, 2)
 
     private val registrationStats = AgentStats()
     private val examinationStats = AgentStats()
     private val vaccinationStats = AgentStats()
     private val waitingStats = Stat()
+    private val nursesQueueLengthStats = Stat()
 
     override fun prepareSimulation() {
         super.prepareSimulation()
@@ -35,6 +38,7 @@ class VaccinationCentreAgentSimulation(
         examinationStats.clear()
         vaccinationStats.clear()
         waitingStats.clear()
+        nursesQueueLengthStats.clear()
     }
 
     override fun prepareReplication() {
@@ -49,6 +53,7 @@ class VaccinationCentreAgentSimulation(
         examinationStats.addStatistics(examinationAgent)
         vaccinationStats.addStatistics(vaccinationAgent)
         waitingStats.addSample(waitingAgent.getWaitingPatientsCountMean())
+        nursesQueueLengthStats.addSample(injectionsAgent.queueLengthMean())
 
         println("Repl: " + currentReplication())
         if (PRINT_REPL_STATS) {
@@ -56,6 +61,7 @@ class VaccinationCentreAgentSimulation(
             examinationAgent.printStats()
             vaccinationAgent.printStats()
             waitingAgent.printStats()
+            injectionsAgent.printStats()
             println()
         }
 
@@ -70,6 +76,7 @@ class VaccinationCentreAgentSimulation(
         examinationStats.print("Examination")
         vaccinationStats.print("Vaccination")
         println("Waiting\nPatients count mean: " + waitingStats.mean())
+        println("Injections Preparation\nNurses q length mean: " + waitingStats.mean())
     }
 
     private fun checkFinalState() {
@@ -78,6 +85,7 @@ class VaccinationCentreAgentSimulation(
         examinationAgent.checkFinalState()
         vaccinationAgent.checkFinalState()
         waitingAgent.checkFinalState()
+        injectionsAgent.checkFinalState()
     }
 
 }

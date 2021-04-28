@@ -4,8 +4,6 @@ import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.pool.IPooledObject
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreWorker
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.Doctor
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.AdministrativeWorker
 
 class Message : MessageForm, IPooledObject {
 
@@ -37,6 +35,6 @@ class Message : MessageForm, IPooledObject {
     }
 
     override fun toString(): String =
-        "${MessageCodes.getName(code())} - Patient: $patient, Worker: $worker ${super.toString()}"
+        "%-26s - Patient: $patient, Worker: $worker ${super.toString()}".format(MessageCodes.getName(code()))
 
 }

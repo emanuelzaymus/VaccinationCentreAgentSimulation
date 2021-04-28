@@ -21,7 +21,7 @@ class AgentStats {
         workersWorkload.addSample(agent.workersWorkloadMean())
     }
 
-    fun print(name: String) = println(
+    fun print(name: String) = kotlin.io.println(
         """
         $name
         Queue length mean: ${queueLengthStat.mean()}

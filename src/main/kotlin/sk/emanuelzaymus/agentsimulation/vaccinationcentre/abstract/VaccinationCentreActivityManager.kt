@@ -21,7 +21,6 @@ abstract class VaccinationCentreActivityManager(
         when (message.code()) {
 
             activityStartMsgCode -> tryStartActivity(message as Message)
-
             // Process - activity done
             IdList.finish -> activityDone(message as Message)
         }
@@ -37,22 +36,25 @@ abstract class VaccinationCentreActivityManager(
             myAgent.queue.enqueue(message)
     }
 
-    private fun activityDone(message: Message) {
-        message.worker!!.isBusy = false
+    protected open fun activityDone(message: Message) {
         message.worker = null
 
-        if (myAgent.queue.size > 0)
-            startActivity(myAgent.queue.dequeue())
+        startActivityIfAnyWaiting()
 
         message.setCode(activityEndMsgCode)
         response(message)
+    }
+
+    protected fun startActivityIfAnyWaiting() {
+        if (myAgent.queue.isNotEmpty())
+            startActivity(myAgent.queue.dequeue())
     }
 
     private fun startActivity(message: Message) {
         message.patient.stopWaiting()
         myAgent.waitingTimeStat.addSample(message.patient.getWaitingTotal())
 
-        message.worker = myAgent.workers.getRandomAvailable().apply { isBusy = true }
+        message.worker = myAgent.workers.getRandomAvailable()
         message.setAddressee(activityProcessId)
 
         startContinualAssistant(message)
