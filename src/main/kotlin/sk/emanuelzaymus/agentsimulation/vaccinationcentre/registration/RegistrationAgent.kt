@@ -18,8 +18,8 @@ class RegistrationAgent(mySim: Simulation, parent: Agent, numberOfAdminWorkers: 
         RegistrationManager(mySim, this)
         RegistrationProcess(mySim, this)
 
-        addOwnMessage(MessageCodes.registration)
-        addOwnMessage(MessageCodes.registrationDone)
+        addOwnMessage(MessageCodes.registrationStart)
+        addOwnMessage(MessageCodes.registrationEnd)
     }
 
 }

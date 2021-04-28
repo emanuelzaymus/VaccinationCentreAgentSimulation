@@ -17,7 +17,7 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
 
         when (message.code()) {
 
-            MessageCodes.waiting -> startWaiting(message as Message)
+            MessageCodes.waitingStart -> startWaiting(message as Message)
 
             IdList.finish -> endWaiting(message as Message)
         }
@@ -33,7 +33,7 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
     private fun endWaiting(message: Message) {
         myAgent.decrementWaitingPatients()
 
-        message.setCode(MessageCodes.waitingDone)
+        message.setCode(MessageCodes.waitingEnd)
         response(message)
     }
 

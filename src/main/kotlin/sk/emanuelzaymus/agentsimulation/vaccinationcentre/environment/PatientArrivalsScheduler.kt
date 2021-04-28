@@ -36,19 +36,19 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, private 
 
             IdList.start -> startScheduling(message)
 
-            MessageCodes.getNewPatient -> getNewPatient(message)
+            MessageCodes.scheduleArrival -> scheduleArrival(message)
 
             MessageCodes.patientLeaving -> returnPatient(message)
         }
     }
 
     private fun startScheduling(message: MessageForm) {
-        message.setCode(MessageCodes.getNewPatient)
+        message.setCode(MessageCodes.scheduleArrival)
 
         hold(.0, message) // To deliver immediately
     }
 
-    private fun getNewPatient(message: MessageForm) {
+    private fun scheduleArrival(message: MessageForm) {
         scheduleNextPatientArrival(message)
 
         assistantFinished(messagePool.acquire())

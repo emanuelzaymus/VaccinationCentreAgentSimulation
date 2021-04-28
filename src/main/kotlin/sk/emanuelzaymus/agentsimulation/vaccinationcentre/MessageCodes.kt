@@ -7,35 +7,35 @@ class MessageCodes {
     companion object {
         const val init = 100
 
-        const val getNewPatient = 1
+        const val scheduleArrival = 1
         const val patientArrival = 2
 
-        const val registration = 3
-        const val registrationDone = 4
+        const val registrationStart = 3
+        const val registrationEnd = 4
 
-        const val examination = 5
-        const val examinationDone = 6
+        const val examinationStart = 5
+        const val examinationEnd = 6
 
-        const val vaccination = 7
-        const val vaccinationDone = 8
+        const val vaccinationStart = 7
+        const val vaccinationEnd = 8
 
-        const val waiting = 9
-        const val waitingDone = 10
+        const val waitingStart = 9
+        const val waitingEnd = 10
 
         const val patientLeaving = 11
 
         fun getName(messageCode: Int): String = when (messageCode) {
             init -> "init"
-            getNewPatient -> "getNewPatient"
+            scheduleArrival -> "scheduleArrival"
             patientArrival -> "patientArrival"
-            registration -> "registration"
-            registrationDone -> "registrationDone"
-            examination -> "examination"
-            examinationDone -> "examinationDone"
-            vaccination -> "vaccination"
-            vaccinationDone -> "vaccinationDone"
-            waiting -> "waiting"
-            waitingDone -> "waitingDone"
+            registrationStart -> "registrationStart"
+            registrationEnd -> "registrationEnd"
+            examinationStart -> "examinationStart"
+            examinationEnd -> "examinationEnd"
+            vaccinationStart -> "vaccinationStart"
+            vaccinationEnd -> "vaccinationEnd"
+            waitingStart -> "waitingStart"
+            waitingEnd -> "waitingEnd"
             patientLeaving -> "patientLeaving"
 
             IdList.start -> "start"

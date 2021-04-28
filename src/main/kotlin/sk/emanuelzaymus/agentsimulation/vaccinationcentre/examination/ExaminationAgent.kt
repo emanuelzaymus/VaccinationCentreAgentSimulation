@@ -18,8 +18,8 @@ class ExaminationAgent(mySim: Simulation, parent: Agent, numberOfDoctors: Int) :
         ExaminationManager(mySim, this)
         ExaminationProcess(mySim, this)
 
-        addOwnMessage(MessageCodes.examination)
-        addOwnMessage(MessageCodes.examinationDone)
+        addOwnMessage(MessageCodes.examinationStart)
+        addOwnMessage(MessageCodes.examinationEnd)
     }
 
 }

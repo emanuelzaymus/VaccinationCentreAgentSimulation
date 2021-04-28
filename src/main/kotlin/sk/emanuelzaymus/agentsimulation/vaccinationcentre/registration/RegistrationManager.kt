@@ -10,8 +10,8 @@ class RegistrationManager(mySim: Simulation, myAgent: RegistrationAgent) :
 
     override val debugName = "RegistrationManager"
 
-    override val startActivityMsgCode = MessageCodes.registration
-    override val activityDoneMsgCode = MessageCodes.registrationDone
+    override val activityStartMsgCode = MessageCodes.registrationStart
+    override val activityEndMsgCode = MessageCodes.registrationEnd
     override val activityProcessId = Ids.registrationProcess
 
 }

@@ -11,8 +11,8 @@ abstract class VaccinationCentreActivityManager(
 ) : VaccinationCentreManager(id, mySim, myAgent) {
 
     protected abstract val debugName: String
-    protected abstract val startActivityMsgCode: Int
-    protected abstract val activityDoneMsgCode: Int
+    protected abstract val activityStartMsgCode: Int
+    protected abstract val activityEndMsgCode: Int
     protected abstract val activityProcessId: Int
 
     override fun processMessage(message: MessageForm) {
@@ -20,7 +20,7 @@ abstract class VaccinationCentreActivityManager(
 
         when (message.code()) {
 
-            startActivityMsgCode -> tryStartActivity(message as Message)
+            activityStartMsgCode -> tryStartActivity(message as Message)
 
             IdList.finish -> activityDone(message as Message)
         }
@@ -43,7 +43,7 @@ abstract class VaccinationCentreActivityManager(
         if (myAgent.queue.size > 0)
             startActivity(myAgent.queue.dequeue())
 
-        message.setCode(activityDoneMsgCode)
+        message.setCode(activityEndMsgCode)
         response(message)
     }
 

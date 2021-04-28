@@ -18,8 +18,8 @@ class VaccinationAgent(mySim: Simulation, parent: Agent, numberOfNurses: Int) :
         VaccinationManager(mySim, this)
         VaccinationProcess(mySim, this)
 
-        addOwnMessage(MessageCodes.vaccination)
-        addOwnMessage(MessageCodes.vaccinationDone)
+        addOwnMessage(MessageCodes.vaccinationStart)
+        addOwnMessage(MessageCodes.vaccinationEnd)
     }
 
 }

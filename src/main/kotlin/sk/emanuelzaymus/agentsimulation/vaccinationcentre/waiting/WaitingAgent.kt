@@ -16,8 +16,8 @@ class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Id
         WaitingManager(mySim, this)
         WaitingProcess(mySim, this)
 
-        addOwnMessage(MessageCodes.waiting)
-        addOwnMessage(MessageCodes.waitingDone)
+        addOwnMessage(MessageCodes.waitingStart)
+        addOwnMessage(MessageCodes.waitingEnd)
     }
 
     override fun prepareReplication() {

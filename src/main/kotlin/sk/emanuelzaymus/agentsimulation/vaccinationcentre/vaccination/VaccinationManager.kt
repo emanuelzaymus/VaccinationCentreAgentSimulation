@@ -10,8 +10,8 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
 
     override val debugName = "VaccinationManager"
 
-    override val startActivityMsgCode = MessageCodes.vaccination
-    override val activityDoneMsgCode = MessageCodes.vaccinationDone
+    override val activityStartMsgCode = MessageCodes.vaccinationStart
+    override val activityEndMsgCode = MessageCodes.vaccinationEnd
     override val activityProcessId = Ids.vaccinationProcess
 
 }

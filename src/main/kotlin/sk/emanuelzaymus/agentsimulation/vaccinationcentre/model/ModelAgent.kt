@@ -13,10 +13,10 @@ class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, myS
 
         addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.patientArrival)
-        addOwnMessage(MessageCodes.registrationDone)
-        addOwnMessage(MessageCodes.examinationDone)
-        addOwnMessage(MessageCodes.vaccinationDone)
-        addOwnMessage(MessageCodes.waitingDone)
+        addOwnMessage(MessageCodes.registrationEnd)
+        addOwnMessage(MessageCodes.examinationEnd)
+        addOwnMessage(MessageCodes.vaccinationEnd)
+        addOwnMessage(MessageCodes.waitingEnd)
     }
 
     fun runSimulation() {

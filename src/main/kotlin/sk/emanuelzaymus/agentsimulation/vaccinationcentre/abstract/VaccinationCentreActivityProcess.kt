@@ -7,7 +7,7 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
     Process(id, mySim, myAgent) {
 
     protected abstract val debugName: String
-    protected abstract val activityDoneMsgCode: Int
+    protected abstract val activityEndMsgCode: Int
 
     protected abstract fun getDuration(): Double
 
@@ -18,12 +18,12 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
 
             IdList.start -> startActivity(message)
 
-            activityDoneMsgCode -> endActivity(message)
+            activityEndMsgCode -> endActivity(message)
         }
     }
 
     private fun startActivity(message: MessageForm) {
-        message.setCode(activityDoneMsgCode)
+        message.setCode(activityEndMsgCode)
 
         hold(getDuration(), message)
     }

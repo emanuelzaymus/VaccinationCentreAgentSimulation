@@ -18,7 +18,7 @@ class VaccinationProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     override val debugName: String = "VaccinationProcess"
-    override val activityDoneMsgCode: Int = MessageCodes.vaccinationDone
+    override val activityEndMsgCode: Int = MessageCodes.vaccinationEnd
 
     override fun getDuration(): Double = vaccinationDuration.sample()
 

@@ -19,13 +19,13 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
 
             MessageCodes.patientArrival -> requestRegistration(message)
 
-            MessageCodes.registrationDone -> requestExamination(message)
+            MessageCodes.registrationEnd -> requestExamination(message)
 
-            MessageCodes.examinationDone -> requestVaccination(message)
+            MessageCodes.examinationEnd -> requestVaccination(message)
 
-            MessageCodes.vaccinationDone -> requestWaiting(message)
+            MessageCodes.vaccinationEnd -> requestWaiting(message)
 
-            MessageCodes.waitingDone -> noticeEnvironmentDone(message)
+            MessageCodes.waitingEnd -> noticeEnvironmentDone(message)
         }
     }
 
@@ -35,16 +35,16 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
     }
 
     private fun requestRegistration(message: MessageForm) =
-        sendRequest(MessageCodes.registration, Ids.registrationAgent, message)
+        sendRequest(MessageCodes.registrationStart, Ids.registrationAgent, message)
 
     private fun requestExamination(message: MessageForm) =
-        sendRequest(MessageCodes.examination, Ids.examinationAgent, message)
+        sendRequest(MessageCodes.examinationStart, Ids.examinationAgent, message)
 
     private fun requestVaccination(message: MessageForm) =
-        sendRequest(MessageCodes.vaccination, Ids.vaccinationAgent, message)
+        sendRequest(MessageCodes.vaccinationStart, Ids.vaccinationAgent, message)
 
     private fun requestWaiting(message: MessageForm) =
-        sendRequest(MessageCodes.waiting, Ids.waitingAgent, message)
+        sendRequest(MessageCodes.waitingStart, Ids.waitingAgent, message)
 
     private fun noticeEnvironmentDone(message: MessageForm) {
         message.setCode(MessageCodes.patientLeaving)

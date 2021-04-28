@@ -19,12 +19,12 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
 
             IdList.start -> startActivity(message)
 
-            MessageCodes.waitingDone -> endActivity(message)
+            MessageCodes.waitingEnd -> endActivity(message)
         }
     }
 
     private fun startActivity(message: MessageForm) {
-        message.setCode(MessageCodes.waitingDone)
+        message.setCode(MessageCodes.waitingEnd)
 
         if (waitingDuration.sample() < WAITING_LESS_PROBABILITY)
             hold(WAITING_DURATION_LESS, message)

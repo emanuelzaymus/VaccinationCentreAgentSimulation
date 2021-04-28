@@ -10,8 +10,8 @@ class ExaminationManager(mySim: Simulation, myAgent: ExaminationAgent) :
 
     override val debugName = "ExaminationManager"
 
-    override val startActivityMsgCode = MessageCodes.examination
-    override val activityDoneMsgCode = MessageCodes.examinationDone
+    override val activityStartMsgCode = MessageCodes.examinationStart
+    override val activityEndMsgCode = MessageCodes.examinationEnd
     override val activityProcessId = Ids.examinationProcess
 
 }
