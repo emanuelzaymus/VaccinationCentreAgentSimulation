@@ -5,11 +5,6 @@ import OSPABA.MessageForm
 const val DEBUG_MODE = false
 const val PRINT_REPL_STATS = false
 
-fun debug(name: String, message: Message) {
-    if (DEBUG_MODE)
-        printDebug(name, message.toString())
-}
-
 fun debug(name: String, messageForm: MessageForm) {
     if (DEBUG_MODE) {
         if (messageForm is Message)
@@ -17,6 +12,11 @@ fun debug(name: String, messageForm: MessageForm) {
         else if (messageForm is InitMessage)
             debug(name, messageForm)
     }
+}
+
+private fun debug(name: String, message: Message) {
+    if (DEBUG_MODE)
+        printDebug(name, message.toString())
 }
 
 private fun debug(name: String, initMessage: InitMessage) {

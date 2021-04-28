@@ -31,7 +31,7 @@ class EnvironmentManager(mySim: Simulation, myAgent: Agent) :
 
     private fun noticeModelPatientArrival(message: MessageForm) {
         message.setCode(MessageCodes.patientArrival)
-        message.setAddressee(mySim().findAgent(Ids.modelAgent))
+        message.setAddressee(Ids.modelAgent)
 
         notice(message)
     }

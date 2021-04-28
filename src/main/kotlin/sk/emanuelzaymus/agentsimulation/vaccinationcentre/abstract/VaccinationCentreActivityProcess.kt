@@ -28,8 +28,6 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
         hold(getDuration(), message)
     }
 
-    private fun endActivity(message: MessageForm) {
-        assistantFinished(message)
-    }
+    private fun endActivity(message: MessageForm) = assistantFinished(message)
 
 }

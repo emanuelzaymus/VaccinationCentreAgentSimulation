@@ -30,45 +30,34 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
     }
 
     private fun noticeEnvironmentInit(message: MessageForm) {
-        message.setAddressee(mySim().findAgent(Ids.environmentAgent))
-
+        message.setAddressee(Ids.environmentAgent)
         notice(message)
     }
 
-    // TODO: simplify
-    private fun requestRegistration(message: MessageForm) {
-        message.setCode(MessageCodes.registration)
-        message.setAddressee(mySim().findAgent(Ids.registrationAgent))
+    private fun requestRegistration(message: MessageForm) =
+        sendRequest(MessageCodes.registration, Ids.registrationAgent, message)
 
-        request(message)
-    }
+    private fun requestExamination(message: MessageForm) =
+        sendRequest(MessageCodes.examination, Ids.examinationAgent, message)
 
-    private fun requestExamination(message: MessageForm) {
-        message.setCode(MessageCodes.examination)
-        message.setAddressee(mySim().findAgent(Ids.examinationAgent))
+    private fun requestVaccination(message: MessageForm) =
+        sendRequest(MessageCodes.vaccination, Ids.vaccinationAgent, message)
 
-        request(message)
-    }
-
-    private fun requestVaccination(message: MessageForm) {
-        message.setCode(MessageCodes.vaccination)
-        message.setAddressee(mySim().findAgent(Ids.vaccinationAgent))
-
-        request(message)
-    }
-
-    private fun requestWaiting(message: MessageForm) {
-        message.setCode(MessageCodes.waiting)
-        message.setAddressee(mySim().findAgent(Ids.waitingAgent))
-
-        request(message)
-    }
+    private fun requestWaiting(message: MessageForm) =
+        sendRequest(MessageCodes.waiting, Ids.waitingAgent, message)
 
     private fun noticeEnvironmentDone(message: MessageForm) {
         message.setCode(MessageCodes.patientLeaving)
-        message.setAddressee(mySim().findAgent(Ids.environmentAgent))
+        message.setAddressee(Ids.environmentAgent)
 
         notice(message)
+    }
+
+    private fun sendRequest(msgCode: Int, addresseeId: Int, message: MessageForm) {
+        message.setCode(msgCode)
+        message.setAddressee(addresseeId)
+
+        request(message)
     }
 
 }

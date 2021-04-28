@@ -32,8 +32,6 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
             hold(WAITING_DURATION_MORE, message)
     }
 
-    private fun endActivity(message: MessageForm) {
-        assistantFinished(message)
-    }
+    private fun endActivity(message: MessageForm) = assistantFinished(message)
 
 }

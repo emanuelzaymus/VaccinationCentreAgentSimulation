@@ -52,7 +52,7 @@ abstract class VaccinationCentreActivityManager(
         myAgent.waitingTimeStat.addSample(message.patient.getWaitingTotal())
 
         message.worker = myAgent.workers.getRandomAvailable().apply { isBusy = true }
-        message.setAddressee(myAgent.findAssistant(activityProcessId))
+        message.setAddressee(activityProcessId)
 
         startContinualAssistant(message)
     }
