@@ -19,6 +19,7 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
 
             MessageCodes.waitingStart -> startWaiting(message as Message)
 
+            // WaitingProcess - waiting done
             IdList.finish -> endWaiting(message as Message)
         }
     }

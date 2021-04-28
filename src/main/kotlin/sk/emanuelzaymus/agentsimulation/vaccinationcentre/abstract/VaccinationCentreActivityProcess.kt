@@ -15,7 +15,7 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
         debug(debugName, message)
 
         when (message.code()) {
-
+            // Manager - start activity
             IdList.start -> startActivity(message)
 
             activityEndMsgCode -> endActivity(message)

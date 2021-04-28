@@ -22,6 +22,7 @@ abstract class VaccinationCentreActivityManager(
 
             activityStartMsgCode -> tryStartActivity(message as Message)
 
+            // Process - activity done
             IdList.finish -> activityDone(message as Message)
         }
     }

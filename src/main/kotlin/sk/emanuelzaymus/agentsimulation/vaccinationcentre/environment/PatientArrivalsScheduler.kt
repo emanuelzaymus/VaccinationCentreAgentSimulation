@@ -33,7 +33,7 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, private 
         debug("PatientArrivalsScheduler", message)
 
         when (message.code()) {
-
+            // EnvironmentManager - start scheduling patients
             IdList.start -> startScheduling(message)
 
             MessageCodes.scheduleArrival -> scheduleArrival(message)

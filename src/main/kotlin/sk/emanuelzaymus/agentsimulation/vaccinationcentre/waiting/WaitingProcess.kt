@@ -16,7 +16,7 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
         debug("WaitingProcess", message)
 
         when (message.code()) {
-
+            // WaitingManager - start waiting
             IdList.start -> startActivity(message)
 
             MessageCodes.waitingEnd -> endActivity(message)
