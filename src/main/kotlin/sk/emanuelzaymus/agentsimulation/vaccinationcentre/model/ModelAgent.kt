@@ -15,15 +15,14 @@ class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, myS
         WaitingTransferProcess(mySim, this)
 
         addOwnMessage(MessageCodes.init)
+
         addOwnMessage(MessageCodes.patientArrival)
         addOwnMessage(MessageCodes.registrationEnd)
         addOwnMessage(MessageCodes.examinationEnd)
         addOwnMessage(MessageCodes.vaccinationEnd)
         addOwnMessage(MessageCodes.waitingEnd)
 
-        addOwnMessage(MessageCodes.examinationTransferEnd)
-        addOwnMessage(MessageCodes.vaccinationTransferEnd)
-        addOwnMessage(MessageCodes.waitingTransferEnd)
+        addOwnMessage(MessageCodes.transferEnd)
     }
 
     fun runSimulation() {

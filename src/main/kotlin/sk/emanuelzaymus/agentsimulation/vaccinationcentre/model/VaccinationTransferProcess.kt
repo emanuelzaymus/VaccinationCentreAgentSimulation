@@ -16,8 +16,6 @@ class VaccinationTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     override val debugName = "VaccinationTransfer"
-    override val transferStartMsgCode = MessageCodes.vaccinationTransferStart
-    override val transferEndMsgCode = MessageCodes.vaccinationTransferEnd
 
     override fun getDuration(): Double = transferDuration.sample()
 

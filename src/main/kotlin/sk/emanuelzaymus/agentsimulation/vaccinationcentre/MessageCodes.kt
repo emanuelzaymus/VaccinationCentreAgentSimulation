@@ -22,24 +22,16 @@ class MessageCodes {
         const val waitingStart = 9
         const val waitingEnd = 10
 
-//        const val transferEnd = 11
-
         const val injectionsPreparationStart = 11
         const val injectionsPreparationEnd = 12
 
-        const val examinationTransferStart = 15
-        const val examinationTransferEnd = 16
+        const val transferEnd = 13
 
-        const val vaccinationTransferStart = 17
-        const val vaccinationTransferEnd = 18
-
-        const val waitingTransferStart = 19
-        const val waitingTransferEnd = 20
-
-        const val patientLeaving = 50
+        const val patientLeaving = 99
 
         fun getName(messageCode: Int): String = when (messageCode) {
             init -> "init"
+
             scheduleArrival -> "scheduleArrival"
             patientArrival -> "patientArrival"
             registrationStart -> "registrationStart"
@@ -53,12 +45,7 @@ class MessageCodes {
             injectionsPreparationStart -> "injectionsPreparationStart"
             injectionsPreparationEnd -> "injectionsPreparationEnd"
 
-            examinationTransferStart -> "examinationTransferStart"
-            examinationTransferEnd -> "examinationTransferEnd"
-            vaccinationTransferStart -> "vaccinationTransferStart"
-            vaccinationTransferEnd -> "vaccinationTransferEnd"
-            waitingTransferStart -> "waitingTransferStart"
-            waitingTransferEnd -> "waitingTransferEnd"
+            transferEnd -> "transferEnd"
 
             patientLeaving -> "patientLeaving"
 

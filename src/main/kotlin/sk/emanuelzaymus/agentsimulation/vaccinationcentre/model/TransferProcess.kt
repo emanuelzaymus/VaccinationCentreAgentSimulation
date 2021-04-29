@@ -1,16 +1,12 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
 
-import OSPABA.CommonAgent
-import OSPABA.MessageForm
-import OSPABA.Process
-import OSPABA.Simulation
+import OSPABA.*
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
 abstract class TransferProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) : Process(id, mySim, myAgent) {
 
     protected abstract val debugName: String
-    protected abstract val transferStartMsgCode: Int
-    protected abstract val transferEndMsgCode: Int
 
     protected abstract fun getDuration(): Double
 
@@ -19,15 +15,14 @@ abstract class TransferProcess(id: Int, mySim: Simulation, myAgent: CommonAgent)
 
         when (message.code()) {
             // ModelManager - start transfer
-            transferStartMsgCode -> startTransfer(message)
+            IdList.start -> startTransfer(message)
 
-            transferEndMsgCode -> endTransfer(message)
+            MessageCodes.transferEnd -> endTransfer(message)
         }
     }
 
     private fun startTransfer(message: MessageForm) {
-        message.setCode(transferEndMsgCode)
-
+        message.setCode(MessageCodes.transferEnd)
         hold(getDuration(), message)
     }
 

@@ -11,13 +11,10 @@ class WaitingTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
     TransferProcess(Ids.waitingTransferProcess, mySim, myAgent) {
 
     companion object {
-        val transferDuration =
-            UniformContinuousRNG(WAITING_TRANSFER_DURATION_MIN, WAITING_TRANSFER_DURATION_MAX)
+        val transferDuration = UniformContinuousRNG(WAITING_TRANSFER_DURATION_MIN, WAITING_TRANSFER_DURATION_MAX)
     }
 
     override val debugName = "WaitingTransfer"
-    override val transferStartMsgCode = MessageCodes.waitingTransferStart
-    override val transferEndMsgCode = MessageCodes.waitingTransferEnd
 
     override fun getDuration(): Double = transferDuration.sample()
 
