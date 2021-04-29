@@ -10,6 +10,9 @@ class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, myS
 
     init {
         ModelManager(mySim, this)
+        ExaminationTransferProcess(mySim, this)
+        VaccinationTransferProcess(mySim, this)
+        WaitingTransferProcess(mySim, this)
 
         addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.patientArrival)
@@ -17,6 +20,10 @@ class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, myS
         addOwnMessage(MessageCodes.examinationEnd)
         addOwnMessage(MessageCodes.vaccinationEnd)
         addOwnMessage(MessageCodes.waitingEnd)
+
+        addOwnMessage(MessageCodes.examinationTransferEnd)
+        addOwnMessage(MessageCodes.vaccinationTransferEnd)
+        addOwnMessage(MessageCodes.waitingTransferEnd)
     }
 
     fun runSimulation() {

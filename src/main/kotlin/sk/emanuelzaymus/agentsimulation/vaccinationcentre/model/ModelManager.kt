@@ -19,15 +19,22 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
 
             MessageCodes.patientArrival -> requestRegistration(message)
 
-            MessageCodes.registrationEnd -> requestExamination(message)
+            MessageCodes.registrationEnd -> startExaminationTransfer(message)
 
-            MessageCodes.examinationEnd -> requestVaccination(message)
+            MessageCodes.examinationTransferEnd -> requestExamination(message)
 
-            MessageCodes.vaccinationEnd -> requestWaiting(message)
+            MessageCodes.examinationEnd -> startVaccinationTransfer(message)
+
+            MessageCodes.vaccinationTransferEnd -> requestVaccination(message)
+
+            MessageCodes.vaccinationEnd -> startWaitingTransfer(message)
+
+            MessageCodes.waitingTransferEnd -> requestWaiting(message)
 
             MessageCodes.waitingEnd -> noticeEnvironmentDone(message)
         }
     }
+
 
     private fun noticeEnvironmentInit(message: MessageForm) {
         message.setAddressee(Ids.environmentAgent)
@@ -37,11 +44,20 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
     private fun requestRegistration(message: MessageForm) =
         sendRequest(MessageCodes.registrationStart, Ids.registrationAgent, message)
 
+    private fun startExaminationTransfer(message: MessageForm) =
+        sendNotice(MessageCodes.examinationTransferStart, Ids.examinationTransferProcess, message)
+
     private fun requestExamination(message: MessageForm) =
         sendRequest(MessageCodes.examinationStart, Ids.examinationAgent, message)
 
+    private fun startVaccinationTransfer(message: MessageForm) =
+        sendNotice(MessageCodes.vaccinationTransferStart, Ids.vaccinationTransferProcess, message)
+
     private fun requestVaccination(message: MessageForm) =
         sendRequest(MessageCodes.vaccinationStart, Ids.vaccinationAgent, message)
+
+    private fun startWaitingTransfer(message: MessageForm) =
+        sendNotice(MessageCodes.waitingTransferStart, Ids.waitingTransferProcess, message)
 
     private fun requestWaiting(message: MessageForm) =
         sendRequest(MessageCodes.waitingStart, Ids.waitingAgent, message)
@@ -58,6 +74,13 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
         message.setAddressee(addresseeId)
 
         request(message)
+    }
+
+    private fun sendNotice(msgCode: Int, addresseeId: Int, message: MessageForm) {
+        message.setCode(msgCode)
+        message.setAddressee(addresseeId)
+
+        notice(message)
     }
 
 }
