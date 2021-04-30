@@ -17,10 +17,14 @@ class VaccinationAgent(mySim: Simulation, parent: Agent, numberOfNurses: Int) :
     init {
         VaccinationManager(mySim, this)
         VaccinationProcess(mySim, this)
+        ToInjectionsTransferProcess(mySim, this)
+        FromInjectionsTransferProcess(mySim, this)
 
         addOwnMessage(MessageCodes.vaccinationStart)
         addOwnMessage(MessageCodes.vaccinationEnd)
         addOwnMessage(MessageCodes.injectionsPreparationEnd)
+
+        addOwnMessage(MessageCodes.transferEnd)
     }
 
 }

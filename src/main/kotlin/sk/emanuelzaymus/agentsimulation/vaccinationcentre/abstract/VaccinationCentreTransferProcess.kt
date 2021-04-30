@@ -1,11 +1,12 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract
 
 import OSPABA.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
-abstract class TransferProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) : Process(id, mySim, myAgent) {
-// todo: put to abstract package
+abstract class VaccinationCentreTransferProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) :
+    Process(id, mySim, myAgent) {
+
     protected abstract val debugName: String
 
     protected abstract fun getDuration(): Double

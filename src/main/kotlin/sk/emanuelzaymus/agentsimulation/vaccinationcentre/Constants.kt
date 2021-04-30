@@ -33,3 +33,6 @@ internal const val VACCINATION_TRANSFER_DURATION_MAX: Double = 45.0
 
 internal const val WAITING_TRANSFER_DURATION_MIN: Double = 45.0
 internal const val WAITING_TRANSFER_DURATION_MAX: Double = 110.0
+
+internal const val INJECTIONS_TRANSFER_DURATION_MIN: Double = 10.0
+internal const val INJECTIONS_TRANSFER_DURATION_MAX: Double = 18.0

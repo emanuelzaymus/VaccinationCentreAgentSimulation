@@ -29,8 +29,9 @@ class Ids {
         const val examinationTransferProcess = 1008
         const val vaccinationTransferProcess = 1009
         const val waitingTransferProcess = 1010
-        const val injectionsPreparationTransferProcess = 1010
-        const val canteenTransferProcess = 1010
+        const val toInjectionsTransferProcess = 1011
+        const val fromInjectionsTransferProcess = 1012
+        const val canteenTransferProcess = 1013
     }
 
 }

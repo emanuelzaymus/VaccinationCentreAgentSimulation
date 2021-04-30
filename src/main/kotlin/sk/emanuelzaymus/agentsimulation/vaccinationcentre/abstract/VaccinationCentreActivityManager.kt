@@ -18,11 +18,11 @@ abstract class VaccinationCentreActivityManager(
     override fun processMessage(message: MessageForm) {
         debug(debugName, message)
 
-        when (message.code()) {
-
-            activityStartMsgCode -> tryStartActivity(message as Message)
+        when {
+            message.code() == activityStartMsgCode -> tryStartActivity(message as Message)
             // Process - activity done
-            IdList.finish -> activityDone(message as Message)
+            message.code() == IdList.finish && message.sender().id() == activityProcessId ->
+                activityDone(message as Message)
         }
     }
 

@@ -1,5 +1,6 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
 
+import OSPABA.IdList
 import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
@@ -9,7 +10,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreActivityManager
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsPreparationMessage
 
-class VaccinationManager(mySim: Simulation, private val myAgent: VaccinationAgent) :
+class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
     VaccinationCentreActivityManager(Ids.vaccinationManager, mySim, myAgent) {
 
     private val preparationMessagePool = Pool { InjectionsPreparationMessage(mySim) }
@@ -24,7 +25,15 @@ class VaccinationManager(mySim: Simulation, private val myAgent: VaccinationAgen
         super.processMessage(message)
 
         when (message.code()) {
-            MessageCodes.injectionsPreparationEnd -> injectionsPreparationDone(message as InjectionsPreparationMessage)
+
+            MessageCodes.injectionsPreparationEnd -> startFromInjectionsTransfer(message as InjectionsPreparationMessage)
+
+            IdList.finish -> when (message.sender().id()) {
+
+                Ids.toInjectionsTransferProcess -> requestInjectionsPreparation(message as InjectionsPreparationMessage)
+
+                Ids.fromInjectionsTransferProcess -> fromInjectionsTransferDone(message as InjectionsPreparationMessage)
+            }
         }
     }
 
@@ -35,22 +44,33 @@ class VaccinationManager(mySim: Simulation, private val myAgent: VaccinationAgen
         if (nurse.hasAnyInjectionLeft())
             startActivityIfAnyWaiting()
         else
-            requestInjectionsPreparation(nurse)
+            startToInjectionsTransfer(nurse)
 
         message.setCode(activityEndMsgCode)
         response(message)
     }
 
-    private fun requestInjectionsPreparation(nurse: Nurse) {
+    private fun startToInjectionsTransfer(nurse: Nurse) {
         val message = preparationMessagePool.acquire().also { it.nurse = nurse }
+        message.setAddressee(Ids.toInjectionsTransferProcess)
 
+        startContinualAssistant(message)
+    }
+
+    private fun requestInjectionsPreparation(message: InjectionsPreparationMessage) {
         message.setCode(MessageCodes.injectionsPreparationStart)
-        message.setAddressee(mySim().findAgent(Ids.injectionsAgent))
+        message.setAddressee(mySim().findAgent(Ids.injectionsAgent)) // TODO: message.setAddressee(Ids.injectionsAgent)
 
         request(message)
     }
 
-    private fun injectionsPreparationDone(message: InjectionsPreparationMessage) {
+    private fun startFromInjectionsTransfer(message: InjectionsPreparationMessage) {
+        message.setAddressee(Ids.fromInjectionsTransferProcess)
+
+        startContinualAssistant(message)
+    }
+
+    private fun fromInjectionsTransferDone(message: InjectionsPreparationMessage) {
         preparationMessagePool.release(message)
 
         startActivityIfAnyWaiting()
