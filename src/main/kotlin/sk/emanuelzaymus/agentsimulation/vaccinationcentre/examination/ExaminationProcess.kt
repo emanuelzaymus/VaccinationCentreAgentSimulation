@@ -6,7 +6,7 @@ import OSPRNG.ExponentialRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.EXAMINATION_DURATION_MEAN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreActivityProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityProcess
 
 class ExaminationProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreActivityProcess(Ids.examinationProcess, mySim, myAgent) {

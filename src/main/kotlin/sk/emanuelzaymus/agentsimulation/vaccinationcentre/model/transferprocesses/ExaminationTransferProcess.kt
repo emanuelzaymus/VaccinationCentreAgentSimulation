@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.transferprocesses
 
 import OSPABA.CommonAgent
 import OSPABA.Simulation
@@ -6,9 +6,10 @@ import OSPRNG.UniformContinuousRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.EXAMINATION_TRANSFER_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.EXAMINATION_TRANSFER_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreTransferProcess
 
 class ExaminationTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
-    TransferProcess(Ids.examinationTransferProcess, mySim, myAgent) {
+    VaccinationCentreTransferProcess(Ids.examinationTransferProcess, mySim, myAgent) {
 
     companion object {
         val transferDuration =

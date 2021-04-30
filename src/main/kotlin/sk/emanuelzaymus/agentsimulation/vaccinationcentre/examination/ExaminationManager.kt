@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreActivityManager
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityManager
 
 class ExaminationManager(mySim: Simulation, myAgent: ExaminationAgent) :
     VaccinationCentreActivityManager(Ids.examinationManager, mySim, myAgent) {

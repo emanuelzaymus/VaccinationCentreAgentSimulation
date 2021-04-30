@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 
 interface IStatisticsAgent {
     

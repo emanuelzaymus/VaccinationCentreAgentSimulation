@@ -7,7 +7,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VACCINATION_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VACCINATION_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VACCINATION_DURATION_MODE
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreActivityProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityProcess
 
 class VaccinationProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreActivityProcess(Ids.vaccinationProcess, mySim, myAgent) {

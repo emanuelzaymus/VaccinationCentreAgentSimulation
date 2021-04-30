@@ -2,7 +2,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
 
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_COUNT_TO_PREPARE
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreWorker
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
 class Nurse(id: Int, workloadStat: WStat) : VaccinationCentreWorker(id, workloadStat) {
 

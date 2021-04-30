@@ -7,7 +7,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.REGISTRATION_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.REGISTRATION_DURATION_MIN
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreActivityProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityProcess
 
 class RegistrationProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreActivityProcess(Ids.registrationProcess, mySim, myAgent) {

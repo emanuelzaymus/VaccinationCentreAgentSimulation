@@ -7,7 +7,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreManager
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreManager
 
 class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
     VaccinationCentreManager(Ids.waitingManager, mySim, myAgent) {

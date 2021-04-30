@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.transferprocesses
 
 import OSPABA.CommonAgent
 import OSPABA.Simulation
@@ -6,10 +6,10 @@ import OSPRNG.UniformContinuousRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_TRANSFER_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_TRANSFER_DURATION_MIN
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.TransferProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreTransferProcess
 
 class FromInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
-    TransferProcess(Ids.fromInjectionsTransferProcess, mySim, myAgent) {
+    VaccinationCentreTransferProcess(Ids.fromInjectionsTransferProcess, mySim, myAgent) {
 
     companion object {
         val transferDuration = UniformContinuousRNG(INJECTIONS_TRANSFER_DURATION_MIN, INJECTIONS_TRANSFER_DURATION_MAX)

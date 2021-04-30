@@ -1,10 +1,11 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 
 import OSPABA.IdList
 import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreManager
 
 abstract class VaccinationCentreActivityManager(
     id: Int, mySim: Simulation, private val myAgent: VaccinationCentreActivityAgent<*>

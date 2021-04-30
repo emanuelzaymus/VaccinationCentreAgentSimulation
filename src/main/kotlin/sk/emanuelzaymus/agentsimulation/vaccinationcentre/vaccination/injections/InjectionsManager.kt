@@ -5,7 +5,7 @@ import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreManager
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreManager
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
 class InjectionsManager(mySim: Simulation, private val myAgent: InjectionsAgent) :

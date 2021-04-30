@@ -1,7 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 
 import OSPStat.Stat
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.IStatisticsAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.IStatisticsAgent
 
 class AgentStats {
 

@@ -5,7 +5,9 @@ import OSPABA.Simulation
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract.VaccinationCentreActivityAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.transferprocesses.FromInjectionsTransferProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.transferprocesses.ToInjectionsTransferProcess
 
 class VaccinationAgent(mySim: Simulation, parent: Agent, numberOfNurses: Int) :
     VaccinationCentreActivityAgent<Nurse>(

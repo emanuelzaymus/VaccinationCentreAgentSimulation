@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstract
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 
 import OSPABA.Agent
 import OSPABA.Simulation
@@ -7,6 +7,8 @@ import OSPStat.Stat
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.BusyList
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
 abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
     id: Int, mySim: Simulation, parent: Agent?, numberOfWorkers: Int, init: (Int) -> T
