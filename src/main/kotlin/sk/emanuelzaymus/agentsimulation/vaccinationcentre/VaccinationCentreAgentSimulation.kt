@@ -14,11 +14,12 @@ class VaccinationCentreAgentSimulation(
     numberOfPatients: Int,
     numberOfAdminWorkers: Int,
     numberOfDoctors: Int,
-    numberOfNurses: Int
+    numberOfNurses: Int,
+    earlyArrivals: Boolean
 ) : Simulation() {
 
     private val modelAgent = ModelAgent(this)
-    private val environmentAgent = EnvironmentAgent(this, modelAgent, numberOfPatients)
+    private val environmentAgent = EnvironmentAgent(this, modelAgent, numberOfPatients, earlyArrivals)
     private val registrationAgent = RegistrationAgent(this, modelAgent, numberOfAdminWorkers)
     private val examinationAgent = ExaminationAgent(this, modelAgent, numberOfDoctors)
     private val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
