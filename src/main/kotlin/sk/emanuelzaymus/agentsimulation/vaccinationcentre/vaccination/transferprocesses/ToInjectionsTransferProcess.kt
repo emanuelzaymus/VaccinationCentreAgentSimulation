@@ -3,10 +3,10 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.transferp
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_TRANSFER_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_TRANSFER_DURATION_MIN
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreTransferProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
 
 class ToInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreTransferProcess(Ids.toInjectionsTransferProcess, mySim, myAgent) {

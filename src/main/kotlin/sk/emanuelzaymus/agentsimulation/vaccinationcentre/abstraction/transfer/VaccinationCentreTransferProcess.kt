@@ -1,10 +1,11 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer
 
 import OSPABA.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
-abstract class VaccinationCentreTransferProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) : Process(id, mySim, myAgent) {
+abstract class VaccinationCentreTransferProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) :
+    Process(id, mySim, myAgent) {
 
     protected abstract val debugName: String
 
@@ -21,11 +22,11 @@ abstract class VaccinationCentreTransferProcess(id: Int, mySim: Simulation, myAg
         }
     }
 
-    private fun startTransfer(message: MessageForm) {
+    protected open fun startTransfer(message: MessageForm) {
         message.setCode(MessageCodes.transferEnd)
         hold(getDuration(), message)
     }
 
-    private fun endTransfer(message: MessageForm) = assistantFinished(message)
+    protected open fun endTransfer(message: MessageForm) = assistantFinished(message)
 
 }

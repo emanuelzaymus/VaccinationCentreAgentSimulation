@@ -6,7 +6,7 @@ import OSPRNG.UniformContinuousRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.EXAMINATION_TRANSFER_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.EXAMINATION_TRANSFER_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreTransferProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
 
 class ExaminationTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreTransferProcess(Ids.examinationTransferProcess, mySim, myAgent) {
