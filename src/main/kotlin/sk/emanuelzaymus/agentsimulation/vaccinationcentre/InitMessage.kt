@@ -1,18 +1,16 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 
-import OSPABA.MessageForm
 import OSPABA.Simulation
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreMessage
 
-class InitMessage(mySim: Simulation) : MessageForm(mySim) {
+class InitMessage(mySim: Simulation) : VaccinationCentreMessage(mySim) {
 
     init {
         setCode(MessageCodes.init)
     }
 
-    override fun createCopy(): MessageForm {
-        throw IllegalStateException("Cannot create a copy from InitMessage.")
-    }
+    override fun restart() {}
 
-    override fun toString(): String = "%-26s - ${super.toString()}".format(MessageCodes.getName(code()))
+    override fun toString() = "${super.toString()} (${deliveryTime()})"
 
 }
