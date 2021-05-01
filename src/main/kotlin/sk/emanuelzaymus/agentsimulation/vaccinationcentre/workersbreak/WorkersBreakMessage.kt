@@ -1,10 +1,10 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.workersbreak
 
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
-class WorkerTransferMessage(mySim: Simulation) : VaccinationCentreMessage(mySim) {
+class WorkersBreakMessage(mySim: Simulation) : VaccinationCentreMessage(mySim) {
 
     var worker: VaccinationCentreWorker? = null
 

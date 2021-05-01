@@ -16,7 +16,7 @@ abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
 
     protected abstract val statsName: String
 
-    val queue = SimQueue<Message>(WStat(mySim()))
+    val queue = SimQueue<Message>(WStat(mySim))
     val waitingTimeStat = Stat()
     val workers = BusyList(numberOfWorkers, init)
 

@@ -25,7 +25,11 @@ class MessageCodes {
         const val injectionsPreparationStart = 11
         const val injectionsPreparationEnd = 12
 
-        const val transferEnd = 13
+        const val breakStart = 13
+        const val breakEnd = 14
+        const val lunchEnd = 15
+
+        const val transferEnd = 98
 
         const val patientLeaving = 99
 

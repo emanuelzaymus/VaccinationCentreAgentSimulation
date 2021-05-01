@@ -10,6 +10,7 @@ class Ids {
         const val vaccinationAgent = 5
         const val waitingAgent = 6
         const val injectionsAgent = 7
+        const val breakAgent = 8
 
         const val modelManager = 101
         const val environmentManager = 102
@@ -18,6 +19,7 @@ class Ids {
         const val vaccinationManager = 105
         const val waitingManager = 106
         const val injectionsManager = 107
+        const val breakManager = 108
 
         const val patientArrivalsScheduler = 1002
         const val registrationProcess = 1003
@@ -31,7 +33,11 @@ class Ids {
         const val waitingTransferProcess = 1010
         const val toInjectionsTransferProcess = 1011
         const val fromInjectionsTransferProcess = 1012
-        const val canteenTransferProcess = 1013
+
+        const val toCanteenTransferProcess = 1013
+        const val fromCanteenTransferProcess = 1014
+
+        const val lunchProcess = 1015
     }
 
 }

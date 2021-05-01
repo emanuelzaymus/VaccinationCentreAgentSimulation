@@ -2,6 +2,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 
 import OSPABA.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
 abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) :
@@ -24,6 +25,7 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
     }
 
     protected open fun startActivity(message: Message) {
+        message.worker!!.state = WorkerState.WORKING
         message.worker!!.isBusy = true
         message.setCode(activityEndMsgCode)
 
@@ -31,6 +33,7 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
     }
 
     private fun endActivity(message: Message) {
+        message.worker!!.state = WorkerState.FREE
         message.worker!!.isBusy = false
 
         assistantFinished(message)
