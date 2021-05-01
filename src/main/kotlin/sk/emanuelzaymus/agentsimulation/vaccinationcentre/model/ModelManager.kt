@@ -16,7 +16,7 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
 
         when (message.code()) {
 
-            MessageCodes.init -> noticeEnvironmentInit(message)
+            MessageCodes.init -> noticeAgentsInit(message)
 
             MessageCodes.patientArrival -> requestRegistration(message)
 
@@ -38,7 +38,11 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
         }
     }
 
-    private fun noticeEnvironmentInit(message: MessageForm) {
+    private fun noticeAgentsInit(message: MessageForm) {
+        notice(message.createCopy().apply { setAddressee(Ids.registrationAgent) })
+        notice(message.createCopy().apply { setAddressee(Ids.examinationAgent) })
+        notice(message.createCopy().apply { setAddressee(Ids.vaccinationAgent) })
+
         message.setAddressee(Ids.environmentAgent)
         notice(message)
     }

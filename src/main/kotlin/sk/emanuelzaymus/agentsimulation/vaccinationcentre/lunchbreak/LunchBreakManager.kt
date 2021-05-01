@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.workersbreak
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak
 
 import OSPABA.IdList
 import OSPABA.MessageForm
@@ -9,7 +9,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
-class BreakManager(mySim: Simulation, myAgent: BreakAgent) :
+class LunchBreakManager(mySim: Simulation, myAgent: LunchBreakAgent) :
     VaccinationCentreManager(Ids.breakManager, mySim, myAgent) {
 
     override fun processMessage(message: MessageForm) {

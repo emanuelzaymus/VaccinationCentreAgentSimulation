@@ -13,5 +13,6 @@ class ExaminationManager(mySim: Simulation, myAgent: ExaminationAgent) :
     override val activityStartMsgCode = MessageCodes.examinationStart
     override val activityEndMsgCode = MessageCodes.examinationEnd
     override val activityProcessId = Ids.examinationProcess
+    override val lunchBreakSchedulerId = Ids.doctorsLunchBreakScheduler
 
 }

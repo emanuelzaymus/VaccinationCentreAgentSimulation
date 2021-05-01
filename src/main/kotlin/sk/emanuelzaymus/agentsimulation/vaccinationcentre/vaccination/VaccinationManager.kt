@@ -20,6 +20,7 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
     override val activityStartMsgCode = MessageCodes.vaccinationStart
     override val activityEndMsgCode = MessageCodes.vaccinationEnd
     override val activityProcessId = Ids.vaccinationProcess
+    override val lunchBreakSchedulerId = Ids.nursesLunchBreakScheduler
 
     override fun processMessage(message: MessageForm) {
         super.processMessage(message)

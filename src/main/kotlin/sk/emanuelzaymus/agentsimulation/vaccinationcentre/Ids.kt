@@ -38,6 +38,10 @@ class Ids {
         const val fromCanteenTransferProcess = 1014
 
         const val lunchProcess = 1015
+
+        const val adminWorkersLunchBreakScheduler = 1016
+        const val doctorsLunchBreakScheduler = 1017
+        const val nursesLunchBreakScheduler = 1018
     }
 
 }

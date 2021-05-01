@@ -17,9 +17,12 @@ class ExaminationAgent(mySim: Simulation, parent: Agent, numberOfDoctors: Int) :
     init {
         ExaminationManager(mySim, this)
         ExaminationProcess(mySim, this)
+        DoctorsLunchBreakScheduler(mySim, this)
 
+        addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.examinationStart)
         addOwnMessage(MessageCodes.examinationEnd)
+        addOwnMessage(MessageCodes.lunchBreakNow)
     }
 
 }

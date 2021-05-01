@@ -21,10 +21,13 @@ class VaccinationAgent(mySim: Simulation, parent: Agent, numberOfNurses: Int) :
         VaccinationProcess(mySim, this)
         ToInjectionsTransferProcess(mySim, this)
         FromInjectionsTransferProcess(mySim, this)
+        NursesLunchBreakScheduler(mySim, this)
 
+        addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.vaccinationStart)
         addOwnMessage(MessageCodes.vaccinationEnd)
         addOwnMessage(MessageCodes.injectionsPreparationEnd)
+        addOwnMessage(MessageCodes.lunchBreakNow)
 
         addOwnMessage(MessageCodes.transferEnd)
     }

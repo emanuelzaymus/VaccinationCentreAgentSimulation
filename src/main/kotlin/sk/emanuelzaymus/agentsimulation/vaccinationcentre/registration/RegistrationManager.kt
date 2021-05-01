@@ -13,5 +13,6 @@ class RegistrationManager(mySim: Simulation, myAgent: RegistrationAgent) :
     override val activityStartMsgCode = MessageCodes.registrationStart
     override val activityEndMsgCode = MessageCodes.registrationEnd
     override val activityProcessId = Ids.registrationProcess
+    override val lunchBreakSchedulerId = Ids.adminWorkersLunchBreakScheduler
 
 }

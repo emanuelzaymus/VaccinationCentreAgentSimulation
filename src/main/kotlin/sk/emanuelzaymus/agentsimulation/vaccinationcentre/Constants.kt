@@ -3,6 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 // All time values are in seconds.
 
 internal const val WORKING_TIME: Double = 9 * 60 * 60.0 // 32_400
+private const val START_HOUR: Int = 8
 
 internal const val NORMAL_PATIENT_COUNT: Int = 540
 internal const val NOT_ARRIVING_PATIENTS_MIN: Double = 5.0
@@ -44,3 +45,7 @@ internal const val CANTEEN_TRANSFER_DURATION_MAX: Double = 200.0
 internal const val LUNCH_DURATION_MIN: Double = 5 * 60.0 // 300
 internal const val LUNCH_DURATION_MODE: Double = 15 * 60.0 // 900
 internal const val LUNCH_DURATION_MAX: Double = 30 * 60.0 // 1_800
+
+internal const val ADMIN_WORKERS_LUNCH_BREAK_START: Double = (11 - START_HOUR) * 60 * 60.0 // 10_800 // 11:00
+internal const val DOCTORS_LUNCH_BREAK_START: Double = (11 - START_HOUR) * 60 * 60 + 45 * 60.0 // 13_500 // 11:45
+internal const val NURSES_LUNCH_BREAK_START: Double = (13 - START_HOUR) * 60 * 60 + 30 * 60.0  // 19_800 // 13:30

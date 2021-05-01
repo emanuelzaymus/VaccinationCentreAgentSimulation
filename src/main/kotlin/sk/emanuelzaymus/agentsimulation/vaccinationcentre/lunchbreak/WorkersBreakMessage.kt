@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre.workersbreak
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak
 
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreMessage
