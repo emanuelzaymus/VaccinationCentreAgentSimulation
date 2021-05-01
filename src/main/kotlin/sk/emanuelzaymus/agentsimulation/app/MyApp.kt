@@ -3,12 +3,21 @@ package sk.emanuelzaymus.agentsimulation.app
 import javafx.application.Platform
 import javafx.stage.Stage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgentSimulation
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.arrivaltimesgenerators.ExactArrivalTimesGenerator
 import sk.emanuelzaymus.agentsimulation.view.MainView
 import tornadofx.App
 
 class MyApp : App(MainView::class, Styles::class) {
 
     override fun start(stage: Stage) {
+
+//        val s = ExactArrivalTimesGenerator.generateArrivalTimes(10)
+//        println(s)
+//
+//        Platform.exit()
+//        return
+
+
 //        super.start(stage)
 
 //        RNG.setSeedGen(Random(1))

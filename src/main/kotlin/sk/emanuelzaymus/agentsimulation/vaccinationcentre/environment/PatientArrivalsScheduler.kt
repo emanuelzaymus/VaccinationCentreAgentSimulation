@@ -34,8 +34,8 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOf
 
     private fun startScheduling(message: MessageForm) {
         message.setCode(MessageCodes.scheduleArrival)
-        // Deliver immediately
-        hold(.0, message)
+
+        scheduleNextPatientArrival(message)
     }
 
     private fun scheduleArrival(message: MessageForm) {
@@ -46,7 +46,7 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOf
 
     private fun scheduleNextPatientArrival(message: MessageForm) {
         if (!arrivalTimes.isEnd())
-            hold(arrivalTimes.nextArrival(), message)
+            hold(arrivalTimes.nextBetweenArrivalsDuration(), message)
     }
 
     private fun returnPatient(message: MessageForm) = messagePool.release(message as Message)
@@ -58,10 +58,17 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOf
 
     private class ArrivalTimes(val numberOfPatients: Int, val generator: ArrivalTimesGenerator) : IReusable {
 
-        private var arrivalTimes = generator.generateArrivalTimes(numberOfPatients)
+        private var arrivalTimes: List<Double> = generator.generateArrivalTimes(numberOfPatients)
         private var index = 0
 
-        fun nextArrival(): Double = arrivalTimes[index++]
+        fun nextBetweenArrivalsDuration(): Double {
+            val ret: Double =
+                if (index <= 0) arrivalTimes[index]
+                else arrivalTimes[index] - arrivalTimes[index - 1]
+
+            index++
+            return ret
+        }
 
         fun isEnd() = index >= arrivalTimes.size
 

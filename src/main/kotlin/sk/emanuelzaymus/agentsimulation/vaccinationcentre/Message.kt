@@ -1,13 +1,12 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 
-import OSPABA.MessageForm
 import OSPABA.Simulation
-import sk.emanuelzaymus.agentsimulation.utils.pool.IPooledObject
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
-class Message : MessageForm, IPooledObject {
+class Message(mySim: Simulation) : VaccinationCentreMessage(mySim) {
 
-    val patient: Patient
+    val patient = Patient(mySim)
 
     var worker: VaccinationCentreWorker? = null
         set(value) {
@@ -15,16 +14,6 @@ class Message : MessageForm, IPooledObject {
                 throw IllegalStateException("Worker is not null - cannot be assigned with non-null value.")
             field = value
         }
-
-    constructor(mySim: Simulation) : super(mySim) {
-        patient = Patient(mySim)
-    }
-
-    private constructor(original: Message) : super(original) {
-        patient = original.patient.copy()
-    }
-
-    override fun createCopy(): MessageForm = Message(this)
 
     override fun restart() {
         if (worker != null)
@@ -34,7 +23,6 @@ class Message : MessageForm, IPooledObject {
         patient.restart()
     }
 
-    override fun toString(): String =
-        "%-26s - Patient: $patient, Worker: $worker ${super.toString()}".format(MessageCodes.getName(code()))
+    override fun toString() = "${super.toString()} Patient: $patient, Worker: $worker (${super.deliveryTime()})"
 
 }
