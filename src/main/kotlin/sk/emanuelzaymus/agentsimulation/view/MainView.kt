@@ -1,11 +1,12 @@
 package sk.emanuelzaymus.agentsimulation.view
 
 import javafx.scene.control.CheckBox
+import javafx.scene.control.TabPane
 import sk.emanuelzaymus.agentsimulation.app.Styles
 import sk.emanuelzaymus.agentsimulation.controller.MainController
 import tornadofx.*
 
-class MainView : View("Hello TornadoFX") {
+class MainView : View("Vaccination Centre Agent Simulation") {
 
     private val smallSpaces = 10
     private val largeSpaces = 30
@@ -130,6 +131,13 @@ class MainView : View("Hello TornadoFX") {
                 label("Replication number:") { addClass(Styles.smallHeading) }
                 label(mainController.currentReplicNumber)
             }
+        }
+        tabpane {
+            tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
+            tab(find<Room>(mapOf(Room::tabTitle to "Registration")))
+            tab(find<Room>(mapOf(Room::tabTitle to "Examination")))
+            tab(find<Room>(mapOf(Room::tabTitle to "Vaccination")))
+            tab(find<Room>(mapOf(Room::tabTitle to "Waiting")))
         }
     }
 
