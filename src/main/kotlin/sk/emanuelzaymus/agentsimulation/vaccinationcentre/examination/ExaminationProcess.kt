@@ -16,7 +16,7 @@ class ExaminationProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     override val debugName = "ExaminationProcess"
-    override val activityEndMsgCode = MessageCodes.examinationEnd
+    override val processEndMsgCode = MessageCodes.examinationEnd
 
     override fun getDuration(): Double = registrationDuration.sample()
 
