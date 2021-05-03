@@ -24,8 +24,6 @@ class EnvironmentAgent(mySim: Simulation, parent: Agent, numberOfPatients: Int, 
         patientArrivalsScheduler.restart()
     }
 
-    override fun checkFinalState() {
-        patientArrivalsScheduler.checkFinalState()
-    }
+    override fun checkFinalState() = patientArrivalsScheduler.checkFinalState()
 
 }

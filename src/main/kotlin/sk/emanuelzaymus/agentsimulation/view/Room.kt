@@ -52,6 +52,11 @@ class Room : Fragment() {
                         label("Average workload:")
                         label("0.0")
                     }
+                    label("Next Stage Transit") { addClass(Styles.smallHeading) }
+                    hbox(smallSpaces) {
+                        label("Count:")
+                        label("5")
+                    }
                 }
                 vbox(smallSpaces) {
                     prefWidth = preferredWidth
