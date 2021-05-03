@@ -9,7 +9,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
 
 class FromCanteenTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
-    VaccinationCentreTransferProcess(Ids.fromCanteenTransferProcess, mySim, myAgent) {
+    VaccinationCentreTransferProcess<WorkersBreakMessage>(Ids.fromCanteenTransferProcess, mySim, myAgent) {
 
     companion object {
         val transferDuration = UniformContinuousRNG(CANTEEN_TRANSFER_DURATION_MIN, CANTEEN_TRANSFER_DURATION_MAX)

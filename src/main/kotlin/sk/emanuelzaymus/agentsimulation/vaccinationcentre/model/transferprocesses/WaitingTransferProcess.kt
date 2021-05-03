@@ -9,7 +9,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.WAITING_TRANSFER_DURAT
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
 
 class WaitingTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
-    VaccinationCentreTransferProcess(Ids.waitingTransferProcess, mySim, myAgent) {
+    VaccinationCentreTransferProcess<Message>(Ids.waitingTransferProcess, mySim, myAgent) {
 
     companion object {
         val transferDuration = UniformContinuousRNG(WAITING_TRANSFER_DURATION_MIN, WAITING_TRANSFER_DURATION_MAX)

@@ -7,12 +7,13 @@ import OSPRNG.UniformContinuousRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_TRANSFER_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_TRANSFER_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsPreparationMessage
 
 class FromInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
-    VaccinationCentreTransferProcess(Ids.fromInjectionsTransferProcess, mySim, myAgent) {
+    VaccinationCentreTransferProcess<InjectionsPreparationMessage>(Ids.fromInjectionsTransferProcess, mySim, myAgent) {
 
     companion object {
         val transferDuration = UniformContinuousRNG(INJECTIONS_TRANSFER_DURATION_MIN, INJECTIONS_TRANSFER_DURATION_MAX)
@@ -22,13 +23,13 @@ class FromInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
 
     override fun getDuration(): Double = transferDuration.sample()
 
-    override fun startProcess(message: MessageForm) {
-        (message as InjectionsPreparationMessage).nurse!!.state = WorkerState.GOING_FROM_INJECTIONS_PREPARATION
+    override fun startProcess(message: InjectionsPreparationMessage) {
+        message.nurse!!.state = WorkerState.GOING_FROM_INJECTIONS_PREPARATION
         super.startProcess(message)
     }
 
-    override fun endProcess(message: MessageForm) {
-        (message as InjectionsPreparationMessage).nurse!!.state = WorkerState.FREE
+    override fun endProcess(message: InjectionsPreparationMessage) {
+        message.nurse!!.state = WorkerState.FREE
         super.endProcess(message)
     }
 

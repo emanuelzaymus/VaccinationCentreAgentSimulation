@@ -3,40 +3,30 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injection
 import OSPABA.*
 import OSPRNG.TriangularRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 
 class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
-    Process(Ids.injectionsPreparationProcess, mySim, myAgent) {
+    VaccinationCentreProcess<InjectionsPreparationMessage>(Ids.injectionsPreparationProcess, mySim, myAgent) {
 
     companion object {
         private val preparationDuration =
             TriangularRNG(INJECTION_PREP_DURATION_MIN, INJECTION_PREP_DURATION_MODE, INJECTION_PREP_DURATION_MAX)
     }
 
-    override fun processMessage(message: MessageForm) {
-        debug("InjectionsPreparationProcess", message)
+    override val debugName = "InjectionsPreparationProcess"
+    override val processEndMsgCode = MessageCodes.injectionsPreparationEnd
 
-        when (message.code()) {
-            // Manager - start activity
-            IdList.start -> startActivity(message as InjectionsPreparationMessage)
+    override fun getDuration(): Double = List(INJECTIONS_COUNT_TO_PREPARE) { preparationDuration.sample() }.sum()
 
-            MessageCodes.injectionsPreparationEnd -> endActivity(message as InjectionsPreparationMessage)
-        }
-    }
-
-    private fun startActivity(message: InjectionsPreparationMessage) {
+    override fun startProcess(message: InjectionsPreparationMessage) {
         message.nurse!!.state = WorkerState.PREPARING_INJECTIONS
-        message.setCode(MessageCodes.injectionsPreparationEnd)
-
-        hold(getDuration(), message)
+        super.startProcess(message)
     }
 
-    private fun endActivity(message: InjectionsPreparationMessage) {
+    override fun endProcess(message: InjectionsPreparationMessage) {
         message.nurse!!.restartInjectionLeft()
-
-        assistantFinished(message)
+        super.endProcess(message)
     }
-
-    private fun getDuration(): Double = List(INJECTIONS_COUNT_TO_PREPARE) { preparationDuration.sample() }.sum()
 
 }

@@ -12,7 +12,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.V
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsPreparationMessage
 
 class ToInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
-    VaccinationCentreTransferProcess(Ids.toInjectionsTransferProcess, mySim, myAgent) {
+    VaccinationCentreTransferProcess<InjectionsPreparationMessage>(Ids.toInjectionsTransferProcess, mySim, myAgent) {
 
     companion object {
         val transferDuration = UniformContinuousRNG(INJECTIONS_TRANSFER_DURATION_MIN, INJECTIONS_TRANSFER_DURATION_MAX)
@@ -22,8 +22,8 @@ class ToInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
 
     override fun getDuration(): Double = transferDuration.sample()
 
-    override fun startProcess(message: MessageForm) {
-        (message as InjectionsPreparationMessage).nurse!!.state = WorkerState.GOING_TO_PREPARE_INJECTIONS
+    override fun startProcess(message: InjectionsPreparationMessage) {
+        message.nurse!!.state = WorkerState.GOING_TO_PREPARE_INJECTIONS
         super.startProcess(message)
     }
 
