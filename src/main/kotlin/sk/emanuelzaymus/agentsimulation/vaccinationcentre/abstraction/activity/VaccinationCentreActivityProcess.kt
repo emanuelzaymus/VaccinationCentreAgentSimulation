@@ -26,7 +26,6 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
 
     protected open fun startActivity(message: Message) {
         message.worker!!.state = WorkerState.WORKING
-        message.worker!!.isBusy = true
         message.setCode(activityEndMsgCode)
 
         hold(getDuration(), message)
@@ -34,7 +33,6 @@ abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAg
 
     private fun endActivity(message: Message) {
         message.worker!!.state = WorkerState.FREE
-        message.worker!!.isBusy = false
 
         assistantFinished(message)
     }

@@ -2,25 +2,27 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction
 
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.IBusyObject
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.Nurse
 
 abstract class VaccinationCentreWorker(private val id: Int, val workloadStat: WStat) : IBusyObject {
 
     protected abstract val stringName: String
 
-    var isDining: Boolean = false
-    var inTransfer: Boolean = false // TODO: prerob !!! na state
-
     override var isBusy: Boolean = false
-        get() =  field || isDining || inTransfer && state.isBusy()
-        set(value) {
-            if (value == field)
-                throw IllegalArgumentException("Cannot reassigned isBusy with the same value.")
+        protected set(value) {
+//            if (value == field)
+//                throw IllegalArgumentException("Cannot reassigned isBusy with the same value.")
             field = value
             workloadStat.addSample(if (value) 1.0 else .0)
         }
 
-    var state = WorkerState.FREE
+    open var state = WorkerState.FREE
         set(value) {
+            if (this is Nurse && value == WorkerState.FREE && field == WorkerState.GOING_FROM_INJECTIONS_PREPARATION) {
+                field = value
+                isBusy = field.isBusy()
+                return
+            }
             if (value == WorkerState.WORKING && field != WorkerState.FREE)
                 throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.FREE}.")
             if (value == WorkerState.FREE && (field != WorkerState.WORKING && field != WorkerState.GOING_FROM_LUNCH))
@@ -33,6 +35,7 @@ abstract class VaccinationCentreWorker(private val id: Int, val workloadStat: WS
                 throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.DINING}.")
 
             field = value
+            isBusy = field.isBusy()
         }
 
     override fun restart() = workloadStat.clear()

@@ -3,6 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injection
 import OSPABA.*
 import OSPRNG.TriangularRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 
 class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
     Process(Ids.injectionsPreparationProcess, mySim, myAgent) {
@@ -24,7 +25,7 @@ class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     private fun startActivity(message: InjectionsPreparationMessage) {
-        message.nurse!!.isPreparing = true
+        message.nurse!!.state = WorkerState.PREPARING_INJECTIONS
         message.setCode(MessageCodes.injectionsPreparationEnd)
 
         hold(getDuration(), message)
@@ -32,7 +33,6 @@ class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
 
     private fun endActivity(message: InjectionsPreparationMessage) {
         message.nurse!!.restartInjectionLeft()
-        message.nurse!!.isPreparing = false
 
         assistantFinished(message)
     }

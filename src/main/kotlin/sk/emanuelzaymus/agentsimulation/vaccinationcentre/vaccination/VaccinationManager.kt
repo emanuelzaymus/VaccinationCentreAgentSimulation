@@ -7,6 +7,7 @@ import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityManager
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsPreparationMessage
 
@@ -60,7 +61,7 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
 
     private fun requestInjectionsPreparation(message: InjectionsPreparationMessage) {
         message.setCode(MessageCodes.injectionsPreparationStart)
-        message.setAddressee(mySim().findAgent(Ids.injectionsAgent)) // TODO: message.setAddressee(Ids.injectionsAgent)
+        message.setAddressee(Ids.injectionsAgent)
 
         request(message)
     }

@@ -30,7 +30,6 @@ class MyApp : App(MainView::class, Styles::class) {
 ////        val sim = VaccinationCentreAgentSimulation(2500, 23, 28, 14, false)
 //
 //
-//        sim.setSimSpeed(60.0, 1.0)
 //        sim.onSimulationWillStart { println("onSimulationWillStart") }
 //        sim.onRefreshUI { println("onRefreshUI") }
 //        sim.onPause { println("onPause") }
