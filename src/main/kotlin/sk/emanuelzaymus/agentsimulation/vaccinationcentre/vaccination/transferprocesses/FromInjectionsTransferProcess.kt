@@ -22,14 +22,14 @@ class FromInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
 
     override fun getDuration(): Double = transferDuration.sample()
 
-    override fun startTransfer(message: MessageForm) {
+    override fun startProcess(message: MessageForm) {
         (message as InjectionsPreparationMessage).nurse!!.state = WorkerState.GOING_FROM_INJECTIONS_PREPARATION
-        super.startTransfer(message)
+        super.startProcess(message)
     }
 
-    override fun endTransfer(message: MessageForm) {
+    override fun endProcess(message: MessageForm) {
         (message as InjectionsPreparationMessage).nurse!!.state = WorkerState.FREE
-        super.endTransfer(message)
+        super.endProcess(message)
     }
 
 }
