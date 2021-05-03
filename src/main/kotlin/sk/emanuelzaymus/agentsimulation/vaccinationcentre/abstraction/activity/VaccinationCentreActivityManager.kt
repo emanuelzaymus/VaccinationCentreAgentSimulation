@@ -76,7 +76,7 @@ abstract class VaccinationCentreActivityManager(
     }
 
     private fun sendWorkersToLunchBreak() {
-        TODO("implement")
+//        TODO("implement")
     }
 
 }
