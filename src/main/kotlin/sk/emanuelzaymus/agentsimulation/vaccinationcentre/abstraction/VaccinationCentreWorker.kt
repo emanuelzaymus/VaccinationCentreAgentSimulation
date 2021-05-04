@@ -4,7 +4,7 @@ import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.IBusyObject
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.Nurse
 
-abstract class VaccinationCentreWorker(private val id: Int, val workloadStat: WStat) : IBusyObject {
+abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : IBusyObject {
 
     protected abstract val stringName: String
 

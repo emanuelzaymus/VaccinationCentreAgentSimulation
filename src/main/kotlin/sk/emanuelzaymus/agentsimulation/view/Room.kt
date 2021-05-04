@@ -1,6 +1,8 @@
 package sk.emanuelzaymus.agentsimulation.view
 
 import sk.emanuelzaymus.agentsimulation.app.Styles
+import sk.emanuelzaymus.agentsimulation.controller.RoomData
+import sk.emanuelzaymus.agentsimulation.controller.Worker
 import tornadofx.*
 
 class Room : Fragment() {
@@ -9,10 +11,10 @@ class Room : Fragment() {
     private val largeSpaces = 30
     private val preferredWidth = 180.0
 
-    val tabTitle: String by param()
+    val room: RoomData by param()
 
     init {
-        title = tabTitle
+        title = room.tabTitle
     }
 
     override val root = hbox {
@@ -25,49 +27,47 @@ class Room : Fragment() {
                 addClass(Styles.biggerPadding)
                 vbox(smallSpaces) {
                     prefWidth = preferredWidth
-                    label("$tabTitle Queue") { addClass(Styles.smallHeading) }
+                    label("${room.tabTitle} Queue") { addClass(Styles.smallHeading) }
                     hbox(smallSpaces) {
                         label("Actual length:")
-                        label("0")
+                        label(room.queueActualLength)
                     }
                     hbox(smallSpaces) {
                         label("Average length:")
-                        label("0.0")
+                        label(room.queueAvgLength)
                     }
                     label("Average waiting time")
                     hbox(smallSpaces) {
                         label("In hours:")
-                        label("0:00:00.00000")
+                        label(room.queueAvgWaitingTimeInHours)
                     }
                     hbox(smallSpaces) {
                         label("In seconds:")
-                        label("0")
+                        label(room.queueAvgWaitingTime)
                     }
-                    label("Workers") { addClass(Styles.smallHeading) }
+                    label(room.workers) { addClass(Styles.smallHeading) }
                     hbox(smallSpaces) {
                         label("Busy workers:")
-                        label("0")
+                        label(room.busyWorkers)
                     }
                     hbox(smallSpaces) {
                         label("Average workload:")
-                        label("0.0")
+                        label(room.workload)
                     }
                     label("Next Stage Transit") { addClass(Styles.smallHeading) }
                     hbox(smallSpaces) {
                         label("Count:")
-                        label("5")
+                        label(room.nextStageTransitCount)
                     }
                 }
                 vbox(smallSpaces) {
-                    prefWidth = preferredWidth
-                    label("Administrative workers") { addClass(Styles.smallHeading) }
-//                tableview(mainController.regRoomPersonalWorkloads) {
-                    tableview(observableList<Any>()) {
-                        prefWidth = 170.0
-                        prefHeight = 210.0
-//                    readonlyColumn("Num", Worker::id).prefWidth = 40.0
-//                    readonlyColumn("Working", Worker::working).prefWidth = 60.0
-//                    readonlyColumn("Workload", Worker::avgWorkload).prefWidth = 77.0
+                    label(room.workers) { addClass(Styles.smallHeading) }
+                    tableview(room.personalWorkloads) {
+                        prefHeight = 260.0
+                        readonlyColumn("Num", Worker::id).prefWidth = 40.0
+                        readonlyColumn("Busy", Worker::busy).prefWidth = 40.0
+                        readonlyColumn("Workload", Worker::avgWorkload).prefWidth = 70.0
+                        readonlyColumn("State", Worker::state).prefWidth = 150.0
                     }
                 }
             }
@@ -82,51 +82,51 @@ class Room : Fragment() {
                 addClass(Styles.biggerPadding)
                 vbox(smallSpaces) {
                     prefWidth = preferredWidth
-                    label("$tabTitle Queue") { addClass(Styles.smallHeading) }
+                    label("${room.tabTitle} Queue") { addClass(Styles.smallHeading) }
                     hbox(smallSpaces) {
                         label("Average length:")
-                        label("0")
+                        label(room.allQueueAvgLength)
                     }
                     hbox(smallSpaces) {
                         label("95% lower bound:")
-                        label("0.6")
+                        label(room.allQueueAvgLenLower)
                     }
                     hbox(smallSpaces) {
                         label("95% upper bound:")
-                        label("0.9")
+                        label(room.allQueueAvgLenUpper)
                     }
                     label("Average waiting time")
                     hbox(smallSpaces) {
                         label("In hours:")
-                        label("0:00:00.00000")
+                        label(room.allQueueAvgWaitingTimeInHours)
                     }
                     hbox(smallSpaces) {
                         label("In seconds:")
-                        label("0")
+                        label(room.allQueueAvgWaitingTime)
                     }
                     hbox(smallSpaces) {
                         label("95% lower bound:")
-                        label("0.6")
+                        label(room.allQueueAvgWaitLower)
                     }
                     hbox(smallSpaces) {
                         label("95% upper bound:")
-                        label("0.9")
+                        label(room.allQueueAvgWaitUpper)
                     }
                 }
                 vbox(smallSpaces) {
                     prefWidth = preferredWidth
-                    label("Administrative Workers") { addClass(Styles.smallHeading) }
+                    label(room.workers) { addClass(Styles.smallHeading) }
                     hbox(smallSpaces) {
                         label("Average workload:")
-                        label("0.753")
+                        label(room.allWorkload)
                     }
                     hbox(smallSpaces) {
                         label("95% lower bound:")
-                        label("0.6")
+                        label(room.allWorkloadLower)
                     }
                     hbox(smallSpaces) {
                         label("95% upper bound:")
-                        label("0.9")
+                        label(room.allWorkloadUpper)
                     }
                 }
             }

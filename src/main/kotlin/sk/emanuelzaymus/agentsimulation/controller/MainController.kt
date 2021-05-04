@@ -6,8 +6,10 @@ import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.Alert
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgentSimulation
 import tornadofx.Controller
+import tornadofx.alert
 import tornadofx.onChange
 
 class MainController : Controller() {
@@ -21,7 +23,7 @@ class MainController : Controller() {
 
     private val startTime = 8 * 60 * 60.0
 
-    private val sim = VaccinationCentreAgentSimulation(
+    private var sim = VaccinationCentreAgentSimulation(
         initNumberOfPatients,
         initNumberOfAdminWorkers,
         initNumberOfDoctors,
@@ -39,6 +41,8 @@ class MainController : Controller() {
     val fromDoctors = SimpleStringProperty("1")
     val toDoctors = SimpleStringProperty("20")
     val numReplicPerExperiment = SimpleStringProperty("1000")
+
+    val useEarlyArrivals = SimpleBooleanProperty(false)
 
     val withAnimation = SimpleBooleanProperty(initWithAnimation).apply { onChange { setSpeed() } }
     val delayEvery = SimpleDoubleProperty(60.0).apply {
@@ -61,6 +65,10 @@ class MainController : Controller() {
     val actualSimSeconds = SimpleDoubleProperty(.0)
     val currentReplicNumber = SimpleIntegerProperty(1)
 
+    val registrationRoom = RoomData("Registration", "Administrative Workers")
+    val examinationRoom = RoomData("Examination", "Doctors")
+    val vaccinationRoom = RoomData("Vaccination", "Nurses")
+
     private fun setSpeed() {
         if (withAnimation.value)
             sim.setSimSpeed(delayEvery.doubleValue(), delayFor.doubleValue())
@@ -78,21 +86,60 @@ class MainController : Controller() {
     }
 
     private fun start() {
-        setSpeed()
-        sim.simulateAsync(replicationsCount.get().toInt())
+        if (restart()) {
+            setSpeed()
+            sim.simulateAsync(replicationsCount.get().toInt())
+        }
     }
 
     fun stop() = sim.stopSimulation()
 
-    init {
-        sim.onRefreshUI { refreshUI(it) }
-    }
+//    init {
+//        sim.onRefreshUI { refreshUI(it) }
+//    }
 
     private fun refreshUI(sim: Simulation) = Platform.runLater {
         actualSimTime.value = (sim.currentTime() + startTime).secondsToTime()
         actualSimSeconds.value = sim.currentTime()
-        currentReplicNumber.value = sim.currentReplication() + 1
+
+        registrationRoom.refresh((sim as VaccinationCentreAgentSimulation).registrationAgent, sim.registrationStats)
+        examinationRoom.refresh(sim.examinationAgent, sim.examinationStats)
+        vaccinationRoom.refresh(sim.vaccinationAgent, sim.vaccinationStats)
     }
 
+    private fun refreshCurrentReplic(sim: Simulation) =
+        Platform.runLater { currentReplicNumber.value = sim.currentReplication() + 1 }
+
+    private fun restart(): Boolean {
+        try {
+            replicationsCount.value.toInt()
+            val patients = numberOfPatients.value.toInt()
+            val workers = numberOfAdminWorkers.value.toInt()
+            val doctors = numberOfDoctors.value.toInt()
+            val nurses = numberOfNurses.value.toInt()
+            val earlyArrivals: Boolean = useEarlyArrivals.value
+
+            sim = VaccinationCentreAgentSimulation(patients, workers, doctors, nurses, earlyArrivals).apply {
+                onRefreshUI { refreshUI(it) }
+                onPause { refreshUI(it) }
+                onReplicationDidFinish { refreshCurrentReplic(it) }
+                onSimulationDidFinish { refreshUI(it) }
+            }
+
+            return true
+        } catch (e: NumberFormatException) {
+            showInvalidInputsAlert()
+        }
+        return false
+    }
+
+    private fun showInvalidInputsAlert() {
+        alert(
+            Alert.AlertType.ERROR,
+            "Invalid Inputs",
+            "Make sure you put valid inputs, please.",
+            title = "Attention"
+        )
+    }
 
 }
