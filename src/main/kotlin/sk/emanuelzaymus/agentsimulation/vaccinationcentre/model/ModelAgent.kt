@@ -5,17 +5,11 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.InitMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.transferprocesses.ExaminationTransferProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.transferprocesses.VaccinationTransferProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.transferprocesses.WaitingTransferProcess
 
 class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, mySim, null) {
 
     init {
         ModelManager(mySim, this)
-        ExaminationTransferProcess(mySim, this)
-        VaccinationTransferProcess(mySim, this)
-        WaitingTransferProcess(mySim, this)
 
         addOwnMessage(MessageCodes.init)
 
@@ -25,7 +19,9 @@ class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, myS
         addOwnMessage(MessageCodes.vaccinationEnd)
         addOwnMessage(MessageCodes.waitingEnd)
 
-        addOwnMessage(MessageCodes.transferEnd)
+        addOwnMessage(MessageCodes.examinationTransferEnd)
+        addOwnMessage(MessageCodes.vaccinationTransferEnd)
+        addOwnMessage(MessageCodes.waitingTransferEnd)
     }
 
     fun runSimulation() {

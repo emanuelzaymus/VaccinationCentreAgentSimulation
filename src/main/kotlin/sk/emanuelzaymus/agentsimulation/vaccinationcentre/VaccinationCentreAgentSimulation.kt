@@ -6,6 +6,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.Environmen
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.transfer.TransferAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.VaccinationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting.WaitingAgent
@@ -25,6 +26,7 @@ class VaccinationCentreAgentSimulation(
     val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
     val waitingAgent = WaitingAgent(this, modelAgent)
     val injectionsAgent = InjectionsAgent(this, vaccinationAgent, 2)
+    val transferAgent = TransferAgent(this, vaccinationAgent)
 
     val registrationStats = AgentStats()
     val examinationStats = AgentStats()
@@ -87,6 +89,7 @@ class VaccinationCentreAgentSimulation(
         vaccinationAgent.checkFinalState()
         waitingAgent.checkFinalState()
         injectionsAgent.checkFinalState()
+        transferAgent.checkFinalState()
     }
 
 }

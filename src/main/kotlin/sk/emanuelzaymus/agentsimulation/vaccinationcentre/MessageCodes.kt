@@ -30,6 +30,13 @@ class MessageCodes {
         const val breakEnd = 15
         const val lunchEnd = 16
 
+        const val examinationTransferStart = 17
+        const val examinationTransferEnd = 18
+        const val vaccinationTransferStart = 19
+        const val vaccinationTransferEnd = 20
+        const val waitingTransferStart = 21
+        const val waitingTransferEnd = 22
+
         const val transferEnd = 98
 
         const val patientLeaving = 99
@@ -54,6 +61,13 @@ class MessageCodes {
             breakStart -> "breakStart"
             breakEnd -> "breakEnd"
             lunchEnd -> "lunchEnd"
+
+            examinationTransferStart -> "examinationTransferStart"
+            examinationTransferEnd -> "examinationTransferEnd"
+            vaccinationTransferStart -> "vaccinationTransferStart"
+            vaccinationTransferEnd -> "vaccinationTransferEnd"
+            waitingTransferStart -> "waitingTransferStart"
+            waitingTransferEnd -> "waitingTransferEnd"
 
             transferEnd -> "transferEnd"
 
