@@ -1,8 +1,10 @@
 package sk.emanuelzaymus.agentsimulation.view
 
+import javafx.collections.ObservableList
 import sk.emanuelzaymus.agentsimulation.app.Styles
+import sk.emanuelzaymus.agentsimulation.controller.NurseData
 import sk.emanuelzaymus.agentsimulation.controller.RoomData
-import sk.emanuelzaymus.agentsimulation.controller.Worker
+import sk.emanuelzaymus.agentsimulation.controller.WorkerData
 import tornadofx.*
 
 class Room : Fragment() {
@@ -11,7 +13,7 @@ class Room : Fragment() {
     private val largeSpaces = 30
     private val preferredWidth = 180.0
 
-    val room: RoomData by param()
+    val room: RoomData<*> by param()
 
     init {
         title = room.tabTitle
@@ -62,12 +64,25 @@ class Room : Fragment() {
                 }
                 vbox(smallSpaces) {
                     label(room.workers) { addClass(Styles.smallHeading) }
-                    tableview(room.personalWorkloads) {
-                        prefHeight = 260.0
-                        readonlyColumn("Num", Worker::id).prefWidth = 40.0
-                        readonlyColumn("Busy", Worker::busy).prefWidth = 40.0
-                        readonlyColumn("Workload", Worker::avgWorkload).prefWidth = 70.0
-                        readonlyColumn("State", Worker::state).prefWidth = 150.0
+                    if (room.isNurse) {
+                        @Suppress("UNCHECKED_CAST")
+                        tableview(room.personalWorkloads as ObservableList<NurseData>) {
+                            prefHeight = 260.0
+                            readonlyColumn("Num", NurseData::id).prefWidth = 40.0
+                            readonlyColumn("Busy", NurseData::busy).prefWidth = 40.0
+                            readonlyColumn("Workload", NurseData::avgWorkload).prefWidth = 70.0
+                            readonlyColumn("Injections", NurseData::injectionsLeft).prefWidth = 70.0
+                            readonlyColumn("State", NurseData::state).prefWidth = 150.0
+                        }
+                    } else {
+                        @Suppress("UNCHECKED_CAST")
+                        tableview(room.personalWorkloads as ObservableList<WorkerData>) {
+                            prefHeight = 260.0
+                            readonlyColumn("Num", WorkerData::id).prefWidth = 40.0
+                            readonlyColumn("Busy", WorkerData::busy).prefWidth = 40.0
+                            readonlyColumn("Workload", WorkerData::avgWorkload).prefWidth = 70.0
+                            readonlyColumn("State", WorkerData::state).prefWidth = 150.0
+                        }
                     }
                 }
             }

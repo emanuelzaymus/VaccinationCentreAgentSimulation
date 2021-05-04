@@ -65,9 +65,9 @@ class MainController : Controller() {
     val actualSimSeconds = SimpleDoubleProperty(.0)
     val currentReplicNumber = SimpleIntegerProperty(1)
 
-    val registrationRoom = RoomData("Registration", "Administrative Workers")
-    val examinationRoom = RoomData("Examination", "Doctors")
-    val vaccinationRoom = RoomData("Vaccination", "Nurses")
+    val registrationRoom = RoomData("Registration", "Administrative Workers") { WorkerData.create(it) }
+    val examinationRoom = RoomData("Examination", "Doctors") { WorkerData.create(it) }
+    val vaccinationRoom = RoomData("Vaccination", "Nurses", true) { NurseData.create(it) }
 
     private fun setSpeed() {
         if (withAnimation.value)
@@ -93,10 +93,6 @@ class MainController : Controller() {
     }
 
     fun stop() = sim.stopSimulation()
-
-//    init {
-//        sim.onRefreshUI { refreshUI(it) }
-//    }
 
     private fun refreshUI(sim: Simulation) = Platform.runLater {
         actualSimTime.value = (sim.currentTime() + startTime).secondsToTime()
@@ -133,13 +129,11 @@ class MainController : Controller() {
         return false
     }
 
-    private fun showInvalidInputsAlert() {
-        alert(
-            Alert.AlertType.ERROR,
-            "Invalid Inputs",
-            "Make sure you put valid inputs, please.",
-            title = "Attention"
-        )
-    }
+    private fun showInvalidInputsAlert() = alert(
+        Alert.AlertType.ERROR,
+        "Invalid Inputs",
+        "Make sure you put valid inputs, please.",
+        title = "Attention"
+    )
 
 }

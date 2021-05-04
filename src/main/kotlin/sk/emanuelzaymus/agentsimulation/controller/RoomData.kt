@@ -5,10 +5,13 @@ import javafx.application.Platform
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.AgentStats
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent
 import tornadofx.observableList
 
-class RoomData(val tabTitle: String, val workers: String) {
+class RoomData<T : WorkerData>(
+    val tabTitle: String, val workers: String, val isNurse: Boolean = false, val init: (w: VaccinationCentreWorker) -> T
+) {
 
     private val initVal = 0.0.roundToString()
     private val dash = "-"
@@ -22,7 +25,7 @@ class RoomData(val tabTitle: String, val workers: String) {
     val workload = SimpleStringProperty(initVal)
     val nextStageTransitCount = SimpleIntegerProperty()
 
-    val personalWorkloads = observableList<Worker>()
+    val personalWorkloads = observableList<T>()
 
     val allQueueAvgLength = SimpleStringProperty(initVal)
     val allQueueAvgLenLower = SimpleStringProperty(dash)
@@ -51,7 +54,7 @@ class RoomData(val tabTitle: String, val workers: String) {
         workload.value = agent.workers.map { it.workloadStat.mean() }.average().roundToString()
 
         personalWorkloads.clear()
-        personalWorkloads.addAll(agent.workers.map { Worker(it.id, it.isBusy, it.workloadStat.mean(), it.state.name) })
+        personalWorkloads.addAll(agent.workers.map { init(it) })// T(it.id, it.isBusy, it.workloadStat.mean(), it.state.name) })
     }
 
     private fun refresh(agentStats: AgentStats) {

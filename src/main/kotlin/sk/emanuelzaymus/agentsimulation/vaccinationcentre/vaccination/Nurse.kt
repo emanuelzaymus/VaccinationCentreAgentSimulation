@@ -9,7 +9,8 @@ class Nurse(id: Int, workloadStat: WStat) : VaccinationCentreWorker(id, workload
 
     override val stringName: String = "Nurse"
 
-    private var injectionsLeft: Int = INJECTIONS_COUNT_TO_PREPARE
+    var injectionsLeft: Int = INJECTIONS_COUNT_TO_PREPARE
+        private set
 
     override var state: WorkerState
         get() = super.state
