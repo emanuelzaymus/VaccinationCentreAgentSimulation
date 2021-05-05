@@ -16,6 +16,8 @@ class LunchBreakAgent(mySim: Simulation, parent: Agent?) : VaccinationCentreAgen
 
         addOwnMessage(MessageCodes.breakStart)
         addOwnMessage(MessageCodes.breakEnd)
+
+        addOwnMessage(MessageCodes.transferEnd)
     }
 
 }

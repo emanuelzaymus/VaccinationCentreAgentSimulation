@@ -24,4 +24,5 @@ class ToCanteenTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
         message.worker!!.state = WorkerState.GOING_TO_LUNCH
         super.startProcess(message)
     }
+
 }
