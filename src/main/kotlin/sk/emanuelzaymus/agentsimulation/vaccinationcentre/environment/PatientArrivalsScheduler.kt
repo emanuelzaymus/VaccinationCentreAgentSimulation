@@ -11,13 +11,16 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.arrivaltim
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.arrivaltimesgenerators.EarlyArrivalTimesGenerator
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.arrivaltimesgenerators.ExactArrivalTimesGenerator
 
-class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOfPatients: Int, earlyArrivals: Boolean) :
-    Scheduler(Ids.patientArrivalsScheduler, mySim, myAgent), IReusable {
+class PatientArrivalsScheduler(
+    private val mySim: Simulation, myAgent: CommonAgent, numberOfPatients: Int, earlyArrivals: Boolean
+) : Scheduler(Ids.patientArrivalsScheduler, mySim, myAgent), IReusable {
 
     private val messagePool = Pool { Message(mySim) }
 
     private val arrivalTimes =
         ArrivalTimes(numberOfPatients, if (earlyArrivals) EarlyArrivalTimesGenerator else ExactArrivalTimesGenerator)
+
+    private var returnedPatients = 0
 
     override fun processMessage(message: MessageForm) {
         debug("PatientArrivalsScheduler", message)
@@ -49,17 +52,31 @@ class PatientArrivalsScheduler(mySim: Simulation, myAgent: CommonAgent, numberOf
             hold(arrivalTimes.nextBetweenArrivalsDuration(), message)
     }
 
-    private fun returnPatient(message: MessageForm) = messagePool.release(message as Message)
+    private fun returnPatient(message: MessageForm) {
+        messagePool.release(message as Message)
 
-    override fun restart() = arrivalTimes.restart()
+        if (++returnedPatients >= arrivalTimes.arrivingPatients)
+            mySim.stopReplication()
+    }
 
-    override fun checkFinalState() = arrivalTimes.checkFinalState()
+    override fun restart() {
+        returnedPatients = 0
+        arrivalTimes.restart()
+    }
+
+    override fun checkFinalState() {
+        if (returnedPatients != arrivalTimes.arrivingPatients)
+            throw IllegalStateException("Not all patients (${arrivalTimes.arrivingPatients}) have returned. Only $returnedPatients")
+
+        arrivalTimes.checkFinalState()
+    }
 
 
     private class ArrivalTimes(val numberOfPatients: Int, val generator: ArrivalTimesGenerator) : IReusable {
 
         private var arrivalTimes: List<Double> = generator.generateArrivalTimes(numberOfPatients)
         private var index = 0
+        val arrivingPatients: Int get() = arrivalTimes.size
 
         fun nextBetweenArrivalsDuration(): Double {
             val ret: Double =

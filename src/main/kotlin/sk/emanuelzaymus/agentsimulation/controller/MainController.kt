@@ -71,7 +71,7 @@ class MainController : Controller(), ISimDelegate {
     val registrationRoom = RoomData("Registration", "Administrative Workers") { WorkerData.create(it) }
     val examinationRoom = RoomData("Examination", "Doctors") { WorkerData.create(it) }
     val vaccinationRoom = RoomData("Vaccination", "Nurses", true) { NurseData.create(it) }
-    val injectionsPrepRoomData = CountRoomData("Injection Preparation Room", "nurses")
+    val injectionsPrepRoomData = CountRoomData("Injections Preparation Room", "nurses")
     val waitingRoomData = CountRoomData("Waiting Room", "patients")
 
     private fun setSpeed() {
@@ -92,7 +92,6 @@ class MainController : Controller(), ISimDelegate {
 
     private fun start() {
         if (restart()) {
-            setSpeed()
             sim.simulateAsync(replicationsCount.get().toInt())
         }
     }
@@ -131,6 +130,7 @@ class MainController : Controller(), ISimDelegate {
 
             sim = VaccinationCentreAgentSimulation(patients, workers, doctors, nurses, earlyArrivals).also {
                 it.onPause { sim -> refreshUI(sim) }
+                it.onReplicationWillStart { setSpeed() }
                 it.onReplicationDidFinish { sim -> refreshCurrentReplic(sim) }
                 it.onSimulationDidFinish { sim -> refreshUI(sim) }
 
