@@ -56,10 +56,10 @@ class Room : Fragment() {
                         label("Average workload:")
                         label(room.workload)
                     }
-                    label("Next Stage Transit") { addClass(Styles.smallHeading) }
+                    label("Next Stage Transfer") { addClass(Styles.smallHeading) }
                     hbox(smallSpaces) {
                         label("Count:")
-                        label(room.nextStageTransitCount)
+                        label(room.nextStageTransferCount)
                     }
                 }
                 vbox(smallSpaces) {

@@ -99,9 +99,10 @@ class MainController : Controller() {
         actualSimTime.value = (sim.currentTime() + startTime).secondsToTime()
         actualSimSeconds.value = sim.currentTime()
 
-        registrationRoom.refresh((sim as VaccinationCentreAgentSimulation).registrationAgent, sim.registrationStats)
-        examinationRoom.refresh(sim.examinationAgent, sim.examinationStats)
-        vaccinationRoom.refresh(sim.vaccinationAgent, sim.vaccinationStats)
+        sim as VaccinationCentreAgentSimulation
+        registrationRoom.refresh(sim.registrationAgent, sim.registrationStats, sim.transferAgent.examinationCount)
+        examinationRoom.refresh(sim.examinationAgent, sim.examinationStats, sim.transferAgent.vaccinationCount)
+        vaccinationRoom.refresh(sim.vaccinationAgent, sim.vaccinationStats, sim.transferAgent.waitingCount)
         waitingRoomData.refresh(sim.waitingAgent, sim.waitingStats)
     }
 

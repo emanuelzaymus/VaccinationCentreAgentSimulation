@@ -23,7 +23,7 @@ class RoomData<T : WorkerData>(
 
     val busyWorkers = SimpleIntegerProperty()
     val workload = SimpleStringProperty(initVal)
-    val nextStageTransitCount = SimpleIntegerProperty()
+    val nextStageTransferCount = SimpleIntegerProperty()
 
     val personalWorkloads = observableList<T>()
 
@@ -40,9 +40,10 @@ class RoomData<T : WorkerData>(
     val allWorkloadLower = SimpleStringProperty(dash)
     val allWorkloadUpper = SimpleStringProperty(dash)
 
-    fun refresh(agent: VaccinationCentreActivityAgent<*>, agentStats: AgentStats) {
+    fun refresh(agent: VaccinationCentreActivityAgent<*>, agentStats: AgentStats, nextStageTransferCount: Int) {
         refresh(agent)
         refresh(agentStats)
+        setNextStageTransferCount(nextStageTransferCount)
     }
 
     private fun refresh(agent: VaccinationCentreActivityAgent<*>) = Platform.runLater {
@@ -77,6 +78,10 @@ class RoomData<T : WorkerData>(
 
     private fun setQWaitTimeInHours(timeInSeconds: Double) = Platform.runLater {
         allQueueAvgWaitingTimeInHours.value = timeInSeconds.secondsToTime()
+    }
+
+    private fun setNextStageTransferCount(count: Int) = Platform.runLater {
+        nextStageTransferCount.value = count
     }
 
 }
