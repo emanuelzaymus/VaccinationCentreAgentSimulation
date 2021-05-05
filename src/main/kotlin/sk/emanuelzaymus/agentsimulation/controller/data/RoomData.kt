@@ -8,11 +8,11 @@ import sk.emanuelzaymus.agentsimulation.controller.roundToString
 import sk.emanuelzaymus.agentsimulation.controller.secondsToTime
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.AgentStats
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.IStatisticsAgent
 import tornadofx.observableList
 
-open class RoomData<T : WorkerData>(
-    val tabTitle: String, val workers: String, val isNurse: Boolean = false, val init: (w: VaccinationCentreWorker) -> T
+class RoomData<T : WorkerData>(
+    val tabTitle: String, val workers: String, val isNurse: Boolean = false, val init: (VaccinationCentreWorker) -> T
 ) {
     companion object {
         const val dash = "-"
@@ -54,22 +54,22 @@ open class RoomData<T : WorkerData>(
     val allWorkloadLower = SimpleStringProperty(dash)
     val allWorkloadUpper = SimpleStringProperty(dash)
 
-    fun refresh(agent: VaccinationCentreActivityAgent<*>, agentStats: AgentStats, nextStageTransferCount: Int) {
+    fun refresh(agent: IStatisticsAgent<*>, agentStats: AgentStats, nextStageTransferCount: Int) {
         refresh(agent)
         refresh(agentStats)
         setNextStageTransferCount(nextStageTransferCount)
     }
 
-    private fun refresh(agent: VaccinationCentreActivityAgent<*>) = Platform.runLater {
-        queueActualLength.value = agent.queue.size
-        queueAvgLength.value = agent.queue.lengthStatistic().mean().roundToString()
-        queueAvgWaitingTimeInHours.value = agent.waitingTimeStat.mean().secondsToTime()
-        queueAvgWaitingTime.value = agent.waitingTimeStat.mean().roundToString()
-        busyWorkers.value = agent.workers.count { it.isBusy }
-        workload.value = agent.workers.map { it.workloadStat.mean() }.average().roundToString()
+    private fun refresh(agent: IStatisticsAgent<*>) = Platform.runLater {
+        queueActualLength.value = agent.actualQueueLength
+        queueAvgLength.value = agent.averageQueueLength.roundToString()
+        queueAvgWaitingTimeInHours.value = agent.averageWaitingTime.secondsToTime()
+        queueAvgWaitingTime.value = agent.averageWaitingTime.roundToString()
+        busyWorkers.value = agent.busyWorkersCount
+        workload.value = agent.averageWorkload.roundToString()
 
         personalWorkloads.clear()
-        personalWorkloads.addAll(agent.workers.map { init(it) })
+        personalWorkloads.addAll(agent.convertWorkers(init))
     }
 
     private fun refresh(agentStats: AgentStats) {

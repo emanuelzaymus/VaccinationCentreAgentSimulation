@@ -19,8 +19,8 @@ class VaccinationCentreAgentSimulation(
     earlyArrivals: Boolean
 ) : Simulation() {
 
-    val modelAgent = ModelAgent(this)
-    val environmentAgent = EnvironmentAgent(this, modelAgent, numberOfPatients, earlyArrivals)
+    private val modelAgent = ModelAgent(this)
+    private val environmentAgent = EnvironmentAgent(this, modelAgent, numberOfPatients, earlyArrivals)
     val registrationAgent = RegistrationAgent(this, modelAgent, numberOfAdminWorkers)
     val examinationAgent = ExaminationAgent(this, modelAgent, numberOfDoctors)
     val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
@@ -55,8 +55,8 @@ class VaccinationCentreAgentSimulation(
         registrationStats.addStatistics(registrationAgent)
         examinationStats.addStatistics(examinationAgent)
         vaccinationStats.addStatistics(vaccinationAgent)
-        waitingStats.addSample(waitingAgent.getWaitingPatientsCountMean())
-        nursesQueueLengthStats.addSample(injectionsAgent.queueLengthMean())
+        waitingStats.addSample(waitingAgent.averageCount)
+        nursesQueueLengthStats.addSample(injectionsAgent.averageCount)
 
         println("Repl: " + currentReplication())
         if (PRINT_REPL_STATS) {

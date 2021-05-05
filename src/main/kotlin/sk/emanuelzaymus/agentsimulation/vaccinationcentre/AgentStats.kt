@@ -15,10 +15,10 @@ class AgentStats {
         workersWorkload.clear()
     }
 
-    fun addStatistics(agent: IStatisticsAgent) {
-        queueLengthStat.addSample(agent.queueLengthMean())
-        waitingTimeStat.addSample(agent.waitingTimeMean())
-        workersWorkload.addSample(agent.workersWorkloadMean())
+    fun addStatistics(agent: IStatisticsAgent<*>) {
+        queueLengthStat.addSample(agent.averageQueueLength)
+        waitingTimeStat.addSample(agent.averageWaitingTime)
+        workersWorkload.addSample(agent.averageWorkload)
     }
 
     fun print(name: String) = println(

@@ -12,7 +12,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 
 abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
     id: Int, mySim: Simulation, parent: Agent?, numberOfWorkers: Int, init: (Int) -> T
-) : VaccinationCentreAgent(id, mySim, parent), IStatisticsAgent {
+) : VaccinationCentreAgent(id, mySim, parent), IStatisticsAgent<T> {
 
     protected abstract val statsName: String
 
@@ -27,11 +27,17 @@ abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
         workers.restart()
     }
 
-    override fun queueLengthMean(): Double = queue.lengthStatistic().mean()
+    override val actualQueueLength get() = queue.size
 
-    override fun waitingTimeMean(): Double = waitingTimeStat.mean()
+    override val averageQueueLength get() = queue.lengthStatistic().mean()
 
-    override fun workersWorkloadMean(): Double = workers.map { it.workloadStat.mean() }.average()
+    override val averageWaitingTime get() = waitingTimeStat.mean()
+
+    override val busyWorkersCount get() = workers.count { it.isBusy }
+
+    override val averageWorkload get() = workers.map { it.workloadStat.mean() }.average()
+
+    override fun <R> convertWorkers(transform: (T) -> R): Iterable<R> = workers.map(transform)
 
     override fun checkFinalState() {
         if (queue.isNotEmpty()) {
@@ -43,9 +49,9 @@ abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
     open fun printStats() = println(
         """
         $statsName
-        Queue length mean: ${queueLengthMean()}
-        Waiting time mean: ${waitingTimeMean()}
-        Workload mean: ${workersWorkloadMean()}
+        Queue length mean: $averageQueueLength
+        Waiting time mean: $averageWaitingTime
+        Workload mean: $averageWorkload
         """.trimIndent()
     )
 

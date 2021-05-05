@@ -1,11 +1,12 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 
-interface IStatisticsAgent {
-    
-    fun queueLengthMean(): Double
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
-    fun waitingTimeMean(): Double
-
-    fun workersWorkloadMean(): Double
-
+interface IStatisticsAgent<T : VaccinationCentreWorker> {
+    val actualQueueLength: Int
+    val averageQueueLength: Double
+    val averageWaitingTime: Double
+    val busyWorkersCount: Int
+    val averageWorkload: Double
+    fun <R> convertWorkers(transform: (T) -> R): Iterable<R>
 }

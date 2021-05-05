@@ -5,7 +5,7 @@ import javafx.application.Platform
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import sk.emanuelzaymus.agentsimulation.controller.roundToString
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.CountRoomAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.ICountRoomAgent
 
 class CountRoomData(val tabTitle: String, val peopleName: String) {
 
@@ -16,9 +16,9 @@ class CountRoomData(val tabTitle: String, val peopleName: String) {
     val allAvgCountLower = SimpleStringProperty(RoomData.dash)
     val allAvgCountUpper = SimpleStringProperty(RoomData.dash)
 
-    fun refresh(agent: CountRoomAgent, allStats: Stat) = Platform.runLater {
-        actualCount.value = agent.getCount()
-        averageCount.value = agent.getAverage().roundToString()
+    fun refresh(agent: ICountRoomAgent, allStats: Stat) = Platform.runLater {
+        actualCount.value = agent.actualCount
+        averageCount.value = agent.averageCount.roundToString()
 
         RoomData.setStats(allStats, allAvgCount, allAvgCountLower, allAvgCountUpper)
     }
