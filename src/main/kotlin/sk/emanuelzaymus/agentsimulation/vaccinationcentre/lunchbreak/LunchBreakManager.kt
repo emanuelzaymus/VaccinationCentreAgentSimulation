@@ -17,36 +17,20 @@ class LunchBreakManager(mySim: Simulation, myAgent: LunchBreakAgent) :
 
         when (message.code()) {
 
-            MessageCodes.breakStart -> startToCanteenTransfer(message as WorkersBreakMessage)
+            MessageCodes.breakStart -> startProcess(Ids.toCanteenTransferProcess, message)
 
             IdList.finish -> when (message.sender().id()) {
-                Ids.toCanteenTransferProcess -> startLunch(message as WorkersBreakMessage)
+                Ids.toCanteenTransferProcess -> startProcess(Ids.lunchProcess, message)
 
-                Ids.lunchProcess -> startFromCanteenTransfer(message as WorkersBreakMessage)
+                Ids.lunchProcess -> startProcess(Ids.fromCanteenTransferProcess, message)
 
                 Ids.fromInjectionsTransferProcess -> breakDone(message as WorkersBreakMessage)
             }
         }
     }
 
-    private fun startToCanteenTransfer(message: WorkersBreakMessage) {
-        message.worker!!.state = WorkerState.GOING_TO_LUNCH
-        message.setAddressee(Ids.toCanteenTransferProcess)
-
-        startContinualAssistant(message)
-    }
-
-    private fun startLunch(message: WorkersBreakMessage) {
-        message.worker!!.state = WorkerState.DINING
-        message.setAddressee(Ids.lunchProcess)
-
-        startContinualAssistant(message)
-    }
-
-    private fun startFromCanteenTransfer(message: WorkersBreakMessage) {
-        message.worker!!.state = WorkerState.GOING_FROM_LUNCH
-        message.setAddressee(Ids.fromCanteenTransferProcess)
-
+    private fun startProcess(processId: Int, message: MessageForm) {
+        message.setAddressee(processId)
         startContinualAssistant(message)
     }
 
