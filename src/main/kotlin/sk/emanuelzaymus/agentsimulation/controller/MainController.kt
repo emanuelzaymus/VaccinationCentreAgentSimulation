@@ -69,8 +69,8 @@ class MainController : Controller() {
     val registrationRoom = RoomData("Registration", "Administrative Workers") { WorkerData.create(it) }
     val examinationRoom = RoomData("Examination", "Doctors") { WorkerData.create(it) }
     val vaccinationRoom = RoomData("Vaccination", "Nurses", true) { NurseData.create(it) }
-    val injectionsPrepRoomData = InjectionsPrepRoomData()
-    val waitingRoomData = WaitingRoomData()
+    val injectionsPrepRoomData = CountRoomData("Injection Preparation Room", "nurses")
+    val waitingRoomData = CountRoomData("Waiting Room", "patients")
 
     private fun setSpeed() {
         if (withAnimation.value)

@@ -3,16 +3,16 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting
 import OSPABA.Agent
 import OSPABA.Simulation
 import OSPStat.WStat
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.CountRoomAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
-class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Ids.waitingAgent, mySim, parent) {
+class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Ids.waitingAgent, mySim, parent),
+    CountRoomAgent {
 
     private val patientCountStats = WStat(mySim)
-
-    var waitingPatients = 0
-        private set
+    private var waitingPatients = 0
 
     init {
         WaitingManager(mySim, this)
@@ -40,6 +40,10 @@ class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Id
     }
 
     fun getWaitingPatientsCountMean(): Double = patientCountStats.mean()
+
+    override fun getCount() = waitingPatients
+
+    override fun getAverage() = patientCountStats.mean()
 
     fun printStats() = println(
         """

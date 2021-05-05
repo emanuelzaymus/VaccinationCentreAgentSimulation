@@ -4,17 +4,16 @@ import OSPABA.Agent
 import OSPABA.Simulation
 import OSPDataStruct.SimQueue
 import OSPStat.WStat
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.CountRoomAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
 class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfPreparing: Int) :
-    VaccinationCentreAgent(Ids.injectionsAgent, mySim, parent) {
+    VaccinationCentreAgent(Ids.injectionsAgent, mySim, parent), CountRoomAgent {
 
     val queue = SimQueue<InjectionsPreparationMessage>(WStat(mySim))
-
-    var preparingNurses = 0
-        private set
+    private var preparingNurses = 0
 
     init {
         InjectionsManager(mySim, this)
@@ -51,6 +50,10 @@ class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfP
     }
 
     fun queueLengthMean(): Double = queue.lengthStatistic().mean()
+
+    override fun getCount() = preparingNurses
+
+    override fun getAverage() = queue.lengthStatistic().mean()
 
     override fun checkFinalState() {
         if (preparingNurses != 0)

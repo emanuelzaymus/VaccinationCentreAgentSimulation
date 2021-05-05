@@ -14,31 +14,43 @@ import tornadofx.observableList
 open class RoomData<T : WorkerData>(
     val tabTitle: String, val workers: String, val isNurse: Boolean = false, val init: (w: VaccinationCentreWorker) -> T
 ) {
+    companion object {
+        const val dash = "-"
+        val init0 = 0.0.roundToString()
 
-    private val initVal = 0.0.roundToString()
-    private val dash = "-"
+        fun setStats(
+            stats: Stat, avg: SimpleStringProperty, lower: SimpleStringProperty, upper: SimpleStringProperty
+        ) = Platform.runLater {
+            avg.value = stats.mean().roundToString()
+            if (stats.sampleSize() >= 2) {
+                val confidenceInterval = stats.confidenceInterval_95()
+                lower.value = confidenceInterval[0].roundToString()
+                upper.value = confidenceInterval[1].roundToString()
+            }
+        }
+    }
 
     val queueActualLength = SimpleIntegerProperty()
-    val queueAvgLength = SimpleStringProperty(initVal)
-    val queueAvgWaitingTimeInHours = SimpleStringProperty(initVal)
-    val queueAvgWaitingTime = SimpleStringProperty(initVal)
+    val queueAvgLength = SimpleStringProperty(init0)
+    val queueAvgWaitingTimeInHours = SimpleStringProperty(init0)
+    val queueAvgWaitingTime = SimpleStringProperty(init0)
 
     val busyWorkers = SimpleIntegerProperty()
-    val workload = SimpleStringProperty(initVal)
+    val workload = SimpleStringProperty(init0)
     val nextStageTransferCount = SimpleIntegerProperty()
 
     val personalWorkloads = observableList<T>()
 
-    val allQueueAvgLength = SimpleStringProperty(initVal)
+    val allQueueAvgLength = SimpleStringProperty(init0)
     val allQueueAvgLenLower = SimpleStringProperty(dash)
     val allQueueAvgLenUpper = SimpleStringProperty(dash)
 
-    val allQueueAvgWaitingTimeInHours = SimpleStringProperty(initVal)
-    val allQueueAvgWaitingTime = SimpleStringProperty(initVal)
+    val allQueueAvgWaitingTimeInHours = SimpleStringProperty(init0)
+    val allQueueAvgWaitingTime = SimpleStringProperty(init0)
     val allQueueAvgWaitLower = SimpleStringProperty(dash)
     val allQueueAvgWaitUpper = SimpleStringProperty(dash)
 
-    val allWorkload = SimpleStringProperty(initVal)
+    val allWorkload = SimpleStringProperty(init0)
     val allWorkloadLower = SimpleStringProperty(dash)
     val allWorkloadUpper = SimpleStringProperty(dash)
 
@@ -73,19 +85,6 @@ open class RoomData<T : WorkerData>(
 
     private fun setNextStageTransferCount(count: Int) = Platform.runLater {
         nextStageTransferCount.value = count
-    }
-
-    companion object {
-        fun setStats(
-            stats: Stat, avg: SimpleStringProperty, lower: SimpleStringProperty, upper: SimpleStringProperty
-        ) = Platform.runLater {
-            avg.value = stats.mean().roundToString()
-            if (stats.sampleSize() >= 2) {
-                val confidenceInterval = stats.confidenceInterval_95()
-                lower.value = confidenceInterval[0].roundToString()
-                upper.value = confidenceInterval[1].roundToString()
-            }
-        }
     }
 
 }
