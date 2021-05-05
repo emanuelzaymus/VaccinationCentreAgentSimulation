@@ -9,7 +9,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent
 import tornadofx.observableList
 
-class RoomData<T : WorkerData>(
+open class RoomData<T : WorkerData>(
     val tabTitle: String, val workers: String, val isNurse: Boolean = false, val init: (w: VaccinationCentreWorker) -> T
 ) {
 
@@ -55,7 +55,7 @@ class RoomData<T : WorkerData>(
         workload.value = agent.workers.map { it.workloadStat.mean() }.average().roundToString()
 
         personalWorkloads.clear()
-        personalWorkloads.addAll(agent.workers.map { init(it) })// T(it.id, it.isBusy, it.workloadStat.mean(), it.state.name) })
+        personalWorkloads.addAll(agent.workers.map { init(it) })
     }
 
     private fun refresh(agentStats: AgentStats) {
@@ -65,23 +65,25 @@ class RoomData<T : WorkerData>(
         setStats(agentStats.workersWorkload, allWorkload, allWorkloadLower, allWorkloadUpper)
     }
 
-    private fun setStats(
-        stats: Stat, avg: SimpleStringProperty, lower: SimpleStringProperty, upper: SimpleStringProperty
-    ) = Platform.runLater {
-        avg.value = stats.mean().roundToString()
-        if (stats.sampleSize() >= 2) {
-            val confidenceInterval = stats.confidenceInterval_95()
-            lower.value = confidenceInterval[0].roundToString()
-            upper.value = confidenceInterval[1].roundToString()
-        }
-    }
-
     private fun setQWaitTimeInHours(timeInSeconds: Double) = Platform.runLater {
         allQueueAvgWaitingTimeInHours.value = timeInSeconds.secondsToTime()
     }
 
     private fun setNextStageTransferCount(count: Int) = Platform.runLater {
         nextStageTransferCount.value = count
+    }
+
+    companion object {
+        fun setStats(
+            stats: Stat, avg: SimpleStringProperty, lower: SimpleStringProperty, upper: SimpleStringProperty
+        ) = Platform.runLater {
+            avg.value = stats.mean().roundToString()
+            if (stats.sampleSize() >= 2) {
+                val confidenceInterval = stats.confidenceInterval_95()
+                lower.value = confidenceInterval[0].roundToString()
+                upper.value = confidenceInterval[1].roundToString()
+            }
+        }
     }
 
 }

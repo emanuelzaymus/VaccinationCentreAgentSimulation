@@ -10,6 +10,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Ids.waitingAgent, mySim, parent) {
 
     private val patientCountStats = WStat(mySim)
+
     var waitingPatients = 0
         private set
 
@@ -48,7 +49,7 @@ class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Id
     )
 
     override fun checkFinalState() {
-        if (waitingPatients > 0.0)
+        if (waitingPatients > 0)
             throw IllegalStateException("There are still waiting $waitingPatients patients in the waiting room.")
     }
 

@@ -11,8 +11,10 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfPreparing: Int) :
     VaccinationCentreAgent(Ids.injectionsAgent, mySim, parent) {
 
-    private var preparingNurses = 0
     val queue = SimQueue<InjectionsPreparationMessage>(WStat(mySim))
+
+    var preparingNurses = 0
+        private set
 
     init {
         InjectionsManager(mySim, this)

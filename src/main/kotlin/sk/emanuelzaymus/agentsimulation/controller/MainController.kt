@@ -68,6 +68,7 @@ class MainController : Controller() {
     val registrationRoom = RoomData("Registration", "Administrative Workers") { WorkerData.create(it) }
     val examinationRoom = RoomData("Examination", "Doctors") { WorkerData.create(it) }
     val vaccinationRoom = RoomData("Vaccination", "Nurses", true) { NurseData.create(it) }
+    val injectionsPrepRoomData = InjectionsPrepRoomData()
     val waitingRoomData = WaitingRoomData()
 
     private fun setSpeed() {
@@ -103,6 +104,7 @@ class MainController : Controller() {
         registrationRoom.refresh(sim.registrationAgent, sim.registrationStats, sim.transferAgent.examinationCount)
         examinationRoom.refresh(sim.examinationAgent, sim.examinationStats, sim.transferAgent.vaccinationCount)
         vaccinationRoom.refresh(sim.vaccinationAgent, sim.vaccinationStats, sim.transferAgent.waitingCount)
+        injectionsPrepRoomData.refresh(sim.injectionsAgent, sim.nursesQueueLengthStats)
         waitingRoomData.refresh(sim.waitingAgent, sim.waitingStats)
     }
 
