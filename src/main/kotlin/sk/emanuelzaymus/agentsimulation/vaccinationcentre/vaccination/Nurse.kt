@@ -36,7 +36,7 @@ class Nurse(id: Int, workloadStat: WStat) : VaccinationCentreWorker(id, workload
         injectionsLeft--
     }
 
-    fun restartInjectionLeft() {
+    fun restartInjectionsLeft() {
         injectionsLeft = INJECTIONS_COUNT_TO_PREPARE
     }
 

@@ -25,7 +25,7 @@ class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     override fun endProcess(message: InjectionsPreparationMessage) {
-        message.nurse!!.restartInjectionLeft()
+        message.nurse!!.restartInjectionsLeft()
         super.endProcess(message)
     }
 

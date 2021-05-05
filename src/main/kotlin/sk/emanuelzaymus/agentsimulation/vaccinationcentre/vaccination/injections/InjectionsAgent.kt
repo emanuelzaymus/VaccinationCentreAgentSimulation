@@ -16,10 +16,14 @@ class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfP
 
     init {
         InjectionsManager(mySim, this)
+        ToInjectionsTransferProcess(mySim, this)
         InjectionsPreparationProcess(mySim, this)
+        FromInjectionsTransferProcess(mySim, this)
 
         addOwnMessage(MessageCodes.injectionsPreparationStart)
         addOwnMessage(MessageCodes.injectionsPreparationEnd)
+
+        addOwnMessage(MessageCodes.transferEnd)
     }
 
     override fun prepareReplication() {

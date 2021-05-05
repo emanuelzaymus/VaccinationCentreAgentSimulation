@@ -16,33 +16,55 @@ class InjectionsManager(mySim: Simulation, private val myAgent: InjectionsAgent)
         debug("InjectionsManager", message)
 
         when (message.code()) {
+            MessageCodes.injectionsPreparationStart -> startToInjectionsTransfer(message)
 
-            MessageCodes.injectionsPreparationStart -> tryStartPreparation(message as InjectionsPreparationMessage)
-            // InjectionsPreparationProcess - preparation done
-            IdList.finish -> preparationDone(message as InjectionsPreparationMessage)
+            IdList.finish -> when (message.sender().id()) {
+                Ids.toInjectionsTransferProcess -> tryStartPreparationProcess(message as InjectionsPreparationMessage)
+
+                Ids.injectionsPreparationProcess -> preparationProcessDone(message)
+
+                Ids.fromInjectionsTransferProcess -> injectionsPreparationDone(message)
+            }
         }
     }
 
-    private fun tryStartPreparation(message: InjectionsPreparationMessage) {
+    private fun startToInjectionsTransfer(message: MessageForm) {
+        message.setAddressee(Ids.toInjectionsTransferProcess)
+
+        startContinualAssistant(message)
+    }
+
+    private fun tryStartPreparationProcess(message: InjectionsPreparationMessage) {
         if (myAgent.canStartAnotherPreparation())
-            startPreparation(message)
+            startPreparationProcess(message)
         else {
             message.nurse!!.state = WorkerState.WAITING_TO_INJECTIONS_PREPARATION
             myAgent.queue.enqueue(message)
         }
     }
 
-    private fun preparationDone(message: InjectionsPreparationMessage) {
+    private fun preparationProcessDone(message: MessageForm) {
         myAgent.preparationDone()
 
         if (myAgent.queue.size > 0)
-            startPreparation(myAgent.queue.dequeue())
+            startPreparationProcess(myAgent.queue.dequeue())
 
+        startFromInjectionsTransfer(message)
+    }
+
+    private fun startFromInjectionsTransfer(message: MessageForm) {
+        message.setAddressee(Ids.fromInjectionsTransferProcess)
+
+        startContinualAssistant(message)
+    }
+
+    private fun injectionsPreparationDone(message: MessageForm) {
         message.setCode(MessageCodes.injectionsPreparationEnd)
+
         response(message)
     }
 
-    private fun startPreparation(message: InjectionsPreparationMessage) {
+    private fun startPreparationProcess(message: MessageForm) {
         myAgent.startPreparation()
 
         message.setAddressee(Ids.injectionsPreparationProcess)

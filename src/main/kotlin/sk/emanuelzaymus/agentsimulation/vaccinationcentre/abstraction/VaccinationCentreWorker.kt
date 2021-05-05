@@ -10,8 +10,6 @@ abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : I
 
     override var isBusy: Boolean = false
         protected set(value) {
-//            if (value == field)
-//                throw IllegalArgumentException("Cannot reassigned isBusy with the same value.")
             field = value
             workloadStat.addSample(if (value) 1.0 else .0)
         }
