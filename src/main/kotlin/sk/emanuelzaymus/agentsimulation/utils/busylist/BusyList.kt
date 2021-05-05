@@ -8,8 +8,6 @@ class BusyList<T : IBusyObject>(numberOfBusyObjects: Int, init: (Int) -> T) : It
     private val randoms = List(numberOfBusyObjects - 1) { UniformDiscreteRNG(0, it + 1) }
     private val busyObjects = List(numberOfBusyObjects, init)
 
-    val size: Int get() = busyObjects.size
-
     fun anyAvailable(): Boolean = busyObjects.any { !it.isBusy }
 
     fun getRandomAvailable(): T {

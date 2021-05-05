@@ -6,6 +6,7 @@ import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.ICountRoomAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.IWStatsEntity
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
 class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Ids.waitingAgent, mySim, parent),
@@ -29,15 +30,19 @@ class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Id
         waitingPatients = 0
     }
 
+    override fun countLastStats() = addSampleToPatientCountStats()
+
     fun incrementWaitingPatients() {
         waitingPatients++
-        patientCountStats.addSample(waitingPatients.toDouble())
+        addSampleToPatientCountStats()
     }
 
     fun decrementWaitingPatients() {
         waitingPatients--
-        patientCountStats.addSample(waitingPatients.toDouble())
+        addSampleToPatientCountStats()
     }
+
+    private fun addSampleToPatientCountStats() = patientCountStats.addSample(waitingPatients.toDouble())
 
     override val actualCount get() = waitingPatients
 

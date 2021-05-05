@@ -4,7 +4,7 @@ import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.IBusyObject
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.Nurse
 
-abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : IBusyObject {
+abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : IBusyObject, IWStatsEntity {
 
     protected abstract val stringName: String
 
@@ -40,6 +40,10 @@ abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : I
 
     override fun checkFinalState() {
         if (isBusy) throw IllegalStateException("This worker is still working.")
+    }
+
+    override fun countLastStats() {
+        isBusy = isBusy
     }
 
     override fun toString(): String = "$stringName $id"

@@ -26,8 +26,8 @@ class VaccinationCentreAgentSimulation(
     val examinationAgent = ExaminationAgent(this, modelAgent, numberOfDoctors)
     val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
     val waitingAgent = WaitingAgent(this, modelAgent)
-    val injectionsAgent = InjectionsAgent(this, vaccinationAgent, 2)
     val transferAgent = TransferAgent(this, vaccinationAgent)
+    val injectionsAgent = InjectionsAgent(this, vaccinationAgent, 2)
 
     val registrationStats = AgentStats()
     val examinationStats = AgentStats()
@@ -50,7 +50,16 @@ class VaccinationCentreAgentSimulation(
         modelAgent.runSimulation()
     }
 
+    private fun countLastStats() {
+        registrationAgent.countLastStats()
+        examinationAgent.countLastStats()
+        vaccinationAgent.countLastStats()
+        waitingAgent.countLastStats()
+        injectionsAgent.countLastStats()
+    }
+
     override fun replicationFinished() {
+        countLastStats()
         super.replicationFinished()
 
         registrationStats.addStatistics(registrationAgent)
@@ -81,11 +90,6 @@ class VaccinationCentreAgentSimulation(
         vaccinationStats.print("Vaccination")
         println("Waiting\nPatients count mean: " + waitingStats.mean())
         println("Injections Preparation\nNurses q length mean: " + waitingStats.mean())
-    }
-
-    override fun onReplicationWillStart(onReplicationWillStart: Consumer<Simulation>?) {
-//        super.setSimSpeed() // TODO
-        super.onReplicationWillStart(onReplicationWillStart)
     }
 
     private fun checkFinalState() {

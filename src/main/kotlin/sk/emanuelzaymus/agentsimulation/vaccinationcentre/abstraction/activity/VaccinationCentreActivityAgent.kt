@@ -9,6 +9,7 @@ import sk.emanuelzaymus.agentsimulation.utils.busylist.BusyList
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.countLastStats
 
 abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
     id: Int, mySim: Simulation, parent: Agent?, numberOfWorkers: Int, init: (Int) -> T
@@ -25,6 +26,11 @@ abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
         queue.clear()
         waitingTimeStat.clear()
         workers.restart()
+    }
+
+    override fun countLastStats() {
+        queue.countLastStats()
+        workers.forEach { it.countLastStats() }
     }
 
     override val actualQueueLength get() = queue.size

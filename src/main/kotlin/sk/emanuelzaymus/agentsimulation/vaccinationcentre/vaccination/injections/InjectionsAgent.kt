@@ -8,6 +8,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.ICountRoomAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.countLastStats
 
 class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfPreparing: Int) :
     VaccinationCentreAgent(Ids.injectionsAgent, mySim, parent), ICountRoomAgent {
@@ -32,6 +33,8 @@ class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfP
         preparingNurses = 0
         queue.clear()
     }
+
+    override fun countLastStats() = queue.countLastStats()
 
     fun canStartAnotherPreparation(): Boolean = preparingNurses < maxNumberOfPreparing
 
