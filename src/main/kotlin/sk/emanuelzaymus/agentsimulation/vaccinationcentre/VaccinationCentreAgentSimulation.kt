@@ -84,22 +84,26 @@ class VaccinationCentreAgentSimulation(
     override fun simulationFinished() {
         super.simulationFinished()
 
-        println("-----------------")
-        registrationStats.print("Registration")
-        examinationStats.print("Examination")
-        vaccinationStats.print("Vaccination")
-        println("Waiting\nPatients count mean: " + waitingStats.mean())
-        println("Injections Preparation\nNurses q length mean: " + waitingStats.mean())
+        if (PRINT_SIM_STATS) {
+            println("-----------------")
+            registrationStats.print("Registration")
+            examinationStats.print("Examination")
+            vaccinationStats.print("Vaccination")
+            println("Waiting\nPatients count mean: " + waitingStats.mean())
+            println("Injections Preparation\nNurses q length mean: " + waitingStats.mean())
+        }
     }
 
     private fun checkFinalState() {
-        environmentAgent.checkFinalState()
-        registrationAgent.checkFinalState()
-        examinationAgent.checkFinalState()
-        vaccinationAgent.checkFinalState()
-        waitingAgent.checkFinalState()
-        injectionsAgent.checkFinalState()
-        transferAgent.checkFinalState()
+        if (this.isRunning) {
+            environmentAgent.checkFinalState()
+            registrationAgent.checkFinalState()
+            examinationAgent.checkFinalState()
+            vaccinationAgent.checkFinalState()
+            waitingAgent.checkFinalState()
+            injectionsAgent.checkFinalState()
+            transferAgent.checkFinalState()
+        }
     }
 
 }

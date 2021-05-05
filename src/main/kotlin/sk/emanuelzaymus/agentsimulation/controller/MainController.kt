@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import sk.emanuelzaymus.agentsimulation.controller.data.*
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.DEBUG_MODE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgentSimulation
 import tornadofx.Controller
 import tornadofx.alert
@@ -75,6 +76,7 @@ class MainController : Controller(), ISimDelegate {
     val waitingRoomData = CountRoomData("Waiting Room", "patients")
 
     private fun setSpeed() {
+        DEBUG_MODE = withAnimation.value
         if (withAnimation.value)
             sim.setSimSpeed(delayEvery.doubleValue(), delayFor.doubleValue())
         else
