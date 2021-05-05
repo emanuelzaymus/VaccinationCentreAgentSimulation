@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleDoubleProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
+import sk.emanuelzaymus.agentsimulation.controller.data.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgentSimulation
 import tornadofx.Controller
 import tornadofx.alert

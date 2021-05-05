@@ -1,7 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.view
 
 import sk.emanuelzaymus.agentsimulation.app.Styles
-import sk.emanuelzaymus.agentsimulation.controller.InjectionsPrepRoomData
+import sk.emanuelzaymus.agentsimulation.controller.data.InjectionsPrepRoomData
 import tornadofx.*
 
 class InjectionsRoom : Fragment("Injections Preparation") {

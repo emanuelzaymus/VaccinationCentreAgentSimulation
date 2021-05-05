@@ -1,9 +1,11 @@
-package sk.emanuelzaymus.agentsimulation.controller
+package sk.emanuelzaymus.agentsimulation.controller.data
 
 import OSPStat.Stat
 import javafx.application.Platform
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
+import sk.emanuelzaymus.agentsimulation.controller.roundToString
+import sk.emanuelzaymus.agentsimulation.controller.secondsToTime
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.AgentStats
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent

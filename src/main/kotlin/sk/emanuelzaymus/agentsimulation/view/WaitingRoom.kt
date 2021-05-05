@@ -1,7 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.view
 
 import sk.emanuelzaymus.agentsimulation.app.Styles
-import sk.emanuelzaymus.agentsimulation.controller.WaitingRoomData
+import sk.emanuelzaymus.agentsimulation.controller.data.WaitingRoomData
 import tornadofx.*
 
 class WaitingRoom : Fragment("Waiting Room") {

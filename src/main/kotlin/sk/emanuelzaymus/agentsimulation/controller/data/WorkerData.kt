@@ -1,5 +1,6 @@
-package sk.emanuelzaymus.agentsimulation.controller
+package sk.emanuelzaymus.agentsimulation.controller.data
 
+import sk.emanuelzaymus.agentsimulation.controller.roundToString
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
 open class WorkerData(

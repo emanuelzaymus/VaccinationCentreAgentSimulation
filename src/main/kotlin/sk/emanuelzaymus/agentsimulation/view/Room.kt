@@ -2,9 +2,9 @@ package sk.emanuelzaymus.agentsimulation.view
 
 import javafx.collections.ObservableList
 import sk.emanuelzaymus.agentsimulation.app.Styles
-import sk.emanuelzaymus.agentsimulation.controller.NurseData
-import sk.emanuelzaymus.agentsimulation.controller.RoomData
-import sk.emanuelzaymus.agentsimulation.controller.WorkerData
+import sk.emanuelzaymus.agentsimulation.controller.data.NurseData
+import sk.emanuelzaymus.agentsimulation.controller.data.RoomData
+import sk.emanuelzaymus.agentsimulation.controller.data.WorkerData
 import tornadofx.*
 
 class Room : Fragment() {
