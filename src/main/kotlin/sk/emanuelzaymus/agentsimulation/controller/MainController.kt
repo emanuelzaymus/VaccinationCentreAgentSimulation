@@ -1,5 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.controller
 
+import OSPABA.ISimDelegate
+import OSPABA.SimState
 import OSPABA.Simulation
 import javafx.application.Platform
 import javafx.beans.property.SimpleBooleanProperty
@@ -13,7 +15,7 @@ import tornadofx.Controller
 import tornadofx.alert
 import tornadofx.onChange
 
-class MainController : Controller() {
+class MainController : Controller(), ISimDelegate {
 
     private val initReplicationsCount = 1
     private val initNumberOfPatients = 540
@@ -61,7 +63,7 @@ class MainController : Controller() {
     }
     val delayForStr = SimpleStringProperty("1.0")
 
-    val state = SimpleStringProperty("READY")
+    val state = SimpleStringProperty("-")
     val actualSimTime = SimpleStringProperty(startTime.secondsToTime())
     val actualSimSeconds = SimpleDoubleProperty(.0)
     val currentReplicNumber = SimpleIntegerProperty(1)
@@ -97,6 +99,12 @@ class MainController : Controller() {
 
     fun stop() = sim.stopSimulation()
 
+    override fun simStateChanged(sim: Simulation, simState: SimState) = Platform.runLater {
+        state.value = simState.name
+    }
+
+    override fun refresh(sim: Simulation) = refreshUI(sim)
+
     private fun refreshUI(sim: Simulation) = Platform.runLater {
         actualSimTime.value = (sim.currentTime() + startTime).secondsToTime()
         actualSimSeconds.value = sim.currentTime()
@@ -121,11 +129,12 @@ class MainController : Controller() {
             val nurses = numberOfNurses.value.toInt()
             val earlyArrivals: Boolean = useEarlyArrivals.value
 
-            sim = VaccinationCentreAgentSimulation(patients, workers, doctors, nurses, earlyArrivals).apply {
-                onRefreshUI { refreshUI(it) }
-                onPause { refreshUI(it) }
-                onReplicationDidFinish { refreshCurrentReplic(it) }
-                onSimulationDidFinish { refreshUI(it) }
+            sim = VaccinationCentreAgentSimulation(patients, workers, doctors, nurses, earlyArrivals).also {
+                it.onPause { sim -> refreshUI(sim) }
+                it.onReplicationDidFinish { sim -> refreshCurrentReplic(sim) }
+                it.onSimulationDidFinish { sim -> refreshUI(sim) }
+
+                it.registerDelegate(this)
             }
 
             return true

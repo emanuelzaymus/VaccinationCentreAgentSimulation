@@ -10,6 +10,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.transfer.TransferAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.VaccinationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting.WaitingAgent
+import java.util.function.Consumer
 
 class VaccinationCentreAgentSimulation(
     numberOfPatients: Int,
@@ -80,6 +81,11 @@ class VaccinationCentreAgentSimulation(
         vaccinationStats.print("Vaccination")
         println("Waiting\nPatients count mean: " + waitingStats.mean())
         println("Injections Preparation\nNurses q length mean: " + waitingStats.mean())
+    }
+
+    override fun onReplicationWillStart(onReplicationWillStart: Consumer<Simulation>?) {
+//        super.setSimSpeed() // TODO
+        super.onReplicationWillStart(onReplicationWillStart)
     }
 
     private fun checkFinalState() {
