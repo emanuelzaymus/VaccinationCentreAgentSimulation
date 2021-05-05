@@ -10,7 +10,8 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Ids.waitingAgent, mySim, parent) {
 
     private val patientCountStats = WStat(mySim)
-    private var waitingPatients = .0
+    var waitingPatients = 0
+        private set
 
     init {
         WaitingManager(mySim, this)
@@ -24,17 +25,17 @@ class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Id
         super.prepareReplication()
 
         patientCountStats.clear()
-        waitingPatients = .0
+        waitingPatients = 0
     }
 
     fun incrementWaitingPatients() {
         waitingPatients++
-        patientCountStats.addSample(waitingPatients)
+        patientCountStats.addSample(waitingPatients.toDouble())
     }
 
     fun decrementWaitingPatients() {
         waitingPatients--
-        patientCountStats.addSample(waitingPatients)
+        patientCountStats.addSample(waitingPatients.toDouble())
     }
 
     fun getWaitingPatientsCountMean(): Double = patientCountStats.mean()

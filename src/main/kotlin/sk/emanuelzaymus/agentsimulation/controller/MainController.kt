@@ -68,6 +68,7 @@ class MainController : Controller() {
     val registrationRoom = RoomData("Registration", "Administrative Workers") { WorkerData.create(it) }
     val examinationRoom = RoomData("Examination", "Doctors") { WorkerData.create(it) }
     val vaccinationRoom = RoomData("Vaccination", "Nurses", true) { NurseData.create(it) }
+    val waitingRoomData = WaitingRoomData()
 
     private fun setSpeed() {
         if (withAnimation.value)
@@ -101,6 +102,7 @@ class MainController : Controller() {
         registrationRoom.refresh((sim as VaccinationCentreAgentSimulation).registrationAgent, sim.registrationStats)
         examinationRoom.refresh(sim.examinationAgent, sim.examinationStats)
         vaccinationRoom.refresh(sim.vaccinationAgent, sim.vaccinationStats)
+        waitingRoomData.refresh(sim.waitingAgent, sim.waitingStats)
     }
 
     private fun refreshCurrentReplic(sim: Simulation) =

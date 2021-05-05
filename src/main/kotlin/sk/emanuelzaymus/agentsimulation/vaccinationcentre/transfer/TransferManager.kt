@@ -29,10 +29,7 @@ class TransferManager(mySim: Simulation, myAgent: Agent) :
                 Ids.vaccinationTransferProcess -> transferDone(MessageCodes.vaccinationTransferEnd, message)
 
                 Ids.waitingTransferProcess -> transferDone(MessageCodes.waitingTransferEnd, message)
-
-                else -> throw Exception("Unknown sender id: ${message.sender().id()}")
             }
-            else -> throw Exception("Unknown message code: ${message.code()}")
         }
     }
 

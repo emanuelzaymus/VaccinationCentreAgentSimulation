@@ -140,7 +140,7 @@ class MainView : View("Vaccination Centre Agent Simulation") {
             tab(find<Room>(mapOf(Room::room to controller.registrationRoom)))
             tab(find<Room>(mapOf(Room::room to controller.examinationRoom)))
             tab(find<Room>(mapOf(Room::room to controller.vaccinationRoom)))
-            tab(find<Room>(mapOf(Room::room to controller.registrationRoom)))
+            tab(find<WaitingRoom>(mapOf(WaitingRoom::room to controller.waitingRoomData)))
         }
     }
 
