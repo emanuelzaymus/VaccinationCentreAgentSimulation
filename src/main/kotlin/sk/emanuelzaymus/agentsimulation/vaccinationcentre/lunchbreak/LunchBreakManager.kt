@@ -10,14 +10,14 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerStat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
 class LunchBreakManager(mySim: Simulation, myAgent: LunchBreakAgent) :
-    VaccinationCentreManager(Ids.breakManager, mySim, myAgent) {
+    VaccinationCentreManager(Ids.lunchBreakManager, mySim, myAgent) {
 
     override fun processMessage(message: MessageForm) {
-        debug("BreakManager", message)
+        debug("LunchBreakManager", message)
 
         when (message.code()) {
 
-            MessageCodes.breakStart -> startProcess(Ids.toCanteenTransferProcess, message)
+            MessageCodes.lunchBreakStart -> startProcess(Ids.toCanteenTransferProcess, message)
 
             IdList.finish -> when (message.sender().id()) {
                 Ids.toCanteenTransferProcess -> startProcess(Ids.lunchProcess, message)
@@ -36,7 +36,7 @@ class LunchBreakManager(mySim: Simulation, myAgent: LunchBreakAgent) :
 
     private fun breakDone(message: WorkersBreakMessage) {
         message.worker!!.state = WorkerState.FREE
-        message.setCode(MessageCodes.breakEnd)
+        message.setCode(MessageCodes.lunchBreakEnd)
 
         response(message)
     }

@@ -36,10 +36,25 @@ abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : I
             isBusy = field.isBusy()
         }
 
-    override fun restart() = workloadStat.clear()
+    var hadLunchBreak = false
+        private set
+
+    val isHavingLunchBreak get() = state.isHavingLunchBreak()
+
+    fun makeLunchBreak() {
+        if (hadLunchBreak)
+            throw IllegalStateException("Cannot set hadLunchBreak = true 2 times.")
+        hadLunchBreak = true
+    }
+
+    override fun restart() {
+        workloadStat.clear()
+        hadLunchBreak = false
+    }
 
     override fun checkFinalState() {
         if (isBusy) throw IllegalStateException("This worker is still working.")
+        if (!hadLunchBreak) throw IllegalStateException("This worker did not have lunch break.")
     }
 
     override fun countLastStats() {

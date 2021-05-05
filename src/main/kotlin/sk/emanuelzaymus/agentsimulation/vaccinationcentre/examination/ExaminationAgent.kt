@@ -23,6 +23,7 @@ class ExaminationAgent(mySim: Simulation, parent: Agent, numberOfDoctors: Int) :
         addOwnMessage(MessageCodes.examinationStart)
         addOwnMessage(MessageCodes.examinationEnd)
         addOwnMessage(MessageCodes.lunchBreakNow)
+        addOwnMessage(MessageCodes.lunchBreakEnd)
     }
 
 }

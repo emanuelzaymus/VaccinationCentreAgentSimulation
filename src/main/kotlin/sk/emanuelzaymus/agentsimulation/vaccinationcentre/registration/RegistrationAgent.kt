@@ -24,6 +24,7 @@ class RegistrationAgent(mySim: Simulation, parent: Agent, numberOfAdminWorkers: 
         addOwnMessage(MessageCodes.registrationStart)
         addOwnMessage(MessageCodes.registrationEnd)
         addOwnMessage(MessageCodes.lunchBreakNow)
+        addOwnMessage(MessageCodes.lunchBreakEnd)
     }
 
 }

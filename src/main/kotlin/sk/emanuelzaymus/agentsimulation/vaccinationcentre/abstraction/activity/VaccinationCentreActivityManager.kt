@@ -3,14 +3,17 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 import OSPABA.IdList
 import OSPABA.MessageForm
 import OSPABA.Simulation
+import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreManager
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.WorkersBreakMessage
 
 abstract class VaccinationCentreActivityManager(
-    id: Int, mySim: Simulation, private val myAgent: VaccinationCentreActivityAgent<*>
+    id: Int, private val mySim: Simulation, private val myAgent: VaccinationCentreActivityAgent<*>
 ) : VaccinationCentreManager(id, mySim, myAgent) {
 
     protected abstract val debugName: String
@@ -18,6 +21,19 @@ abstract class VaccinationCentreActivityManager(
     protected abstract val activityEndMsgCode: Int
     protected abstract val activityProcessId: Int
     protected abstract val lunchBreakSchedulerId: Int
+    protected abstract val lunchBreakStart: Double
+
+    companion object {
+        private var breakMessagePoolField: Pool<WorkersBreakMessage>? = null
+    }
+
+    private val breakMessagePool: Pool<WorkersBreakMessage>
+        get() {
+            if (breakMessagePoolField == null) {
+                breakMessagePoolField = Pool { WorkersBreakMessage(mySim) }
+            }
+            return breakMessagePoolField!!
+        }
 
     override fun processMessage(message: MessageForm) {
         debug(debugName, message)
@@ -26,6 +42,8 @@ abstract class VaccinationCentreActivityManager(
             MessageCodes.init -> scheduleLunchBreak(message)
 
             activityStartMsgCode -> tryStartActivity(message as Message)
+
+            MessageCodes.lunchBreakEnd -> lunchBreakDone(message as WorkersBreakMessage)
             // Process - activity done
             IdList.finish -> when (message.sender().id()) {
                 activityProcessId -> activityDone(message as Message)
@@ -52,16 +70,17 @@ abstract class VaccinationCentreActivityManager(
     }
 
     protected open fun activityDone(message: Message) {
+        if (!tryStartLunchBreak(message.worker!!)) {
+            startActivityIfPossible()
+        }
         message.worker = null
-
-        startActivityIfAnyWaiting()
 
         message.setCode(activityEndMsgCode)
         response(message)
     }
 
-    protected fun startActivityIfAnyWaiting() {
-        if (myAgent.queue.isNotEmpty())
+    protected fun startActivityIfPossible() {
+        if (myAgent.queue.isNotEmpty() && myAgent.workers.anyAvailable())
             startActivity(myAgent.queue.dequeue())
     }
 
@@ -75,8 +94,34 @@ abstract class VaccinationCentreActivityManager(
         startContinualAssistant(message)
     }
 
-    private fun sendWorkersToLunchBreak() {
-//        TODO("implement")
+    protected open fun lunchBreakDone(message: WorkersBreakMessage) {
+        breakMessagePool.release(message)
+        startActivityIfPossible()
+    }
+
+    private fun sendWorkersToLunchBreak() =
+        myAgent.workers.filter { !it.isBusy }.shuffled().forEach { tryStartLunchBreak(it) }
+
+    protected fun tryStartLunchBreak(worker: VaccinationCentreWorker): Boolean {
+        if (!worker.hadLunchBreak && mySim.currentTime() >= lunchBreakStart && lessThenHalfWorkersIsHavingLunchBreak()) {
+            requestLunchBreak(worker)
+            return true
+        }
+        return false
+    }
+
+    private fun lessThenHalfWorkersIsHavingLunchBreak(): Boolean =
+        myAgent.workers.size / 2 > myAgent.workers.count { it.isHavingLunchBreak }
+
+    private fun requestLunchBreak(worker: VaccinationCentreWorker) {
+        worker.makeLunchBreak()
+
+        val message = breakMessagePool.acquire().also {
+            it.worker = worker
+            it.setCode(MessageCodes.lunchBreakStart)
+            it.setAddressee(Ids.lunchBreakAgent)
+        }
+        request(message)
     }
 
 }

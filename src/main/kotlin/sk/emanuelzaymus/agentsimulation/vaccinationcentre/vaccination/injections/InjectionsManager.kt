@@ -53,6 +53,7 @@ class InjectionsManager(mySim: Simulation, private val myAgent: InjectionsAgent)
     }
 
     private fun startFromInjectionsTransfer(message: MessageForm) {
+        // TODO: add FREE state
         message.setAddressee(Ids.fromInjectionsTransferProcess)
 
         startContinualAssistant(message)

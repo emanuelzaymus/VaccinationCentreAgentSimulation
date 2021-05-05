@@ -6,7 +6,9 @@ import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.NURSES_LUNCH_BREAK_START
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityManager
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.WorkersBreakMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsPreparationMessage
 
 class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
@@ -20,6 +22,7 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
     override val activityEndMsgCode = MessageCodes.vaccinationEnd
     override val activityProcessId = Ids.vaccinationProcess
     override val lunchBreakSchedulerId = Ids.nursesLunchBreakScheduler
+    override val lunchBreakStart = NURSES_LUNCH_BREAK_START
 
     override fun processMessage(message: MessageForm) {
         super.processMessage(message)
@@ -33,10 +36,12 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
         val nurse = message.worker as Nurse
         message.worker = null
 
-        if (nurse.hasAnyInjectionLeft())
-            startActivityIfAnyWaiting()
-        else
-            requestInjectionsPreparation(nurse)
+        if (!tryStartLunchBreak(nurse)) {
+            if (nurse.hasAnyInjectionLeft())
+                startActivityIfPossible()
+            else
+                requestInjectionsPreparation(nurse)
+        }
 
         message.setCode(activityEndMsgCode)
         response(message)
@@ -54,7 +59,15 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
     private fun injectionsPreparationDone(message: InjectionsPreparationMessage) {
         preparationMessagePool.release(message)
 
-        startActivityIfAnyWaiting()
+        startActivityIfPossible()
+    }
+
+    override fun lunchBreakDone(message: WorkersBreakMessage) {
+        val nurse = message.worker as Nurse
+        if (!nurse.hasAnyInjectionLeft()) {
+            requestInjectionsPreparation(nurse)
+        }
+        super.lunchBreakDone(message)
     }
 
 }

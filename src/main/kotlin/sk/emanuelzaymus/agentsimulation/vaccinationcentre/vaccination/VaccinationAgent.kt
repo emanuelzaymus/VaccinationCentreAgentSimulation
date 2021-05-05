@@ -17,15 +17,15 @@ class VaccinationAgent(mySim: Simulation, parent: Agent, numberOfNurses: Int) :
     init {
         VaccinationManager(mySim, this)
         VaccinationProcess(mySim, this)
-
         NursesLunchBreakScheduler(mySim, this)
 
         addOwnMessage(MessageCodes.init)
         addOwnMessage(MessageCodes.vaccinationStart)
         addOwnMessage(MessageCodes.vaccinationEnd)
+        addOwnMessage(MessageCodes.lunchBreakNow)
+        addOwnMessage(MessageCodes.lunchBreakEnd)
         addOwnMessage(MessageCodes.injectionsPreparationStart)
         addOwnMessage(MessageCodes.injectionsPreparationEnd)
-        addOwnMessage(MessageCodes.lunchBreakNow)
     }
 
 }

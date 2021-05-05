@@ -6,7 +6,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
-class LunchBreakAgent(mySim: Simulation, parent: Agent?) : VaccinationCentreAgent(Ids.breakAgent, mySim, parent) {
+class LunchBreakAgent(mySim: Simulation, parent: Agent?) : VaccinationCentreAgent(Ids.lunchBreakAgent, mySim, parent) {
 
     init {
         LunchBreakManager(mySim, this)
@@ -14,10 +14,11 @@ class LunchBreakAgent(mySim: Simulation, parent: Agent?) : VaccinationCentreAgen
         LunchProcess(mySim, this)
         FromCanteenTransferProcess(mySim, this)
 
-        addOwnMessage(MessageCodes.breakStart)
-        addOwnMessage(MessageCodes.breakEnd)
+        addOwnMessage(MessageCodes.lunchBreakStart)
+        addOwnMessage(MessageCodes.lunchBreakEnd)
 
         addOwnMessage(MessageCodes.transferEnd)
+        addOwnMessage(MessageCodes.lunchEnd)
     }
 
 }

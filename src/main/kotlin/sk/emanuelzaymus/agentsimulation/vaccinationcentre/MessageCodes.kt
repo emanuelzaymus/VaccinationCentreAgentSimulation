@@ -26,8 +26,8 @@ class MessageCodes {
         const val injectionsPreparationEnd = 12
 
         const val lunchBreakNow = 13
-        const val breakStart = 14
-        const val breakEnd = 15
+        const val lunchBreakStart = 14
+        const val lunchBreakEnd = 15
         const val lunchEnd = 16
 
         const val examinationTransferStart = 17
@@ -58,8 +58,8 @@ class MessageCodes {
             injectionsPreparationEnd -> "injectionsPreparationEnd"
 
             lunchBreakNow -> "lunchBreakNow"
-            breakStart -> "breakStart"
-            breakEnd -> "breakEnd"
+            lunchBreakStart -> "lunchBreakStart"
+            lunchBreakEnd -> "lunchBreakEnd"
             lunchEnd -> "lunchEnd"
 
             examinationTransferStart -> "examinationTransferStart"

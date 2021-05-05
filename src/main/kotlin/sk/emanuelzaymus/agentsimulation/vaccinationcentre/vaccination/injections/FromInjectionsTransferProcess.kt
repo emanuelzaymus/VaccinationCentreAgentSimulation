@@ -25,6 +25,7 @@ class FromInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
         super.startProcess(message)
     }
 
+    // TODO: remove from here - put into manager
     override fun endProcess(message: InjectionsPreparationMessage) {
         message.nurse!!.state = WorkerState.FREE
         super.endProcess(message)

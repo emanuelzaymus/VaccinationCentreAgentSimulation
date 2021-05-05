@@ -4,6 +4,7 @@ import OSPABA.Simulation
 import OSPStat.Stat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.LunchBreakAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.transfer.TransferAgent
@@ -27,6 +28,7 @@ class VaccinationCentreAgentSimulation(
     val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
     val waitingAgent = WaitingAgent(this, modelAgent)
     val transferAgent = TransferAgent(this, vaccinationAgent)
+    val lunchBreakAgent = LunchBreakAgent(this, vaccinationAgent)
     val injectionsAgent = InjectionsAgent(this, vaccinationAgent, 2)
 
     val registrationStats = AgentStats()
