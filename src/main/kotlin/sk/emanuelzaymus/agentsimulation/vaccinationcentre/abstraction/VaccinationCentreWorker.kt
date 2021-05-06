@@ -9,6 +9,7 @@ abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : I
     protected abstract val stringName: String
 
     override var isBusy: Boolean = false
+        get() = field || isHavingLunchBreak
         protected set(value) {
             field = value
             workloadStat.addSample(if (value) 1.0 else .0)
@@ -39,21 +40,33 @@ abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : I
     var hadLunchBreak = false
         private set
 
-    val isHavingLunchBreak get() = state.isHavingLunchBreak()
+    var isHavingLunchBreak = false
+        private set
 
-    fun makeLunchBreak() {
+    fun setLunchBreakDone() {
         if (hadLunchBreak)
             throw IllegalStateException("Cannot set hadLunchBreak = true 2 times.")
         hadLunchBreak = true
+        isHavingLunchBreak = false
+    }
+
+    fun setIsHavingLunchBreak() {
+        if (hadLunchBreak)
+            throw IllegalStateException("Worker already had lunch break.")
+        if (isHavingLunchBreak)
+            throw IllegalStateException("Worker is having lunch break right now.")
+        isHavingLunchBreak = true
     }
 
     override fun restart() {
         workloadStat.clear()
         hadLunchBreak = false
+        isHavingLunchBreak = false
     }
 
     override fun checkFinalState() {
-        if (isBusy) throw IllegalStateException("This worker is still working.")
+        if (isHavingLunchBreak) throw IllegalStateException("This worker is still having lunch break.")
+        if (isBusy) throw IllegalStateException("This worker is still busy.")
         if (!hadLunchBreak) throw IllegalStateException("This worker did not have lunch break.")
     }
 

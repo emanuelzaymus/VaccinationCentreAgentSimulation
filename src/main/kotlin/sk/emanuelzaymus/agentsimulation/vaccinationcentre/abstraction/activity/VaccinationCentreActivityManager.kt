@@ -95,7 +95,11 @@ abstract class VaccinationCentreActivityManager(
     }
 
     protected open fun lunchBreakDone(message: WorkersBreakMessage) {
+        message.worker!!.setLunchBreakDone()
+
         breakMessagePool.release(message)
+
+        sendWorkersToLunchBreak()
         startActivityIfPossible()
     }
 
@@ -103,6 +107,9 @@ abstract class VaccinationCentreActivityManager(
         myAgent.workers.filter { !it.isBusy }.shuffled().forEach { tryStartLunchBreak(it) }
 
     protected fun tryStartLunchBreak(worker: VaccinationCentreWorker): Boolean {
+        if (worker.isBusy) {
+            throw IllegalArgumentException("Cannot try to start lunch break because the worker is busy.")
+        }
         if (!worker.hadLunchBreak && mySim.currentTime() >= lunchBreakStart && lessThenHalfWorkersIsHavingLunchBreak()) {
             requestLunchBreak(worker)
             return true
@@ -114,12 +121,12 @@ abstract class VaccinationCentreActivityManager(
         myAgent.workers.size / 2 > myAgent.workers.count { it.isHavingLunchBreak }
 
     private fun requestLunchBreak(worker: VaccinationCentreWorker) {
-        worker.makeLunchBreak()
+        worker.setIsHavingLunchBreak()
 
         val message = breakMessagePool.acquire().also {
             it.worker = worker
             it.setCode(MessageCodes.lunchBreakStart)
-            it.setAddressee(Ids.lunchBreakAgent)
+            it.setAddressee(Ids.modelAgent)
         }
         request(message)
     }

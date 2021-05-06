@@ -24,7 +24,7 @@ class LunchBreakManager(mySim: Simulation, myAgent: LunchBreakAgent) :
 
                 Ids.lunchProcess -> startProcess(Ids.fromCanteenTransferProcess, message)
 
-                Ids.fromInjectionsTransferProcess -> breakDone(message as WorkersBreakMessage)
+                Ids.fromCanteenTransferProcess -> breakDone(message as WorkersBreakMessage)
             }
         }
     }

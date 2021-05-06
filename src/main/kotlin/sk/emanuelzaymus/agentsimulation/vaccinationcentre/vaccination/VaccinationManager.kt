@@ -47,6 +47,14 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
         response(message)
     }
 
+    override fun lunchBreakDone(message: WorkersBreakMessage) {
+        val nurse = message.worker as Nurse
+        if (!nurse.hasAnyInjectionLeft()) {
+            requestInjectionsPreparation(nurse)
+        }
+        super.lunchBreakDone(message)
+    }
+
     private fun requestInjectionsPreparation(nurse: Nurse) {
         val message = preparationMessagePool.acquire().also { it.nurse = nurse }
 
@@ -60,14 +68,6 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
         preparationMessagePool.release(message)
 
         startActivityIfPossible()
-    }
-
-    override fun lunchBreakDone(message: WorkersBreakMessage) {
-        val nurse = message.worker as Nurse
-        if (!nurse.hasAnyInjectionLeft()) {
-            requestInjectionsPreparation(nurse)
-        }
-        super.lunchBreakDone(message)
     }
 
 }

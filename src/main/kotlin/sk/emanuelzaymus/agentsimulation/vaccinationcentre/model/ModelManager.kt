@@ -1,7 +1,6 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
 
 import OSPABA.Agent
-import OSPABA.IdList
 import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
@@ -32,6 +31,10 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
             MessageCodes.waitingTransferEnd -> requestWaiting(message)
 
             MessageCodes.waitingEnd -> noticeEnvironmentDone(message)
+
+            MessageCodes.lunchBreakStart -> requestLunchBreak(message)
+
+            MessageCodes.lunchBreakEnd -> lunchBreakDone(message)
         }
     }
 
@@ -78,5 +81,12 @@ class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager
 
         request(message)
     }
+
+    private fun requestLunchBreak(message: MessageForm) {
+        message.setAddressee(Ids.lunchBreakAgent)
+        request(message)
+    }
+
+    private fun lunchBreakDone(message: MessageForm) = response(message)
 
 }
