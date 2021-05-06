@@ -80,11 +80,11 @@ class MainView : View("Vaccination Centre Agent Simulation") {
                     label("Delay every (sim. seconds): ")
                     label(controller.delayEveryStr)
                 }
-                slider(1..180) {
+                slider(1..300) {
                     bind(controller.delayEvery)
                     prefWidth = preferredWidth
                     isShowTickLabels = true
-                    majorTickUnit = 89.0
+                    majorTickUnit = 149.0
                 }
                 hbox(smallSpaces) {
                     label("Delay for (seconds): ")

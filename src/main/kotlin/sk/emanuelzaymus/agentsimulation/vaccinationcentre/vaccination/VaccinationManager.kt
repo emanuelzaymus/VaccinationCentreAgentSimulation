@@ -51,6 +51,7 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
         val nurse = message.worker as Nurse
         if (!nurse.hasAnyInjectionLeft()) {
             requestInjectionsPreparation(nurse)
+            // TODO: needs to set nurse.state = GoingToPrepareInjections
         }
         super.lunchBreakDone(message)
     }
