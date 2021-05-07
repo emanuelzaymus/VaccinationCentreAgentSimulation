@@ -16,7 +16,6 @@ class WaitingManager(mySim: Simulation, private val myAgent: WaitingAgent) :
         debug("WaitingManager", message)
 
         when (message.code()) {
-
             MessageCodes.waitingStart -> startWaiting(message as Message)
             // WaitingProcess - waiting done
             IdList.finish -> waitingDone(message as Message)

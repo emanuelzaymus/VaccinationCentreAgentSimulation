@@ -16,7 +16,6 @@ class LunchBreakManager(mySim: Simulation, myAgent: LunchBreakAgent) :
         debug("LunchBreakManager", message)
 
         when (message.code()) {
-
             MessageCodes.lunchBreakStart -> startProcess(Ids.toCanteenTransferProcess, message)
 
             IdList.finish -> when (message.sender().id()) {

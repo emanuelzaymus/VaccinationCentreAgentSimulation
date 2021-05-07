@@ -13,7 +13,6 @@ abstract class LunchBreakScheduler(id: Int, mySim: Simulation, myAgent: CommonAg
         debug(debugName, message)
 
         when (message.code()) {
-
             IdList.start -> scheduleLunchBreak(message)
 
             MessageCodes.lunchBreakNow -> lunchBreakNow(message)
