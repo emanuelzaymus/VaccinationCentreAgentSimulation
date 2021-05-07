@@ -27,7 +27,7 @@ abstract class VaccinationCentreActivityManager(
         private var breakMessagePoolField: Pool<WorkersBreakMessage>? = null
     }
 
-    private val breakMessagePool: Pool<WorkersBreakMessage>
+    protected val breakMessagePool: Pool<WorkersBreakMessage>
         get() {
             if (breakMessagePoolField == null) {
                 breakMessagePoolField = Pool { WorkersBreakMessage(mySim) }
@@ -70,10 +70,13 @@ abstract class VaccinationCentreActivityManager(
     }
 
     protected open fun activityDone(message: Message) {
-        if (!tryStartLunchBreak(message.worker!!)) {
+        val worker = message.worker!!
+        worker.isBusy = false
+        message.worker = null
+
+        if (!tryStartLunchBreak(worker)) {
             startActivityIfPossible()
         }
-        message.worker = null
 
         message.setCode(activityEndMsgCode)
         response(message)
@@ -88,7 +91,9 @@ abstract class VaccinationCentreActivityManager(
         message.patient.stopWaiting()
         myAgent.waitingTimeStat.addSample(message.patient.getWaitingTotal())
 
-        message.worker = myAgent.workers.getRandomAvailable()
+        message.worker = myAgent.workers.getRandomAvailable().apply {
+            isBusy = true
+        }
         message.setAddressee(activityProcessId)
 
         startContinualAssistant(message)
@@ -103,7 +108,7 @@ abstract class VaccinationCentreActivityManager(
         startActivityIfPossible()
     }
 
-    private fun sendWorkersToLunchBreak() =
+    protected fun sendWorkersToLunchBreak() =
         myAgent.workers.filter { !it.isBusy }.shuffled().forEach { tryStartLunchBreak(it) }
 
     protected fun tryStartLunchBreak(worker: VaccinationCentreWorker): Boolean {

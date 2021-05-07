@@ -27,8 +27,8 @@ class VaccinationCentreAgentSimulation(
     val examinationAgent = ExaminationAgent(this, modelAgent, numberOfDoctors)
     val vaccinationAgent = VaccinationAgent(this, modelAgent, numberOfNurses)
     val waitingAgent = WaitingAgent(this, modelAgent)
-    val transferAgent = TransferAgent(this, vaccinationAgent)
-    val lunchBreakAgent = LunchBreakAgent(this, vaccinationAgent)
+    val transferAgent = TransferAgent(this, modelAgent)
+    val lunchBreakAgent = LunchBreakAgent(this, modelAgent)
     val injectionsAgent = InjectionsAgent(this, vaccinationAgent, 2)
 
     val registrationStats = AgentStats()

@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_COUNT_TO_PREPARE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState as WS
 
 class Nurse(id: Int, workloadStat: WStat) : VaccinationCentreWorker(id, workloadStat) {
 
@@ -12,17 +12,21 @@ class Nurse(id: Int, workloadStat: WStat) : VaccinationCentreWorker(id, workload
     var injectionsLeft: Int = INJECTIONS_COUNT_TO_PREPARE
         private set
 
-    override var state: WorkerState
+    override var state: WS
         get() = super.state
         set(value) {
-            if (value == WorkerState.GOING_TO_PREPARE_INJECTIONS && super.state != WorkerState.FREE)
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.FREE}.")
-            if (value == WorkerState.WAITING_TO_INJECTIONS_PREPARATION && super.state != WorkerState.GOING_TO_PREPARE_INJECTIONS)
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.GOING_TO_PREPARE_INJECTIONS}.")
-            if (value == WorkerState.PREPARING_INJECTIONS && (super.state != WorkerState.GOING_TO_PREPARE_INJECTIONS && super.state != WorkerState.WAITING_TO_INJECTIONS_PREPARATION))
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.GOING_TO_PREPARE_INJECTIONS}/${WorkerState.WAITING_TO_INJECTIONS_PREPARATION}.")
-            if (value == WorkerState.GOING_FROM_INJECTIONS_PREPARATION && super.state != WorkerState.PREPARING_INJECTIONS)
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.PREPARING_INJECTIONS}.")
+            if (value == WS.FREE && super.state == WS.GOING_FROM_INJECTIONS_PREPARATION) {
+                stateField = value
+                return
+            }
+            if (value == WS.GOING_TO_PREPARE_INJECTIONS && super.state != WS.FREE)
+                throw IllegalArgumentException("Cannot assign $value when is not ${WS.FREE}.")
+            if (value == WS.WAITING_TO_INJECTIONS_PREPARATION && super.state != WS.GOING_TO_PREPARE_INJECTIONS)
+                throw IllegalArgumentException("Cannot assign $value when is not ${WS.GOING_TO_PREPARE_INJECTIONS}.")
+            if (value == WS.PREPARING_INJECTIONS && (super.state != WS.GOING_TO_PREPARE_INJECTIONS && super.state != WS.WAITING_TO_INJECTIONS_PREPARATION))
+                throw IllegalArgumentException("Cannot assign $value when is not ${WS.GOING_TO_PREPARE_INJECTIONS}/${WS.WAITING_TO_INJECTIONS_PREPARATION}.")
+            if (value == WS.GOING_FROM_INJECTIONS_PREPARATION && super.state != WS.PREPARING_INJECTIONS)
+                throw IllegalArgumentException("Cannot assign $value when is not ${WS.PREPARING_INJECTIONS}.")
 
             super.state = value
         }

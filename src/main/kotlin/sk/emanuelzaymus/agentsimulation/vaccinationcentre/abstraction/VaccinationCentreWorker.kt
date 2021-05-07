@@ -2,50 +2,56 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction
 
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.IBusyObject
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.Nurse
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState as WS
 
 abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : IBusyObject, IWStatsEntity {
 
     protected abstract val stringName: String
 
     override var isBusy: Boolean = false
-        get() = field || isHavingLunchBreak
-        protected set(value) {
-            field = value
-            workloadStat.addSample(if (value) 1.0 else .0)
-        }
-
-    open var state = WorkerState.FREE
         set(value) {
-            if (this is Nurse && value == WorkerState.FREE && field == WorkerState.GOING_FROM_INJECTIONS_PREPARATION) {
-                field = value
-                isBusy = field.isBusy()
-                return
-            }
-            if (value == WorkerState.WORKING && field != WorkerState.FREE)
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.FREE}.")
-            if (value == WorkerState.FREE && (field != WorkerState.WORKING && field != WorkerState.GOING_FROM_LUNCH))
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.WORKING}/${WorkerState.GOING_FROM_LUNCH}.")
-            if (value == WorkerState.GOING_TO_LUNCH && field != WorkerState.FREE)
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.FREE}.")
-            if (value == WorkerState.DINING && field != WorkerState.GOING_TO_LUNCH)
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.GOING_TO_LUNCH}.")
-            if (value == WorkerState.GOING_FROM_LUNCH && field != WorkerState.DINING)
-                throw IllegalArgumentException("Cannot assign $value when is not ${WorkerState.DINING}.")
-
+            if (value == field)
+                throw IllegalArgumentException("Cannot reassigned property isBusy with the same value: $value.")
             field = value
-            isBusy = field.isBusy()
+            addToWorkloadStat()
         }
+
+    protected var stateField = WS.FREE
+
+    open var state: WS
+        get() = stateField
+        set(value) {
+            checkWorkerState(value)
+            stateField = value
+        }
+
+    private fun checkWorkerState(value: WS) {
+        if (value == WS.WORKING && state != WS.FREE)
+            throw IllegalArgumentException("Cannot assign $value when is not ${WS.FREE}.")
+        if (value == WS.FREE && (state != WS.WORKING && state != WS.GOING_FROM_LUNCH))
+            throw IllegalArgumentException("Cannot assign $value when is not ${WS.WORKING}/${WS.GOING_FROM_LUNCH}.")
+        if (value == WS.GOING_TO_LUNCH && state != WS.FREE)
+            throw IllegalArgumentException("Cannot assign $value when is not ${WS.FREE}.")
+        if (value == WS.DINING && state != WS.GOING_TO_LUNCH)
+            throw IllegalArgumentException("Cannot assign $value when is not ${WS.GOING_TO_LUNCH}.")
+        if (value == WS.GOING_FROM_LUNCH && state != WS.DINING)
+            throw IllegalArgumentException("Cannot assign $value when is not ${WS.DINING}.")
+    }
 
     var hadLunchBreak = false
         private set
 
     var isHavingLunchBreak = false
-        private set
+        private set(value) {
+            if (value == field)
+                throw IllegalArgumentException("Cannot reassigned property isHavingLunchBreak with the same value: $value.")
+            field = value
+            isBusy = value
+        }
 
     fun setLunchBreakDone() {
         if (hadLunchBreak)
-            throw IllegalStateException("Cannot set hadLunchBreak = true 2 times.")
+            throw IllegalStateException("Cannot set hadLunchBreak true 2 times.")
         hadLunchBreak = true
         isHavingLunchBreak = false
     }
@@ -61,19 +67,18 @@ abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : I
     override fun restart() {
         workloadStat.clear()
         hadLunchBreak = false
-        isHavingLunchBreak = false
     }
 
     override fun checkFinalState() {
-        if (isHavingLunchBreak) throw IllegalStateException("This worker is still having lunch break.")
-        if (isBusy) throw IllegalStateException("This worker is still busy.")
-        if (!hadLunchBreak) throw IllegalStateException("This worker did not have lunch break.")
+        if (isHavingLunchBreak) throw IllegalStateException("Worker $this is still having lunch break.")
+        if (isBusy) throw IllegalStateException("Worker $this is still busy.")
+        if (!hadLunchBreak) throw IllegalStateException("Worker $this did not have lunch break.")
     }
 
-    override fun countLastStats() {
-        isBusy = isBusy
-    }
+    override fun countLastStats() = addToWorkloadStat()
 
     override fun toString(): String = "$stringName $id"
+
+    private fun addToWorkloadStat() = workloadStat.addSample(if (isBusy) 1.0 else .0)
 
 }

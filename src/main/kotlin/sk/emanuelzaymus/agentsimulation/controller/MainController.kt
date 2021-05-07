@@ -132,8 +132,7 @@ class MainController : Controller(), ISimDelegate {
 
             sim = VaccinationCentreAgentSimulation(patients, workers, doctors, nurses, earlyArrivals).also {
                 it.onPause { sim -> refreshUI(sim) }
-                it.onReplicationWillStart { setSpeed() }
-                it.onReplicationDidFinish { sim -> refreshCurrentReplic(sim) }
+                it.onReplicationWillStart { sim -> setSpeed(); refreshCurrentReplic(sim) }
                 it.onSimulationDidFinish { sim -> refreshUI(sim) }
 
                 it.registerDelegate(this)

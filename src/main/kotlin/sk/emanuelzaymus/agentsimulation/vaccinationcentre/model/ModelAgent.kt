@@ -6,7 +6,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.InitMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
-class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, mySim, null) {
+class ModelAgent(private val mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, mySim, null) {
 
     init {
         ModelManager(mySim, this)
@@ -28,7 +28,7 @@ class ModelAgent(mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, myS
     }
 
     fun runSimulation() {
-        val message = InitMessage(mySim())
+        val message = InitMessage(mySim)
         message.setAddressee(this)
 
         manager().notice(message)

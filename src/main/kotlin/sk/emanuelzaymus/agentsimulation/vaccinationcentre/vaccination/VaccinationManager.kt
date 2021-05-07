@@ -34,6 +34,7 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
 
     override fun activityDone(message: Message) {
         val nurse = message.worker as Nurse
+        nurse.isBusy = false
         message.worker = null
 
         if (!tryStartLunchBreak(nurse)) {
@@ -49,14 +50,19 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
 
     override fun lunchBreakDone(message: WorkersBreakMessage) {
         val nurse = message.worker as Nurse
-        if (!nurse.hasAnyInjectionLeft()) {
+        nurse.setLunchBreakDone()
+
+        breakMessagePool.release(message)
+        sendWorkersToLunchBreak()
+
+        if (!nurse.hasAnyInjectionLeft())
             requestInjectionsPreparation(nurse)
-            // TODO: needs to set nurse.state = GoingToPrepareInjections
-        }
-        super.lunchBreakDone(message)
+        else
+            startActivityIfPossible()
     }
 
     private fun requestInjectionsPreparation(nurse: Nurse) {
+        nurse.isBusy = true
         val message = preparationMessagePool.acquire().also { it.nurse = nurse }
 
         message.setCode(MessageCodes.injectionsPreparationStart)
@@ -66,6 +72,7 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
     }
 
     private fun injectionsPreparationDone(message: InjectionsPreparationMessage) {
+        message.nurse!!.isBusy = false
         preparationMessagePool.release(message)
 
         startActivityIfPossible()
