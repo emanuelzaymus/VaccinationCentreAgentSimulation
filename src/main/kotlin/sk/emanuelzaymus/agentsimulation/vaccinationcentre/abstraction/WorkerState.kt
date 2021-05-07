@@ -14,6 +14,4 @@ enum class WorkerState {
 
     fun isBusy(): Boolean = this != FREE
 
-    fun isHavingLunchBreak(): Boolean = this in listOf(GOING_TO_LUNCH, DINING, GOING_FROM_LUNCH)
-
 }

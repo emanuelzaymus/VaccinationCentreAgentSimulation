@@ -70,6 +70,7 @@ class Room : Fragment() {
                             prefHeight = 260.0
                             readonlyColumn("Num", NurseData::id).prefWidth = 40.0
                             readonlyColumn("Busy", NurseData::busy).prefWidth = 40.0
+                            readonlyColumn("Lunch", NurseData::lunch).prefWidth = 40.0
                             readonlyColumn("Workload", NurseData::avgWorkload).prefWidth = 70.0
                             readonlyColumn("Injections", NurseData::injectionsLeft).prefWidth = 70.0
                             readonlyColumn("State", NurseData::state).prefWidth = 150.0
@@ -80,6 +81,7 @@ class Room : Fragment() {
                             prefHeight = 260.0
                             readonlyColumn("Num", WorkerData::id).prefWidth = 40.0
                             readonlyColumn("Busy", WorkerData::busy).prefWidth = 40.0
+                            readonlyColumn("Lunch", WorkerData::lunch).prefWidth = 40.0
                             readonlyColumn("Workload", WorkerData::avgWorkload).prefWidth = 70.0
                             readonlyColumn("State", WorkerData::state).prefWidth = 150.0
                         }
