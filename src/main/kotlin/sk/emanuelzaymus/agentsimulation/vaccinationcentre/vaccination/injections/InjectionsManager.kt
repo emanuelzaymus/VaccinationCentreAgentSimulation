@@ -23,7 +23,7 @@ class InjectionsManager(mySim: Simulation, private val myAgent: InjectionsAgent)
 
                 Ids.injectionsPreparationProcess -> preparationProcessDone(message)
 
-                Ids.fromInjectionsTransferProcess -> injectionsPreparationDone(message)
+                Ids.fromInjectionsTransferProcess -> injectionsPreparationDone(message as InjectionsPreparationMessage)
             }
         }
     }
@@ -53,13 +53,13 @@ class InjectionsManager(mySim: Simulation, private val myAgent: InjectionsAgent)
     }
 
     private fun startFromInjectionsTransfer(message: MessageForm) {
-        // TODO: add FREE state
         message.setAddressee(Ids.fromInjectionsTransferProcess)
 
         startContinualAssistant(message)
     }
 
-    private fun injectionsPreparationDone(message: MessageForm) {
+    private fun injectionsPreparationDone(message: InjectionsPreparationMessage) {
+        message.nurse!!.state = WorkerState.FREE
         message.setCode(MessageCodes.injectionsPreparationEnd)
 
         response(message)
