@@ -3,16 +3,17 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injection
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_TRANSFER_DURATION_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_TRANSFER_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
 
 class FromInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreTransferProcess<InjectionsPreparationMessage>(Ids.fromInjectionsTransferProcess, mySim, myAgent) {
 
     companion object {
-        val transferDuration = UniformContinuousRNG(C.INJECTIONS_TRANSFER_DURATION_MIN, C.INJECTIONS_TRANSFER_DURATION_MAX)
+        val transferDuration = UniformContinuousRNG(INJECTIONS_TRANSFER_DURATION_MIN, INJECTIONS_TRANSFER_DURATION_MAX)
     }
 
     override val debugName = "FromInjectionsTransfer"

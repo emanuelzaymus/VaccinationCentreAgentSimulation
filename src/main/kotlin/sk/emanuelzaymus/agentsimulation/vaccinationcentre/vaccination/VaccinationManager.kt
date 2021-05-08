@@ -4,11 +4,11 @@ import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityManager
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.WorkersBreakMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.NURSES_LUNCH_BREAK_START
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityManager
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.WorkersBreakMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsPreparationMessage
 
 class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
@@ -22,7 +22,7 @@ class VaccinationManager(mySim: Simulation, myAgent: VaccinationAgent) :
     override val activityEndMsgCode = MessageCodes.vaccinationEnd
     override val activityProcessId = Ids.vaccinationProcess
     override val lunchBreakSchedulerId = Ids.nursesLunchBreakScheduler
-    override val lunchBreakStart = C.NURSES_LUNCH_BREAK_START
+    override val lunchBreakStart = NURSES_LUNCH_BREAK_START
 
     override fun processMessage(message: MessageForm) {
         super.processMessage(message)

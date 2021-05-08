@@ -1,15 +1,15 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
 
 import OSPABA.Simulation
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_COUNT_TO_PREPARE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState as WS
 
 class Nurse(id: Int, mySim: Simulation) : VaccinationCentreWorker(id, mySim) {
 
     override val stringName: String = "Nurse"
 
-    var injectionsLeft: Int = C.INJECTIONS_COUNT_TO_PREPARE
+    var injectionsLeft: Int = INJECTIONS_COUNT_TO_PREPARE
         private set
 
     override var state: WS
@@ -41,7 +41,7 @@ class Nurse(id: Int, mySim: Simulation) : VaccinationCentreWorker(id, mySim) {
     }
 
     fun restartInjectionsLeft() {
-        injectionsLeft = C.INJECTIONS_COUNT_TO_PREPARE
+        injectionsLeft = INJECTIONS_COUNT_TO_PREPARE
     }
 
 }

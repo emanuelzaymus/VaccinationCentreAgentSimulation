@@ -1,26 +1,27 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections
 
-import OSPABA.CommonAgent
-import OSPABA.Simulation
+import OSPABA.*
 import OSPRNG.TriangularRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_COUNT_TO_PREPARE
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTION_PREP_DURATION_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTION_PREP_DURATION_MIN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTION_PREP_DURATION_MODE
 
 class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreProcess<InjectionsPreparationMessage>(Ids.injectionsPreparationProcess, mySim, myAgent) {
 
     companion object {
         private val preparationDuration =
-            TriangularRNG(C.INJECTION_PREP_DURATION_MIN, C.INJECTION_PREP_DURATION_MODE, C.INJECTION_PREP_DURATION_MAX)
+            TriangularRNG(INJECTION_PREP_DURATION_MIN, INJECTION_PREP_DURATION_MODE, INJECTION_PREP_DURATION_MAX)
     }
 
     override val debugName = "InjectionsPreparationProcess"
     override val processEndMsgCode = MessageCodes.injectionsPreparationEnd
 
-    override fun getDuration(): Double = List(C.INJECTIONS_COUNT_TO_PREPARE) { preparationDuration.sample() }.sum()
+    override fun getDuration(): Double = List(INJECTIONS_COUNT_TO_PREPARE) { preparationDuration.sample() }.sum()
 
     override fun startProcess(message: InjectionsPreparationMessage) {
         message.nurse!!.state = WorkerState.PREPARING_INJECTIONS

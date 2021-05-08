@@ -1,19 +1,19 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak
 
-import OSPABA.CommonAgent
-import OSPABA.Simulation
+import OSPABA.*
 import OSPRNG.TriangularRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.LUNCH_DURATION_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.LUNCH_DURATION_MIN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.LUNCH_DURATION_MODE
 
 class LunchProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreProcess<WorkersBreakMessage>(Ids.lunchProcess, mySim, myAgent) {
 
     companion object {
-        private val lunchDuration = TriangularRNG(C.LUNCH_DURATION_MIN, C.LUNCH_DURATION_MODE, C.LUNCH_DURATION_MAX)
+        private val lunchDuration = TriangularRNG(LUNCH_DURATION_MIN, LUNCH_DURATION_MODE, LUNCH_DURATION_MAX)
     }
 
     override val debugName = "LunchProcess"

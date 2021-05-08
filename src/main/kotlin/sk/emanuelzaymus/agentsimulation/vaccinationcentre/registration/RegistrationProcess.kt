@@ -5,14 +5,15 @@ import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.REGISTRATION_DURATION_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.REGISTRATION_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
 
 class RegistrationProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreActivityProcess(Ids.registrationProcess, mySim, myAgent) {
 
     companion object {
-        private val registrationDuration = UniformContinuousRNG(C.REGISTRATION_DURATION_MIN, C.REGISTRATION_DURATION_MAX)
+        private val registrationDuration = UniformContinuousRNG(REGISTRATION_DURATION_MIN, REGISTRATION_DURATION_MAX)
     }
 
     override val debugName = "RegistrationProcess"

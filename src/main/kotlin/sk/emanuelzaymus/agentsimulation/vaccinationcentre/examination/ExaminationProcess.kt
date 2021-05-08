@@ -3,16 +3,16 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.ExponentialRNG
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.EXAMINATION_DURATION_MEAN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
 
 class ExaminationProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreActivityProcess(Ids.examinationProcess, mySim, myAgent) {
 
     companion object {
-        private val registrationDuration = ExponentialRNG(C.EXAMINATION_DURATION_MEAN)
+        private val registrationDuration = ExponentialRNG(EXAMINATION_DURATION_MEAN)
     }
 
     override val debugName = "ExaminationProcess"

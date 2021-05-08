@@ -3,10 +3,11 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_DURATION_LESS
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_DURATION_MORE
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_LESS_PROBABILITY
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 
 class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
@@ -20,7 +21,7 @@ class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
     override val processEndMsgCode = MessageCodes.waitingEnd
 
     override fun getDuration(): Double =
-        if (waitingDuration.sample() < C.WAITING_LESS_PROBABILITY) C.WAITING_DURATION_LESS
-        else C.WAITING_DURATION_MORE
+        if (waitingDuration.sample() < WAITING_LESS_PROBABILITY) WAITING_DURATION_LESS
+        else WAITING_DURATION_MORE
 
 }
