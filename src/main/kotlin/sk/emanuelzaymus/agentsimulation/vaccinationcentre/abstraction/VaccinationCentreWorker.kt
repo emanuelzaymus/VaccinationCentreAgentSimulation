@@ -1,10 +1,14 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction
 
+import OSPABA.Simulation
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.IBusyObject
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState as WS
 
-abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : IBusyObject, IWStatsEntity {
+abstract class VaccinationCentreWorker(val id: Int, private val mySim: Simulation) : IBusyObject, IWStatsEntity {
+
+    var workloadStat: WStat = WStat(mySim)
+        private set
 
     protected abstract val stringName: String
 
@@ -54,6 +58,15 @@ abstract class VaccinationCentreWorker(val id: Int, val workloadStat: WStat) : I
             throw IllegalStateException("Cannot set hadLunchBreak true 2 times.")
         hadLunchBreak = true
         isHavingLunchBreak = false
+
+        skipLunchBreakTimeForWorkloadStat()
+    }
+
+    private fun skipLunchBreakTimeForWorkloadStat() {
+        val beforeLunchWorkload = workloadStat
+
+        workloadStat = WStat(mySim)
+        workloadStat.addSamples(beforeLunchWorkload)
     }
 
     fun setIsHavingLunchBreak() {

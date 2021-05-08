@@ -1,11 +1,11 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
 
-import OSPStat.WStat
+import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_COUNT_TO_PREPARE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState as WS
 
-class Nurse(id: Int, workloadStat: WStat) : VaccinationCentreWorker(id, workloadStat) {
+class Nurse(id: Int, mySim: Simulation) : VaccinationCentreWorker(id, mySim) {
 
     override val stringName: String = "Nurse"
 

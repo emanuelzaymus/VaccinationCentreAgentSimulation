@@ -1,8 +1,8 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination
 
-import OSPStat.WStat
+import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
-class Doctor(id: Int, workloadStat: WStat) : VaccinationCentreWorker(id, workloadStat) {
+class Doctor(id: Int, mySim: Simulation) : VaccinationCentreWorker(id, mySim) {
     override val stringName: String = "Doctor"
 }
