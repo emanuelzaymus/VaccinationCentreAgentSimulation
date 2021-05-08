@@ -5,8 +5,7 @@ import OSPRNG.EmpiricRNG
 import OSPRNG.UniformContinuousRNG
 import OSPRNG.UniformDiscreteRNG
 import sk.emanuelzaymus.agentsimulation.utils.minToSec
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.NORMAL_PATIENT_COUNT
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WORKING_TIME
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
 
 object EarlyArrivalTimesGenerator : ArrivalTimesGenerator() {
 
@@ -19,8 +18,8 @@ object EarlyArrivalTimesGenerator : ArrivalTimesGenerator() {
 
     override fun generateArrivalTimes(numberOfPatients: Int): List<Double> {
         val patientNumberRng = UniformDiscreteRNG(0, numberOfPatients)
-        val notArrivingCount = (super.notArrivingRng.sample() * (numberOfPatients / NORMAL_PATIENT_COUNT)).toInt()
-        val betweenArrivalsDuration: Double = WORKING_TIME / numberOfPatients
+        val notArrivingCount = (super.notArrivingRng.sample() * (numberOfPatients / C.NORMAL_PATIENT_COUNT)).toInt()
+        val betweenArrivalsDuration: Double = C.WORKING_TIME / numberOfPatients
         val willBeEarly = UniformContinuousRNG(.0, 1.0)
 
         val arrivals = mutableListOf<Double>()

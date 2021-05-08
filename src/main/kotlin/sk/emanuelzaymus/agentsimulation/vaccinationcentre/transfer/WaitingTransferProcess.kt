@@ -2,17 +2,16 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.transfer
 
 import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_TRANSFER_DURATION_MAX
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_TRANSFER_DURATION_MIN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.C
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 
 class WaitingTransferProcess(mySim: Simulation, private val myAgent: TransferAgent) :
     VaccinationCentreTransferProcess<Message>(Ids.waitingTransferProcess, mySim, myAgent) {
 
     companion object {
-        val transferDuration = UniformContinuousRNG(WAITING_TRANSFER_DURATION_MIN, WAITING_TRANSFER_DURATION_MAX)
+        val transferDuration = UniformContinuousRNG(C.WAITING_TRANSFER_DURATION_MIN, C.WAITING_TRANSFER_DURATION_MAX)
     }
 
     override val debugName = "WaitingTransfer"
