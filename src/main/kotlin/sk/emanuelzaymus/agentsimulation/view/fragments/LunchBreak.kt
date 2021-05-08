@@ -29,9 +29,8 @@ class LunchBreak : Fragment("Lunch Break") {
                     }
                 }
                 vbox(smallSpaces) {
-                    label("Workers on break:") { addClass(Styles.smallHeading) }
                     tableview(data.workers) {
-                        prefHeight = 260.0
+                        prefHeight = 290.0
                         readonlyColumn("Workers", WorkersBreakData::name).prefWidth = 70.0
                         readonlyColumn("Busy", WorkersBreakData::busy).prefWidth = 40.0
                         readonlyColumn("Lunch", WorkersBreakData::lunch).prefWidth = 40.0
