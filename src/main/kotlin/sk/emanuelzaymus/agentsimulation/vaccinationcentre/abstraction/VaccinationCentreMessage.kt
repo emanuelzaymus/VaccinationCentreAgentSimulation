@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction
 import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.pool.IPooledObject
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 
 abstract class VaccinationCentreMessage(mySim: Simulation) : MessageForm(mySim), IPooledObject {
 

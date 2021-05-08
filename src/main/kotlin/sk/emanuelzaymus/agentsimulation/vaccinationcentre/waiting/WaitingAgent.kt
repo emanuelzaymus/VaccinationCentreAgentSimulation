@@ -4,8 +4,8 @@ import OSPABA.Agent
 import OSPABA.Simulation
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.ICountRoomAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
 class WaitingAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Ids.waitingAgent, mySim, parent),

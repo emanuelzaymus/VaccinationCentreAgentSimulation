@@ -1,7 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 
 import OSPABA.*
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
 abstract class LunchBreakScheduler(id: Int, mySim: Simulation, myAgent: CommonAgent) : Scheduler(id, mySim, myAgent) {

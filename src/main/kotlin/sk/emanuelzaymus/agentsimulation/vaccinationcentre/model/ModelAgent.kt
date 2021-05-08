@@ -1,9 +1,9 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
 
 import OSPABA.Simulation
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.InitMessage
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
 class ModelAgent(private val mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, mySim, null) {

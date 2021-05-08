@@ -3,11 +3,8 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.TriangularRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.VACCINATION_DURATION_MAX
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.VACCINATION_DURATION_MIN
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.VACCINATION_DURATION_MODE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 
 class VaccinationProcess(mySim: Simulation, myAgent: CommonAgent) :

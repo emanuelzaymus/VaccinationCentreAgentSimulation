@@ -2,8 +2,8 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination
 
 import OSPABA.Agent
 import OSPABA.Simulation
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent
 
 class ExaminationAgent(mySim: Simulation, parent: Agent, numberOfDoctors: Int) :

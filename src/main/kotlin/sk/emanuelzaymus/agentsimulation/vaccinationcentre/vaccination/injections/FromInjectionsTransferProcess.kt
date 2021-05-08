@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injection
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_TRANSFER_DURATION_MAX

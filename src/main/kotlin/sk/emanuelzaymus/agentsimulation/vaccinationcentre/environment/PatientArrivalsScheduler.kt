@@ -3,9 +3,9 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment
 import OSPABA.*
 import sk.emanuelzaymus.agentsimulation.utils.IReusable
 import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.arrivaltimesgenerators.ArrivalTimesGenerator
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.arrivaltimesgenerators.EarlyArrivalTimesGenerator

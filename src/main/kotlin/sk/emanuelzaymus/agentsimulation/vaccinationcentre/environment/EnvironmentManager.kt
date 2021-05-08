@@ -2,8 +2,8 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment
 
 import OSPABA.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreManager
 
 class EnvironmentManager(mySim: Simulation, myAgent: Agent) :

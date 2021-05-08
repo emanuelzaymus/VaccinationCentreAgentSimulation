@@ -2,13 +2,9 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injection
 
 import OSPABA.*
 import OSPRNG.TriangularRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_COUNT_TO_PREPARE
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTION_PREP_DURATION_MAX
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTION_PREP_DURATION_MIN
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTION_PREP_DURATION_MODE
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.*
 
 class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreProcess<InjectionsPreparationMessage>(Ids.injectionsPreparationProcess, mySim, myAgent) {

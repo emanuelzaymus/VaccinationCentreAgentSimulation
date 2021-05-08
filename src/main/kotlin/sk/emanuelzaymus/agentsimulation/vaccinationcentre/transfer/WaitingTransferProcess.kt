@@ -2,8 +2,8 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.transfer
 
 import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_TRANSFER_DURATION_MAX
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_TRANSFER_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message

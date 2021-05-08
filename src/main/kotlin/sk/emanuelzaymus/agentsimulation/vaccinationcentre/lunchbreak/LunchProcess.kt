@@ -3,8 +3,8 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.TriangularRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.LUNCH_DURATION_MAX

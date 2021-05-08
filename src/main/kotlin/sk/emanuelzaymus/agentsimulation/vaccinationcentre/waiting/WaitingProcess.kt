@@ -3,11 +3,8 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_DURATION_LESS
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_DURATION_MORE
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_LESS_PROBABILITY
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 
 class WaitingProcess(mySim: Simulation, myAgent: CommonAgent) :
