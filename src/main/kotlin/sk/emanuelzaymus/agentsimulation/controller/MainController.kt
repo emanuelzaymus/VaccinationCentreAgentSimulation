@@ -77,6 +77,7 @@ class MainController : Controller(), ISimDelegate {
     val injectionsPrepRoomData = CountRoomData("Injections Preparation Room", "nurses")
     val waitingRoomData = CountRoomData("Waiting Room", "patients")
     val lunchBreakData = LunchBreakData()
+    val overallData = OverallData()
 
     private fun setSpeed() {
         DEBUG_MODE = withAnimation.value
@@ -120,6 +121,7 @@ class MainController : Controller(), ISimDelegate {
         injectionsPrepRoomData.refresh(sim.injectionsAgent, sim.nursesQueueLengthStats)
         waitingRoomData.refresh(sim.waitingAgent, sim.waitingStats)
         lunchBreakData.refresh(sim.lunchBreakAgent)
+        overallData.refresh(sim.overallStats.overallWaiting, sim.overallStats.overallWorkload)
     }
 
     private fun refreshCurrentReplic(sim: Simulation) =

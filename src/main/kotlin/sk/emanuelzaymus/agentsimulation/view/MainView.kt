@@ -70,10 +70,6 @@ class MainView : View("Vaccination Centre Agent Simulation") {
                     }
                 }
                 checkbox("Use early arrivals", controller.useEarlyArrivals)
-//                button("Show Chart") {
-//                    prefWidth = 150.0
-//                    action { DoctorsExperimentChart().openWindow(owner = null) }
-//                }
             }
             vbox(smallSpaces) {
                 withAnimationCheckBox = checkbox("With animation", controller.withAnimation)
@@ -145,7 +141,7 @@ class MainView : View("Vaccination Centre Agent Simulation") {
             tab(find<CountRoom>(mapOf(CountRoom::room to controller.waitingRoomData)))
             tab(find<LunchBreak>(mapOf(LunchBreak::data to controller.lunchBreakData)))
             tab(find<DoctorsExperiment>())
-            tab(find<OverallStats>())
+            tab(find<OverallStatistics>(mapOf(OverallStatistics::data to controller.overallData)))
         }
     }
 

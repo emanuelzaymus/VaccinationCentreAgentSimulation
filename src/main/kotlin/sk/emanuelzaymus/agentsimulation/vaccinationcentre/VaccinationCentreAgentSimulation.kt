@@ -5,20 +5,15 @@ import OSPStat.Stat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.LunchBreakAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.transfer.TransferAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.VaccinationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting.WaitingAgent
-import java.util.function.Consumer
 
 class VaccinationCentreAgentSimulation(
-    numberOfPatients: Int,
-    numberOfAdminWorkers: Int,
-    numberOfDoctors: Int,
-    numberOfNurses: Int,
-    earlyArrivals: Boolean
+    numberOfPatients: Int, numberOfAdminWorkers: Int, numberOfDoctors: Int, numberOfNurses: Int, earlyArrivals: Boolean
 ) : Simulation() {
 
     private val modelAgent = ModelAgent(this)
@@ -34,6 +29,7 @@ class VaccinationCentreAgentSimulation(
     val registrationStats = AgentStats()
     val examinationStats = AgentStats()
     val vaccinationStats = AgentStats()
+    val overallStats = OverallStats()
     val waitingStats = Stat()
     val nursesQueueLengthStats = Stat()
 
@@ -43,6 +39,7 @@ class VaccinationCentreAgentSimulation(
         registrationStats.clear()
         examinationStats.clear()
         vaccinationStats.clear()
+        overallStats.clear()
         waitingStats.clear()
         nursesQueueLengthStats.clear()
     }
@@ -67,6 +64,16 @@ class VaccinationCentreAgentSimulation(
         registrationStats.addStatistics(registrationAgent)
         examinationStats.addStatistics(examinationAgent)
         vaccinationStats.addStatistics(vaccinationAgent)
+        overallStats.addWaiting(
+            registrationStats.waitingTimeStat.mean(),
+            examinationStats.waitingTimeStat.mean(),
+            vaccinationStats.waitingTimeStat.mean()
+        )
+        overallStats.addWorkload(
+            registrationStats.workersWorkload.mean(), registrationAgent.workers.size,
+            examinationStats.workersWorkload.mean(), examinationAgent.workers.size,
+            vaccinationStats.workersWorkload.mean(), vaccinationAgent.workers.size
+        )
         waitingStats.addSample(waitingAgent.averageCount)
         nursesQueueLengthStats.addSample(injectionsAgent.averageCount)
 
@@ -97,7 +104,7 @@ class VaccinationCentreAgentSimulation(
     }
 
     private fun checkFinalState() {
-        if (this.isRunning) {
+        if (isRunning) {
             environmentAgent.checkFinalState()
             registrationAgent.checkFinalState()
             examinationAgent.checkFinalState()
