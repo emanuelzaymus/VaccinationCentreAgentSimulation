@@ -16,24 +16,14 @@ abstract class VaccinationCentreActivityManager(
     id: Int, private val mySim: Simulation, private val myAgent: VaccinationCentreActivityAgent<*>
 ) : VaccinationCentreManager(id, mySim, myAgent) {
 
+    protected val breakMessagePool = Pool { WorkersBreakMessage(mySim) }
+
     protected abstract val debugName: String
     protected abstract val activityStartMsgCode: Int
     protected abstract val activityEndMsgCode: Int
     protected abstract val activityProcessId: Int
     protected abstract val lunchBreakSchedulerId: Int
     protected abstract val lunchBreakStart: Double
-
-    companion object {
-        private var breakMessagePoolField: Pool<WorkersBreakMessage>? = null
-    }
-
-    protected val breakMessagePool: Pool<WorkersBreakMessage>
-        get() {
-            if (breakMessagePoolField == null) {
-                breakMessagePoolField = Pool { WorkersBreakMessage(mySim) }
-            }
-            return breakMessagePoolField!!
-        }
 
     override fun processMessage(message: MessageForm) {
         debug(debugName, message)
