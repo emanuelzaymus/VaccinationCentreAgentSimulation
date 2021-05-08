@@ -9,7 +9,9 @@ import javafx.beans.property.SimpleDoubleProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
-import sk.emanuelzaymus.agentsimulation.controller.data.*
+import sk.emanuelzaymus.agentsimulation.controller.roomdata.*
+import sk.emanuelzaymus.agentsimulation.controller.workerdata.NurseData
+import sk.emanuelzaymus.agentsimulation.controller.workerdata.WorkerData
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.DEBUG_MODE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgentSimulation
 import tornadofx.Controller
@@ -74,6 +76,7 @@ class MainController : Controller(), ISimDelegate {
     val vaccinationRoom = RoomData("Vaccination", "Nurses", true) { NurseData.create(it) }
     val injectionsPrepRoomData = CountRoomData("Injections Preparation Room", "nurses")
     val waitingRoomData = CountRoomData("Waiting Room", "patients")
+    val lunchBreakData = LunchBreakData()
 
     private fun setSpeed() {
         DEBUG_MODE = withAnimation.value
@@ -116,6 +119,7 @@ class MainController : Controller(), ISimDelegate {
         vaccinationRoom.refresh(sim.vaccinationAgent, sim.vaccinationStats, sim.transferAgent.waitingCount)
         injectionsPrepRoomData.refresh(sim.injectionsAgent, sim.nursesQueueLengthStats)
         waitingRoomData.refresh(sim.waitingAgent, sim.waitingStats)
+        lunchBreakData.refresh(sim.lunchBreakAgent)
     }
 
     private fun refreshCurrentReplic(sim: Simulation) =

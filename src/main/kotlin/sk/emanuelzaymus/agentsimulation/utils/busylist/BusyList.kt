@@ -16,7 +16,7 @@ class BusyList<T : IBusyObject>(numberOfBusyObjects: Int, init: (Int) -> T) : It
         val freeObjects = busyObjects.filter { !it.isBusy }
 
         if (freeObjects.isEmpty())
-            throw IllegalStateException("Non of the objects is free.")
+            throw IllegalStateException("None of the objects is free.")
 
         if (freeObjects.size == 1)
             return freeObjects[0]

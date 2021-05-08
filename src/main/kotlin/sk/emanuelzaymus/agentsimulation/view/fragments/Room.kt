@@ -1,10 +1,10 @@
-package sk.emanuelzaymus.agentsimulation.view
+package sk.emanuelzaymus.agentsimulation.view.fragments
 
 import javafx.collections.ObservableList
 import sk.emanuelzaymus.agentsimulation.app.Styles
-import sk.emanuelzaymus.agentsimulation.controller.data.NurseData
-import sk.emanuelzaymus.agentsimulation.controller.data.RoomData
-import sk.emanuelzaymus.agentsimulation.controller.data.WorkerData
+import sk.emanuelzaymus.agentsimulation.controller.workerdata.NurseData
+import sk.emanuelzaymus.agentsimulation.controller.roomdata.RoomData
+import sk.emanuelzaymus.agentsimulation.controller.workerdata.WorkerData
 import tornadofx.*
 
 class Room : Fragment() {

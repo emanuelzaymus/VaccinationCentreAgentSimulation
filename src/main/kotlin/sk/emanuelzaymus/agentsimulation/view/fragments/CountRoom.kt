@@ -1,7 +1,7 @@
-package sk.emanuelzaymus.agentsimulation.view
+package sk.emanuelzaymus.agentsimulation.view.fragments
 
 import sk.emanuelzaymus.agentsimulation.app.Styles
-import sk.emanuelzaymus.agentsimulation.controller.data.CountRoomData
+import sk.emanuelzaymus.agentsimulation.controller.roomdata.CountRoomData
 import tornadofx.*
 
 class CountRoom : Fragment() {

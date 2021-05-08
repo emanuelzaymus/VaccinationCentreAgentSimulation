@@ -4,6 +4,9 @@ import javafx.scene.control.CheckBox
 import javafx.scene.control.TabPane
 import sk.emanuelzaymus.agentsimulation.app.Styles
 import sk.emanuelzaymus.agentsimulation.controller.MainController
+import sk.emanuelzaymus.agentsimulation.view.fragments.CountRoom
+import sk.emanuelzaymus.agentsimulation.view.fragments.LunchBreak
+import sk.emanuelzaymus.agentsimulation.view.fragments.Room
 import tornadofx.*
 
 class MainView : View("Vaccination Centre Agent Simulation") {
@@ -142,6 +145,7 @@ class MainView : View("Vaccination Centre Agent Simulation") {
             tab(find<Room>(mapOf(Room::room to controller.vaccinationRoom)))
             tab(find<CountRoom>(mapOf(CountRoom::room to controller.injectionsPrepRoomData)))
             tab(find<CountRoom>(mapOf(CountRoom::room to controller.waitingRoomData)))
+            tab(find<LunchBreak>(mapOf(LunchBreak::data to controller.lunchBreakData)))
         }
     }
 

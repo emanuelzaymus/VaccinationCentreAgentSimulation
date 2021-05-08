@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.controller.data
+package sk.emanuelzaymus.agentsimulation.controller.roomdata
 
 import OSPStat.Stat
 import javafx.application.Platform

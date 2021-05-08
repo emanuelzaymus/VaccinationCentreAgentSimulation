@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.controller.data
+package sk.emanuelzaymus.agentsimulation.controller.workerdata
 
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.Nurse
