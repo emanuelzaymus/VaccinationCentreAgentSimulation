@@ -10,7 +10,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreManager
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.WorkersBreakMessage
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.lunchbreak.WorkersBreakMessage
 
 abstract class VaccinationCentreActivityManager(
     id: Int, private val mySim: Simulation, private val myAgent: VaccinationCentreActivityAgent<*>

@@ -3,17 +3,17 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 import OSPABA.Simulation
 import OSPStat.Stat
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.LunchBreakAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.environment.EnvironmentAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.examination.ExaminationAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.lunchbreak.LunchBreakAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.registration.RegistrationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.stats.AgentStats
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.stats.OverallStats
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.transfer.TransferAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.VaccinationAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsAgent
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting.WaitingAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.transfer.TransferAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.vaccination.VaccinationAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.vaccination.injections.InjectionsAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.waiting.WaitingAgent
 
 class VaccinationCentreAgentSimulation(
     numberOfPatients: Int,
