@@ -2,12 +2,12 @@ package sk.emanuelzaymus.agentsimulation.controller.workerdata
 
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
-class WorkersBreakData private constructor(w: VaccinationCentreWorker) :
-    WorkerData(w.id, w.isBusy, w.hadLunchBreak, w.workloadStat.mean(), w.state.name) {
+class WorkersBreakData private constructor(worker: VaccinationCentreWorker) : WorkerData(worker) {
 
-    val name: String = w.toString()
+    val name: String = worker.toString()
 
     companion object {
         fun create(w: VaccinationCentreWorker) = WorkersBreakData(w)
     }
+
 }
