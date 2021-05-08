@@ -2,6 +2,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 
 import OSPABA.Simulation
 import OSPStat.Stat
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.EnvironmentAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.ExaminationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.LunchBreakAgent
@@ -15,7 +16,12 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.waiting.WaitingAgent
 
 class VaccinationCentreAgentSimulation(
-    numberOfPatients: Int, numberOfAdminWorkers: Int, numberOfDoctors: Int, numberOfNurses: Int, earlyArrivals: Boolean
+    numberOfPatients: Int,
+    numberOfAdminWorkers: Int,
+    numberOfDoctors: Int,
+    numberOfNurses: Int,
+    earlyArrivals: Boolean,
+    zeroTransitions: Boolean
 ) : Simulation() {
 
     private val modelAgent = ModelAgent(this)
@@ -34,6 +40,10 @@ class VaccinationCentreAgentSimulation(
     val overallStats = OverallStats()
     val waitingStats = Stat()
     val nursesQueueLengthStats = Stat()
+
+    init {
+        VaccinationCentreProcess.useZeroDuration = zeroTransitions
+    }
 
     override fun prepareSimulation() {
         super.prepareSimulation()

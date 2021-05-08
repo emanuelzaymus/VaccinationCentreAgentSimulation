@@ -13,7 +13,9 @@ class ToInjectionsTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreTransferProcess<InjectionsPreparationMessage>(Ids.toInjectionsTransferProcess, mySim, myAgent) {
 
     companion object {
-        val transferDuration = UniformContinuousRNG(INJECTIONS_TRANSFER_DURATION_MIN, INJECTIONS_TRANSFER_DURATION_MAX)
+        val transferDuration
+            get() = if (useZeroDuration) zeroDuration
+            else UniformContinuousRNG(INJECTIONS_TRANSFER_DURATION_MIN, INJECTIONS_TRANSFER_DURATION_MAX)
     }
 
     override val debugName = "ToInjectionsTransfer"

@@ -70,6 +70,7 @@ class MainView : View("Vaccination Centre Agent Simulation") {
                     }
                 }
                 checkbox("Use early arrivals", controller.useEarlyArrivals)
+                checkbox("Use zero transitions", controller.useZeroTransitions)
             }
             vbox(smallSpaces) {
                 withAnimationCheckBox = checkbox("With animation", controller.withAnimation)

@@ -22,7 +22,7 @@ class OverallStatistics : Fragment("Overall Statistics") {
                 addClass(Styles.biggerPadding)
                 vbox(smallSpaces) {
                     prefWidth = preferredWidth
-                    label("Overall Patient waiting time") { addClass(Styles.smallHeading) }
+                    label("Overall patient waiting time") { addClass(Styles.smallHeading) }
                     hbox(smallSpaces) {
                         label("In hours:")
                         label(data.waitingAvgInHours)
@@ -39,7 +39,7 @@ class OverallStatistics : Fragment("Overall Statistics") {
                         label("95% upper bound:")
                         label(data.waitingUpper)
                     }
-                    label("Average worker's workload") { addClass(Styles.smallHeading) }
+                    label("Average worker workload") { addClass(Styles.smallHeading) }
                     hbox(smallSpaces) {
                         label("Workload:")
                         label(data.workloadAvg)

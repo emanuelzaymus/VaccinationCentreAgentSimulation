@@ -13,7 +13,9 @@ class FromCanteenTransferProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreTransferProcess<WorkersBreakMessage>(Ids.fromCanteenTransferProcess, mySim, myAgent) {
 
     companion object {
-        val transferDuration = UniformContinuousRNG(CANTEEN_TRANSFER_DURATION_MIN, CANTEEN_TRANSFER_DURATION_MAX)
+        val transferDuration
+            get() = if (useZeroDuration) zeroDuration
+            else UniformContinuousRNG(CANTEEN_TRANSFER_DURATION_MIN, CANTEEN_TRANSFER_DURATION_MAX)
     }
 
     override val debugName = "FromCanteenTransferProcess"

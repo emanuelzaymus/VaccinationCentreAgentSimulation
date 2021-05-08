@@ -12,7 +12,9 @@ class WaitingTransferProcess(mySim: Simulation, private val myAgent: TransferAge
     VaccinationCentreTransferProcess<Message>(Ids.waitingTransferProcess, mySim, myAgent) {
 
     companion object {
-        val transferDuration = UniformContinuousRNG(WAITING_TRANSFER_DURATION_MIN, WAITING_TRANSFER_DURATION_MAX)
+        val transferDuration
+            get() = if (useZeroDuration) zeroDuration
+            else UniformContinuousRNG(WAITING_TRANSFER_DURATION_MIN, WAITING_TRANSFER_DURATION_MAX)
     }
 
     override val debugName = "WaitingTransfer"

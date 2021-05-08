@@ -12,8 +12,9 @@ class VaccinationTransferProcess(mySim: Simulation, private val myAgent: Transfe
     VaccinationCentreTransferProcess<Message>(Ids.vaccinationTransferProcess, mySim, myAgent) {
 
     companion object {
-        val transferDuration =
-            UniformContinuousRNG(VACCINATION_TRANSFER_DURATION_MIN, VACCINATION_TRANSFER_DURATION_MAX)
+        val transferDuration
+            get() = if (useZeroDuration) zeroDuration
+            else UniformContinuousRNG(VACCINATION_TRANSFER_DURATION_MIN, VACCINATION_TRANSFER_DURATION_MAX)
     }
 
     override val debugName = "VaccinationTransfer"

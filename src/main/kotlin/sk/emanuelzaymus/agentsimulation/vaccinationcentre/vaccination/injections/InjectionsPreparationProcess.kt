@@ -14,8 +14,9 @@ class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreProcess<InjectionsPreparationMessage>(Ids.injectionsPreparationProcess, mySim, myAgent) {
 
     companion object {
-        private val preparationDuration =
-            TriangularRNG(INJECTION_PREP_DURATION_MIN, INJECTION_PREP_DURATION_MODE, INJECTION_PREP_DURATION_MAX)
+        private val preparationDuration
+            get() = if (useZeroDuration) zeroDuration
+            else TriangularRNG(INJECTION_PREP_DURATION_MIN, INJECTION_PREP_DURATION_MODE, INJECTION_PREP_DURATION_MAX)
     }
 
     override val debugName = "InjectionsPreparationProcess"

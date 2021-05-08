@@ -25,7 +25,7 @@ internal const val WAITING_DURATION_MORE: Double = 30 * 60.0 // 1_800
 internal const val INJECTION_PREP_DURATION_MIN: Double = 6.0
 internal const val INJECTION_PREP_DURATION_MODE: Double = 10.0
 internal const val INJECTION_PREP_DURATION_MAX: Double = 40.0
-internal const val INJECTIONS_COUNT_TO_PREPARE: Int = 2 // TODO: put 20
+internal const val INJECTIONS_COUNT_TO_PREPARE: Int = 20
 
 internal const val EXAMINATION_TRANSFER_DURATION_MIN: Double = 40.0
 internal const val EXAMINATION_TRANSFER_DURATION_MAX: Double = 90.0

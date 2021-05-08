@@ -34,7 +34,8 @@ class MainController : Controller(), ISimDelegate {
         initNumberOfAdminWorkers,
         initNumberOfDoctors,
         initNumberOfNurses,
-        false
+        earlyArrivals = false,
+        zeroTransitions = false
     )
 
     val replicationsCount = SimpleStringProperty(initReplicationsCount.toString())
@@ -49,6 +50,7 @@ class MainController : Controller(), ISimDelegate {
     val numReplicPerExperiment = SimpleStringProperty("1000")
 
     val useEarlyArrivals = SimpleBooleanProperty(false)
+    val useZeroTransitions = SimpleBooleanProperty(false)
 
     val withAnimation = SimpleBooleanProperty(initWithAnimation).apply { onChange { setSpeed() } }
     val delayEvery = SimpleDoubleProperty(60.0).apply {
@@ -135,14 +137,16 @@ class MainController : Controller(), ISimDelegate {
             val doctors = numberOfDoctors.value.toInt()
             val nurses = numberOfNurses.value.toInt()
             val earlyArrivals: Boolean = useEarlyArrivals.value
+            val zeroTransitions: Boolean = useZeroTransitions.value
 
-            sim = VaccinationCentreAgentSimulation(patients, workers, doctors, nurses, earlyArrivals).also {
-                it.onPause { sim -> refreshUI(sim) }
-                it.onReplicationWillStart { sim -> setSpeed(); refreshCurrentReplic(sim) }
-                it.onSimulationDidFinish { sim -> refreshUI(sim) }
+            sim = VaccinationCentreAgentSimulation(patients, workers, doctors, nurses, earlyArrivals, zeroTransitions)
+                .also {
+                    it.onPause { sim -> refreshUI(sim) }
+                    it.onReplicationWillStart { sim -> setSpeed(); refreshCurrentReplic(sim) }
+                    it.onSimulationDidFinish { sim -> refreshUI(sim) }
 
-                it.registerDelegate(this)
-            }
+                    it.registerDelegate(this)
+                }
 
             return true
         } catch (e: NumberFormatException) {
