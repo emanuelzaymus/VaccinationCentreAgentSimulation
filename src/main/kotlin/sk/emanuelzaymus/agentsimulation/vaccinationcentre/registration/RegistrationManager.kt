@@ -1,7 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration
 
 import OSPABA.Simulation
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.ADMIN_WORKERS_LUNCH_BREAK_START
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.ADMIN_WORKERS_LUNCH_BREAK_START
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityManager

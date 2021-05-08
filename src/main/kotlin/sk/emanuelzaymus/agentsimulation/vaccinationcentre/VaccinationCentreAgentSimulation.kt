@@ -7,6 +7,8 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination.Examinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.LunchBreakAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.ModelAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.registration.RegistrationAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.stats.AgentStats
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.stats.OverallStats
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.transfer.TransferAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.VaccinationAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsAgent

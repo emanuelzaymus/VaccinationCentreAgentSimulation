@@ -1,8 +1,8 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.arrivaltimesgenerators
 
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.NOT_ARRIVING_PATIENTS_MAX
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.NOT_ARRIVING_PATIENTS_MIN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.NOT_ARRIVING_PATIENTS_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.NOT_ARRIVING_PATIENTS_MIN
 
 abstract class ArrivalTimesGenerator {
 

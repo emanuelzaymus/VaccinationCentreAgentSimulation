@@ -6,7 +6,7 @@ import OSPDataStruct.SimQueue
 import OSPStat.Stat
 import OSPStat.WStat
 import sk.emanuelzaymus.agentsimulation.utils.busylist.BusyList
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.countLastStats

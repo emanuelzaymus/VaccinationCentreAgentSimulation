@@ -1,8 +1,8 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.environment.arrivaltimesgenerators
 
 import OSPRNG.UniformDiscreteRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.NORMAL_PATIENT_COUNT
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.WORKING_TIME
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.NORMAL_PATIENT_COUNT
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WORKING_TIME
 
 object ExactArrivalTimesGenerator : ArrivalTimesGenerator() {
 

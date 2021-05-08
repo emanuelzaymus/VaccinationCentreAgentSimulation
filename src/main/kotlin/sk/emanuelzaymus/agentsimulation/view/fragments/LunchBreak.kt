@@ -31,7 +31,7 @@ class LunchBreak : Fragment("Lunch Break") {
                 vbox(smallSpaces) {
                     tableview(data.workers) {
                         prefHeight = 290.0
-                        readonlyColumn("Workers", WorkersBreakData::name).prefWidth = 70.0
+                        readonlyColumn("Worker", WorkersBreakData::name).prefWidth = 70.0
                         readonlyColumn("Busy", WorkersBreakData::busy).prefWidth = 40.0
                         readonlyColumn("Lunch", WorkersBreakData::lunch).prefWidth = 40.0
                         readonlyColumn("Workload", WorkersBreakData::avgWorkload).prefWidth = 70.0

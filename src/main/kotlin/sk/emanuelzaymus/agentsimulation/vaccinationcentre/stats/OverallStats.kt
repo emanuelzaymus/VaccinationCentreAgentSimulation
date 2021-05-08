@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.stats
 
 import OSPStat.Stat
 

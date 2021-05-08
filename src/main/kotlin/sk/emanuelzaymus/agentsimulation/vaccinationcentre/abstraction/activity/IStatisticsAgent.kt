@@ -1,6 +1,6 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.IWorkersRoomAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.IWorkersRoomAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
 interface IStatisticsAgent<T : VaccinationCentreWorker> : IWorkersRoomAgent<T> {

@@ -4,6 +4,9 @@ import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_TRANSFER_DURATION_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WAITING_TRANSFER_DURATION_MIN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 
 class WaitingTransferProcess(mySim: Simulation, private val myAgent: TransferAgent) :
     VaccinationCentreTransferProcess<Message>(Ids.waitingTransferProcess, mySim, myAgent) {

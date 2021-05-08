@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.examination
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.ExponentialRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.EXAMINATION_DURATION_MEAN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.EXAMINATION_DURATION_MEAN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityProcess

@@ -4,9 +4,9 @@ import OSPABA.MessageForm
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.pool.Pool
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.NURSES_LUNCH_BREAK_START
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.NURSES_LUNCH_BREAK_START
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityManager
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak.WorkersBreakMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination.injections.InjectionsPreparationMessage

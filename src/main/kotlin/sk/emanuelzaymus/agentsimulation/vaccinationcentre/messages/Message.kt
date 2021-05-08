@@ -1,6 +1,7 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages
 
 import OSPABA.Simulation
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Patient
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 

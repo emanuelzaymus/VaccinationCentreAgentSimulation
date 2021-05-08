@@ -2,7 +2,7 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.model
 
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.InitMessage
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.InitMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 

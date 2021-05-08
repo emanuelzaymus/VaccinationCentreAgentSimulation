@@ -1,7 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.vaccination
 
 import OSPABA.Simulation
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.INJECTIONS_COUNT_TO_PREPARE
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_COUNT_TO_PREPARE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState as WS
 

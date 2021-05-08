@@ -3,7 +3,7 @@ package sk.emanuelzaymus.agentsimulation.controller.roomdata
 import javafx.application.Platform
 import javafx.beans.property.SimpleIntegerProperty
 import sk.emanuelzaymus.agentsimulation.controller.workerdata.WorkersBreakData
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.IWorkersRoomAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.IWorkersRoomAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import tornadofx.observableList
 

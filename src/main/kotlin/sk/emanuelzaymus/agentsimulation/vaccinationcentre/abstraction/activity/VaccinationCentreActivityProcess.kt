@@ -1,7 +1,7 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity
 
 import OSPABA.*
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Message
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 

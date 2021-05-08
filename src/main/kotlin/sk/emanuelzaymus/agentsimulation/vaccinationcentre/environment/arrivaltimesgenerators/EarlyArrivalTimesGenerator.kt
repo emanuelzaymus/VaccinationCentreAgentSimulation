@@ -5,8 +5,8 @@ import OSPRNG.EmpiricRNG
 import OSPRNG.UniformContinuousRNG
 import OSPRNG.UniformDiscreteRNG
 import sk.emanuelzaymus.agentsimulation.utils.minToSec
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.NORMAL_PATIENT_COUNT
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.WORKING_TIME
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.NORMAL_PATIENT_COUNT
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WORKING_TIME
 
 object EarlyArrivalTimesGenerator : ArrivalTimesGenerator() {
 

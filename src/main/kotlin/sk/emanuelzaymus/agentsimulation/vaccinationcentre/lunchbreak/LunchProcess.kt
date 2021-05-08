@@ -5,6 +5,9 @@ import OSPRNG.TriangularRNG
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.LUNCH_DURATION_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.LUNCH_DURATION_MIN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.LUNCH_DURATION_MODE
 
 class LunchProcess(mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreProcess<WorkersBreakMessage>(Ids.lunchProcess, mySim, myAgent) {

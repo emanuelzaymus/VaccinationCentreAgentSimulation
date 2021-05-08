@@ -1,4 +1,4 @@
-package sk.emanuelzaymus.agentsimulation.vaccinationcentre
+package sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants
 
 // All time values are in seconds.
 

@@ -3,8 +3,8 @@ package sk.emanuelzaymus.agentsimulation.vaccinationcentre.lunchbreak
 import OSPABA.CommonAgent
 import OSPABA.Simulation
 import OSPRNG.UniformContinuousRNG
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.CANTEEN_TRANSFER_DURATION_MAX
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.CANTEEN_TRANSFER_DURATION_MIN
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.CANTEEN_TRANSFER_DURATION_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.CANTEEN_TRANSFER_DURATION_MIN
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.transfer.VaccinationCentreTransferProcess

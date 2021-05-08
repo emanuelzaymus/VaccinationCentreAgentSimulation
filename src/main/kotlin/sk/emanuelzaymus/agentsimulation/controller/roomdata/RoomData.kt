@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty
 import sk.emanuelzaymus.agentsimulation.controller.roundToString
 import sk.emanuelzaymus.agentsimulation.controller.secondsToTime
 import sk.emanuelzaymus.agentsimulation.controller.workerdata.WorkerData
-import sk.emanuelzaymus.agentsimulation.vaccinationcentre.AgentStats
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.stats.AgentStats
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.IStatisticsAgent
 import tornadofx.observableList
