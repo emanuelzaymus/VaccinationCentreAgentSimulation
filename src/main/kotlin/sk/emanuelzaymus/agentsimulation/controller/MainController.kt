@@ -14,6 +14,7 @@ import sk.emanuelzaymus.agentsimulation.controller.workerdata.NurseData
 import sk.emanuelzaymus.agentsimulation.controller.workerdata.WorkerData
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.DEBUG_MODE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgentSimulation
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.experiments.VaccinationCentreExperiment
 import tornadofx.Controller
 import tornadofx.alert
 import tornadofx.onChange
@@ -29,7 +30,7 @@ class MainController : Controller(), ISimDelegate {
 
     private val startTime = 8 * 60 * 60.0
 
-    private var sim = VaccinationCentreAgentSimulation(
+    private var ex = VaccinationCentreExperiment(
         initNumberOfPatients,
         initNumberOfAdminWorkers,
         initNumberOfDoctors,
@@ -84,27 +85,27 @@ class MainController : Controller(), ISimDelegate {
     private fun setSpeed() {
         DEBUG_MODE = withAnimation.value
         if (withAnimation.value)
-            sim.setSimSpeed(delayEvery.doubleValue(), delayFor.doubleValue())
+            ex.sim.setSimSpeed(delayEvery.doubleValue(), delayFor.doubleValue())
         else
-            sim.setMaxSimSpeed()
+            ex.sim.setMaxSimSpeed()
     }
 
     fun startPause() {
-        if (!sim.isRunning)
+        if (!ex.sim.isRunning)
             start()
-        else if (!sim.isPaused)
-            sim.pauseSimulation()
+        else if (!ex.sim.isPaused)
+            ex.sim.pauseSimulation()
         else
-            sim.resumeSimulation()
+            ex.sim.resumeSimulation()
     }
 
     private fun start() {
         if (restart()) {
-            sim.simulateAsync(replicationsCount.get().toInt())
+            ex.sim.simulateAsync(replicationsCount.get().toInt())
         }
     }
 
-    fun stop() = sim.stopSimulation()
+    fun stop() = ex.sim.stopSimulation()
 
     override fun simStateChanged(sim: Simulation, simState: SimState) = Platform.runLater {
         state.value = simState.name
@@ -139,13 +140,13 @@ class MainController : Controller(), ISimDelegate {
             val earlyArrivals: Boolean = useEarlyArrivals.value
             val zeroTransitions: Boolean = useZeroTransitions.value
 
-            sim = VaccinationCentreAgentSimulation(patients, workers, doctors, nurses, earlyArrivals, zeroTransitions)
+            ex = VaccinationCentreExperiment(patients, workers, doctors, nurses, earlyArrivals, zeroTransitions)
                 .also {
-                    it.onPause { sim -> refreshUI(sim) }
-                    it.onReplicationWillStart { sim -> setSpeed(); refreshCurrentReplic(sim) }
-                    it.onSimulationDidFinish { sim -> refreshUI(sim) }
+                    it.sim.onPause { simulation -> refreshUI(simulation) }
+                    it.sim.onReplicationWillStart { simulation -> setSpeed(); refreshCurrentReplic(simulation) }
+                    it.sim.onSimulationDidFinish { simulation -> refreshUI(simulation) }
 
-                    it.registerDelegate(this)
+                    it.sim.registerDelegate(this)
                 }
 
             return true
