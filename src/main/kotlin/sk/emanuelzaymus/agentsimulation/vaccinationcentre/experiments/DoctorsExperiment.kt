@@ -17,7 +17,7 @@ class DoctorsExperiment(
     private val isStopped = AtomicBoolean(false)
 
     override fun simulateAsync(replicationCount: Int) {
-        onBeforeExperimentFun()
+        onBeforeExperimentFun?.invoke()
         thread(name = "DOCTORS EXPERIMENT THREAD", isDaemon = true, priority = 10) {
 
             for (doctors in fromDoctors..toDoctors) {

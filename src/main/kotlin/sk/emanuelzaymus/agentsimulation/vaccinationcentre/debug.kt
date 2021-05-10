@@ -1,6 +1,6 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre
 
-var DEBUG_MODE = true
+var DEBUG_MODE = false
 val PRINT_REPL_STATS get() = DEBUG_MODE
 val PRINT_SIM_STATS get() = DEBUG_MODE
 

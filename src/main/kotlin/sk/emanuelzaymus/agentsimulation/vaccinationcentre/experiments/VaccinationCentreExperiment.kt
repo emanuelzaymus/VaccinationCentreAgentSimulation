@@ -6,11 +6,11 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgent
 
 open class VaccinationCentreExperiment {
 
-    protected lateinit var onBeforeExperimentFun: () -> Unit
-    private lateinit var onPauseFun: (Simulation) -> Unit
-    private lateinit var onReplicationWillStartFun: (Simulation) -> Unit
-    private lateinit var onSimulationDidFinishFun: (Simulation) -> Unit
-    private lateinit var delegateFun: ISimDelegate
+    protected var onBeforeExperimentFun: (() -> Unit)? = null
+    private var onPauseFun: ((Simulation) -> Unit)? = null
+    private var onReplicationWillStartFun: ((Simulation) -> Unit)? = null
+    private var onSimulationDidFinishFun: ((Simulation) -> Unit)? = null
+    private var delegateFun: ISimDelegate? = null
 
     lateinit var sim: VaccinationCentreAgentSimulation
         protected set
@@ -48,7 +48,7 @@ open class VaccinationCentreExperiment {
 
     open fun simulateAsync(replicationCount: Int) {
         applyDelegates()
-        onBeforeExperimentFun()
+        onBeforeExperimentFun?.invoke()
         sim.simulateAsync(replicationCount)
     }
 
