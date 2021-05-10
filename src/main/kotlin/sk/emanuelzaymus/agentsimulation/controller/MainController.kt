@@ -48,8 +48,8 @@ class MainController : Controller(), ISimDelegate {
 
     val useDoctorsExperiment = SimpleBooleanProperty(false)
     val fromDoctors = SimpleStringProperty("1")
-    val toDoctors = SimpleStringProperty("20")
-    val numReplicPerExperiment = SimpleStringProperty("1000")
+    val toDoctors = SimpleStringProperty("15")
+    val numReplicPerExperiment = SimpleStringProperty("100")
 
     val useEarlyArrivals = SimpleBooleanProperty(false)
     val useZeroTransitions = SimpleBooleanProperty(false)

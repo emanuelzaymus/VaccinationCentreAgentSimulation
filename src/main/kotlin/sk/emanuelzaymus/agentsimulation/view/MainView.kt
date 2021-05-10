@@ -104,19 +104,19 @@ class MainView : View("Vaccination Centre Agent Simulation") {
 
         hbox(largeSpaces) {
             hbox(smallSpaces) {
-                prefWidth = preferredWidth * 2 + largeSpaces
+                prefWidth = preferredWidth * 2
                 addClass(Styles.smallPadding)
                 label("Actual simulation time:") { addClass(Styles.smallHeading) }
                 label(controller.actualSimTime)
             }
             hbox(smallSpaces) {
-                prefWidth = preferredWidth * 2 + largeSpaces
+                prefWidth = preferredWidth * 2
                 addClass(Styles.smallPadding)
                 label("Simulation seconds:") { addClass(Styles.smallHeading) }
                 label(controller.actualSimSeconds)
             }
             hbox(smallSpaces) {
-                prefWidth = preferredWidth * 2 + largeSpaces
+                prefWidth = preferredWidth * 2
                 addClass(Styles.smallPadding)
                 label("Replication number:") { addClass(Styles.smallHeading) }
                 label(controller.currentReplicNumber)

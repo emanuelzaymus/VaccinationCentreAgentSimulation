@@ -11,7 +11,4 @@ enum class WorkerState {
     WAITING_TO_INJECTIONS_PREPARATION,
     PREPARING_INJECTIONS,
     GOING_FROM_INJECTIONS_PREPARATION;
-
-//    val isBusy: Boolean get() = this != FREE
-
 }
