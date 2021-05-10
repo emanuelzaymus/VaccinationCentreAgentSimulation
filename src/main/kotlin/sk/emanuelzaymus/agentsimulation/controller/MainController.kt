@@ -14,6 +14,7 @@ import sk.emanuelzaymus.agentsimulation.controller.workerdata.NurseData
 import sk.emanuelzaymus.agentsimulation.controller.workerdata.WorkerData
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.DEBUG_MODE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgentSimulation
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.experiments.DoctorsExperiment
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.experiments.VaccinationCentreExperiment
 import tornadofx.Controller
 import tornadofx.alert
@@ -100,12 +101,11 @@ class MainController : Controller(), ISimDelegate {
     }
 
     private fun start() {
-        if (restart()) {
-            ex.sim.simulateAsync(replicationsCount.get().toInt())
-        }
+        if (restart())
+            ex.simulateAsync(experimentReplicationsCount())
     }
 
-    fun stop() = ex.sim.stopSimulation()
+    fun stop() = ex.stopExperiment()
 
     override fun simStateChanged(sim: Simulation, simState: SimState) = Platform.runLater {
         state.value = simState.name
@@ -132,22 +132,26 @@ class MainController : Controller(), ISimDelegate {
 
     private fun restart(): Boolean {
         try {
-            replicationsCount.value.toInt()
+            experimentReplicationsCount()
             val patients = numberOfPatients.value.toInt()
             val workers = numberOfAdminWorkers.value.toInt()
-            val doctors = numberOfDoctors.value.toInt()
             val nurses = numberOfNurses.value.toInt()
             val earlyArrivals: Boolean = useEarlyArrivals.value
             val zeroTransitions: Boolean = useZeroTransitions.value
 
-            ex = VaccinationCentreExperiment(patients, workers, doctors, nurses, earlyArrivals, zeroTransitions)
-                .also {
-                    it.sim.onPause { simulation -> refreshUI(simulation) }
-                    it.sim.onReplicationWillStart { simulation -> setSpeed(); refreshCurrentReplic(simulation) }
-                    it.sim.onSimulationDidFinish { simulation -> refreshUI(simulation) }
+            ex = if (useDoctorsExperiment.value) {
+                val fromDoc = fromDoctors.value.toInt()
+                val toDoc = toDoctors.value.toInt()
+                DoctorsExperiment(patients, workers, fromDoc, toDoc, nurses, earlyArrivals, zeroTransitions)
+            } else {
+                val doctors = numberOfDoctors.value.toInt()
+                VaccinationCentreExperiment(patients, workers, doctors, nurses, earlyArrivals, zeroTransitions)
+            }
 
-                    it.sim.registerDelegate(this)
-                }
+            ex.onPause { sim -> refreshUI(sim) }
+            ex.onReplicationWillStart { sim -> setSpeed(); refreshCurrentReplic(sim) }
+            ex.onSimulationDidFinish { sim -> refreshUI(sim) }
+            ex.registerDelegate(this)
 
             return true
         } catch (e: NumberFormatException) {
@@ -155,6 +159,10 @@ class MainController : Controller(), ISimDelegate {
         }
         return false
     }
+
+    private fun experimentReplicationsCount() =
+        if (useDoctorsExperiment.value) numReplicPerExperiment.value.toInt()
+        else replicationsCount.value.toInt()
 
     private fun showInvalidInputsAlert() = alert(
         Alert.AlertType.ERROR,

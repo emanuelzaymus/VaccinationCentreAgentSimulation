@@ -1,6 +1,5 @@
 package sk.emanuelzaymus.agentsimulation.view
 
-import javafx.scene.control.CheckBox
 import javafx.scene.control.TabPane
 import sk.emanuelzaymus.agentsimulation.app.Styles
 import sk.emanuelzaymus.agentsimulation.controller.MainController
@@ -14,8 +13,6 @@ class MainView : View("Vaccination Centre Agent Simulation") {
     private val preferredWidth = 180.0
 
     private val controller: MainController by inject()
-
-    private lateinit var withAnimationCheckBox: CheckBox
 
     override val root = vbox {
         hbox(largeSpaces) {
@@ -45,14 +42,7 @@ class MainView : View("Vaccination Centre Agent Simulation") {
                 }
             }
             vbox(smallSpaces) {
-                checkbox("Doctors experiment", controller.useDoctorsExperiment) {
-                    setOnAction {
-                        if (controller.useDoctorsExperiment.value) {
-                            controller.withAnimation.value = false
-                        }
-                        withAnimationCheckBox.isDisable = controller.useDoctorsExperiment.value
-                    }
-                }
+                checkbox("Doctors experiment", controller.useDoctorsExperiment)
                 gridpane {
                     vgap = smallSpaces.toDouble()
                     hgap = smallSpaces.toDouble()
@@ -73,7 +63,7 @@ class MainView : View("Vaccination Centre Agent Simulation") {
                 checkbox("Use zero transitions", controller.useZeroTransitions)
             }
             vbox(smallSpaces) {
-                withAnimationCheckBox = checkbox("With animation", controller.withAnimation)
+                checkbox("With animation", controller.withAnimation)
                 hbox(smallSpaces) {
                     label("Delay every (sim. seconds): ")
                     label(controller.delayEveryStr)
