@@ -18,7 +18,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.waiting.WaitingA
 class VaccinationCentreAgentSimulation(
     numberOfPatients: Int,
     numberOfAdminWorkers: Int,
-    numberOfDoctors: Int,
+    val numberOfDoctors: Int,
     numberOfNurses: Int,
     earlyArrivals: Boolean,
     zeroTransitions: Boolean

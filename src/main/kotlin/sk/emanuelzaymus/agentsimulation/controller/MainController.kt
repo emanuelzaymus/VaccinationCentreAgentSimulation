@@ -81,6 +81,7 @@ class MainController : Controller(), ISimDelegate {
     val injectionsPrepRoomData = CountRoomData("Injections Preparation Room", "nurses")
     val waitingRoomData = CountRoomData("Waiting Room", "patients")
     val lunchBreakData = LunchBreakData()
+    val doctorsExperimentData = DoctorsExperimentData()
     val overallData = OverallData()
 
     private fun setSpeed() {
@@ -127,6 +128,9 @@ class MainController : Controller(), ISimDelegate {
         overallData.refresh(sim.overallStats.overallWaiting, sim.overallStats.overallWorkload)
     }
 
+    private fun refreshDoctorsExperimentChartData(sim: Simulation) =
+        doctorsExperimentData.refresh(sim as VaccinationCentreAgentSimulation)
+
     private fun refreshCurrentReplic(sim: Simulation) =
         Platform.runLater { currentReplicNumber.value = sim.currentReplication() + 1 }
 
@@ -148,9 +152,10 @@ class MainController : Controller(), ISimDelegate {
                 VaccinationCentreExperiment(patients, workers, doctors, nurses, earlyArrivals, zeroTransitions)
             }
 
+            ex.onBeforeExperiment { doctorsExperimentData.clearChartData() }
             ex.onPause { sim -> refreshUI(sim) }
             ex.onReplicationWillStart { sim -> setSpeed(); refreshCurrentReplic(sim) }
-            ex.onSimulationDidFinish { sim -> refreshUI(sim) }
+            ex.onSimulationDidFinish { sim -> refreshUI(sim); refreshDoctorsExperimentChartData(sim) }
             ex.registerDelegate(this)
 
             return true

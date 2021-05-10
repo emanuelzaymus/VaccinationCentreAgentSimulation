@@ -6,6 +6,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgent
 
 open class VaccinationCentreExperiment {
 
+    protected lateinit var onBeforeExperimentFun: () -> Unit
     private lateinit var onPauseFun: (Simulation) -> Unit
     private lateinit var onReplicationWillStartFun: (Simulation) -> Unit
     private lateinit var onSimulationDidFinishFun: (Simulation) -> Unit
@@ -23,6 +24,10 @@ open class VaccinationCentreExperiment {
         sim = VaccinationCentreAgentSimulation(
             numberOfPatients, numberOfAdminWorkers, numberOfDoctors, numberOfNurses, earlyArrivals, zeroTransitions
         )
+    }
+
+    fun onBeforeExperiment(onBeforeExperiment: () -> Unit) {
+        onBeforeExperimentFun = onBeforeExperiment
     }
 
     fun onPause(onPause: (Simulation) -> Unit) {
@@ -43,6 +48,7 @@ open class VaccinationCentreExperiment {
 
     open fun simulateAsync(replicationCount: Int) {
         applyDelegates()
+        onBeforeExperimentFun()
         sim.simulateAsync(replicationCount)
     }
 

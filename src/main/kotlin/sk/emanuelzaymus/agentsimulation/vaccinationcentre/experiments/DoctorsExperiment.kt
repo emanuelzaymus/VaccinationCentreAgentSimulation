@@ -17,10 +17,10 @@ class DoctorsExperiment(
     private val isStopped = AtomicBoolean(false)
 
     override fun simulateAsync(replicationCount: Int) {
+        onBeforeExperimentFun()
         thread(name = "DOCTORS EXPERIMENT THREAD", isDaemon = true, priority = 10) {
 
             for (doctors in fromDoctors..toDoctors) {
-
                 sim = VaccinationCentreAgentSimulation(
                     numberOfPatients, numberOfAdminWorkers, doctors, numberOfNurses, earlyArrivals, zeroTransitions
                 )

@@ -113,7 +113,7 @@ abstract class VaccinationCentreActivityManager(
     }
 
     private fun lessThenHalfWorkersIsHavingLunchBreak(): Boolean =
-        myAgent.workers.size / 2 > myAgent.workers.count { it.isHavingLunchBreak }
+        myAgent.workers.size / 2 > myAgent.workers.count { it.isHavingLunchBreak } || myAgent.workers.size == 1
 
     private fun requestLunchBreak(worker: VaccinationCentreWorker) {
         worker.setIsHavingLunchBreak()
