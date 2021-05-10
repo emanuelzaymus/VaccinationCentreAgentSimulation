@@ -11,7 +11,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WORKING_TIME
 object EarlyArrivalTimesGenerator : ArrivalTimesGenerator() {
 
     private val earlyArrivals = EmpiricRNG(
-        EmpiricPair(UniformContinuousRNG(minToSec(0), minToSec(20)), 0.3),
+        EmpiricPair(UniformContinuousRNG(minToSec(1), minToSec(20)), 0.3),
         EmpiricPair(UniformContinuousRNG(minToSec(20), minToSec(60)), 0.4),
         EmpiricPair(UniformContinuousRNG(minToSec(60), minToSec(80)), 0.2),
         EmpiricPair(UniformContinuousRNG(minToSec(80), minToSec(240)), 0.1)
