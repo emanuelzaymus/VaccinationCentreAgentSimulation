@@ -46,13 +46,16 @@ class InjectionsManager(mySim: Simulation, private val myAgent: InjectionsAgent)
     }
 
     private fun tryOpenNewPackage(message: MessageForm) {
-        if (myAgent.vaccinesInPackageLeft <= 0) {
-            message.setAddressee(Ids.openingNewPackageProcess)
-
-            startContinualAssistant(message)
-        } else {
+        if (myAgent.vaccinesInPackageLeft <= 0)
+            startOpeningNewPackage(message)
+        else
             preparationProcessDone(message)
-        }
+    }
+
+    private fun startOpeningNewPackage(message: MessageForm) {
+        message.setAddressee(Ids.openingNewPackageProcess)
+
+        startContinualAssistant(message)
     }
 
     private fun preparationProcessDone(message: MessageForm) {

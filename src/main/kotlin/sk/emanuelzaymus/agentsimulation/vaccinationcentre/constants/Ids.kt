@@ -1,7 +1,6 @@
 package sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants
 
 object Ids {
-
     const val modelAgent = 1
     const val environmentAgent = 2
     const val registrationAgent = 3

@@ -6,13 +6,16 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.OPENING_PACKAGE_DURATION_MAX
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.OPENING_PACKAGE_DURATION_MIN
 
 class OpeningNewPackageProcess(mySim: Simulation, private val myAgent: InjectionsAgent) :
     VaccinationCentreProcess<InjectionsPreparationMessage>(Ids.openingNewPackageProcess, mySim, myAgent) {
 
     companion object {
         private val openPackageDuration
-            get() = if (useZeroDuration) zeroDuration else UniformContinuousRNG(30.0, 140.0)
+            get() = if (useZeroDuration) zeroDuration
+            else UniformContinuousRNG(OPENING_PACKAGE_DURATION_MIN, OPENING_PACKAGE_DURATION_MAX)
     }
 
     override val debugName = "OpenNewPackageProcess"

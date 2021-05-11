@@ -79,7 +79,7 @@ class Room : Fragment() {
                         @Suppress("UNCHECKED_CAST")
                         tableview(room.personalWorkloads as ObservableList<WorkerData>) {
                             prefHeight = 260.0
-                            readonlyColumn("Num", WorkerData::id).prefWidth = 80.0
+                            readonlyColumn("Num", WorkerData::id).prefWidth = 40.0
                             readonlyColumn("Busy", WorkerData::busy).prefWidth = 40.0
                             readonlyColumn("Lunch", WorkerData::lunch).prefWidth = 40.0
                             readonlyColumn("Workload", WorkerData::avgWorkload).prefWidth = 70.0
