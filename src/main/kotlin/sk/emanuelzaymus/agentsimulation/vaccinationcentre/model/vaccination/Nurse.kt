@@ -25,7 +25,9 @@ class Nurse(id: Int, mySim: Simulation) : VaccinationCentreWorker(id, mySim) {
                 throw IllegalArgumentException("Cannot assign $value when is not ${WS.GOING_TO_PREPARE_INJECTIONS}.")
             if (value == WS.PREPARING_INJECTIONS && (super.state != WS.GOING_TO_PREPARE_INJECTIONS && super.state != WS.WAITING_TO_INJECTIONS_PREPARATION))
                 throw IllegalArgumentException("Cannot assign $value when is not ${WS.GOING_TO_PREPARE_INJECTIONS}/${WS.WAITING_TO_INJECTIONS_PREPARATION}.")
-            if (value == WS.GOING_FROM_INJECTIONS_PREPARATION && super.state != WS.PREPARING_INJECTIONS)
+            if (value == WS.GOING_FROM_INJECTIONS_PREPARATION && (super.state != WS.PREPARING_INJECTIONS && super.state != WS.OPENING_NEW_PACKAGE))
+                throw IllegalArgumentException("Cannot assign $value when is not ${WS.PREPARING_INJECTIONS}/${WS.OPENING_NEW_PACKAGE}.")
+            if (value == WS.OPENING_NEW_PACKAGE && super.state != WS.PREPARING_INJECTIONS)
                 throw IllegalArgumentException("Cannot assign $value when is not ${WS.PREPARING_INJECTIONS}.")
 
             super.state = value

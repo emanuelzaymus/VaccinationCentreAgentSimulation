@@ -43,4 +43,5 @@ object Ids {
     const val doctorsLunchBreakScheduler = 1017
     const val nursesLunchBreakScheduler = 1018
 
+    const val openingNewPackageProcess = 1019
 }

@@ -21,9 +21,11 @@ class InjectionsManager(mySim: Simulation, private val myAgent: InjectionsAgent)
             IdList.finish -> when (message.sender().id()) {
                 Ids.toInjectionsTransferProcess -> tryStartPreparationProcess(message as InjectionsPreparationMessage)
 
-                Ids.injectionsPreparationProcess -> preparationProcessDone(message)
+                Ids.injectionsPreparationProcess -> tryOpenNewPackage(message)
 
                 Ids.fromInjectionsTransferProcess -> injectionsPreparationDone(message as InjectionsPreparationMessage)
+
+                Ids.openingNewPackageProcess -> preparationProcessDone(message)
             }
         }
     }
@@ -40,6 +42,16 @@ class InjectionsManager(mySim: Simulation, private val myAgent: InjectionsAgent)
         else {
             message.nurse!!.state = WorkerState.WAITING_TO_INJECTIONS_PREPARATION
             myAgent.queue.enqueue(message)
+        }
+    }
+
+    private fun tryOpenNewPackage(message: MessageForm) {
+        if (myAgent.vaccinesInPackageLeft <= 0) {
+            message.setAddressee(Ids.openingNewPackageProcess)
+
+            startContinualAssistant(message)
+        } else {
+            preparationProcessDone(message)
         }
     }
 

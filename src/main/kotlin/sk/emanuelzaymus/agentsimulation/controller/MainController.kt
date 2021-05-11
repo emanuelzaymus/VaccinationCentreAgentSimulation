@@ -81,7 +81,7 @@ class MainController : Controller(), ISimDelegate {
     val registrationRoom = RoomData("Registration", "Administrative Workers") { WorkerData.create(it) }
     val examinationRoom = RoomData("Examination", "Doctors") { WorkerData.create(it) }
     val vaccinationRoom = RoomData("Vaccination", "Nurses", true) { NurseData.create(it) }
-    val injectionsPrepRoomData = CountRoomData("Injections Preparation Room", "nurses")
+    val injectionsPrepRoomData = InjectionsRoomData("Injections Preparation Room", "nurses")
     val waitingRoomData = CountRoomData("Waiting Room", "patients")
     val lunchBreakData = LunchBreakData()
     val doctorsExperimentData = DoctorsExperimentData()

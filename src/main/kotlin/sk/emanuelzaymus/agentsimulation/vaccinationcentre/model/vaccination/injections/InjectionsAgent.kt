@@ -8,6 +8,8 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.ICountRoom
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_COUNT_IN_PACKAGE
+import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.INJECTIONS_COUNT_TO_PREPARE
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.countLastStats
 
 /**
@@ -19,16 +21,21 @@ class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfP
     val queue = SimQueue<InjectionsPreparationMessage>(WStat(mySim))
     private var preparingNurses = 0
 
+    var vaccinesInPackageLeft: Int = INJECTIONS_COUNT_IN_PACKAGE
+        private set
+
     init {
         InjectionsManager(mySim, this)
         ToInjectionsTransferProcess(mySim, this)
         InjectionsPreparationProcess(mySim, this)
         FromInjectionsTransferProcess(mySim, this)
+        OpeningNewPackageProcess(mySim, this)
 
         addOwnMessage(MessageCodes.injectionsPreparationStart)
         addOwnMessage(MessageCodes.injectionsPreparationEnd)
 
         addOwnMessage(MessageCodes.transferEnd)
+        addOwnMessage(MessageCodes.openingNewPackageEnd)
     }
 
     override fun prepareReplication() {
@@ -53,6 +60,14 @@ class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfP
             throw IllegalStateException("Cannot decrement preparingNurses - is already 0")
         }
         preparingNurses--
+    }
+
+    fun takeVaccines() {
+        vaccinesInPackageLeft -= INJECTIONS_COUNT_TO_PREPARE
+    }
+
+    fun restartVaccinesInPackageLeft() {
+        vaccinesInPackageLeft = INJECTIONS_COUNT_IN_PACKAGE
     }
 
     override val actualCount get() = preparingNurses

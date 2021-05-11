@@ -6,7 +6,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.*
 
-class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
+class InjectionsPreparationProcess(mySim: Simulation, private val myAgent: InjectionsAgent) :
     VaccinationCentreProcess<InjectionsPreparationMessage>(Ids.injectionsPreparationProcess, mySim, myAgent) {
 
     companion object {
@@ -26,6 +26,7 @@ class InjectionsPreparationProcess(mySim: Simulation, myAgent: CommonAgent) :
     }
 
     override fun endProcess(message: InjectionsPreparationMessage) {
+        myAgent.takeVaccines()
         message.nurse!!.restartInjectionsLeft()
         super.endProcess(message)
     }

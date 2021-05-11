@@ -36,6 +36,8 @@ object MessageCodes {
     const val waitingTransferStart = 21
     const val waitingTransferEnd = 22
 
+    const val openingNewPackageEnd = 23
+
     const val transferEnd = 98
 
     const val patientLeaving = 99
@@ -67,6 +69,8 @@ object MessageCodes {
         vaccinationTransferEnd -> "vaccinationTransferEnd"
         waitingTransferStart -> "waitingTransferStart"
         waitingTransferEnd -> "waitingTransferEnd"
+
+        openingNewPackageEnd -> "openingNewPackageEnd"
 
         transferEnd -> "transferEnd"
 

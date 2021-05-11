@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty
 import sk.emanuelzaymus.agentsimulation.controller.roundToString
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.ICountRoomAgent
 
-class CountRoomData(val tabTitle: String, val peopleName: String) {
+open class CountRoomData(val tabTitle: String, val peopleName: String) {
 
     val actualCount = SimpleIntegerProperty()
     val averageCount = SimpleStringProperty(RoomData.init0)
