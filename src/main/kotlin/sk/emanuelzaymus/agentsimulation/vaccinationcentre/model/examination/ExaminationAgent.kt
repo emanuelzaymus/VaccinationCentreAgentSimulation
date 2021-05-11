@@ -6,6 +6,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent
 
+/**
+ * Represent examination of patient.
+ */
 class ExaminationAgent(mySim: Simulation, parent: Agent, numberOfDoctors: Int) :
     VaccinationCentreActivityAgent<Doctor>(
         Ids.examinationAgent, mySim, parent, numberOfDoctors, { Doctor(it + 1, mySim) }

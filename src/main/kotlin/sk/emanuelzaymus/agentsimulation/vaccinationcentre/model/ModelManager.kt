@@ -9,6 +9,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreManager
 
+/**
+ * Main reasoner connects all other agents together, sends patients and workers between them.
+ */
 class ModelManager(mySim: Simulation, myAgent: Agent) : VaccinationCentreManager(Ids.modelManager, mySim, myAgent) {
 
     override fun processMessage(message: MessageForm) {

@@ -9,6 +9,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
+/**
+ * Lunch break reasoner - executes transitions and lunch itself.
+ */
 class LunchBreakManager(mySim: Simulation, private val myAgent: LunchBreakAgent) :
     VaccinationCentreManager(Ids.lunchBreakManager, mySim, myAgent) {
 

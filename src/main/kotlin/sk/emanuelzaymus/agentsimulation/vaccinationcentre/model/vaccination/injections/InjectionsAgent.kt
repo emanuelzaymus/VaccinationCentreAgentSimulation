@@ -10,6 +10,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.countLastStats
 
+/**
+ * Represents transfer of nurses to and from injections preparation room and the preparation itself.
+ */
 class InjectionsAgent(mySim: Simulation, parent: Agent, private val maxNumberOfPreparing: Int) :
     VaccinationCentreAgent(Ids.injectionsAgent, mySim, parent), ICountRoomAgent {
 

@@ -9,6 +9,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreManager
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
+/**
+ * Performs transfers between stages.
+ */
 class TransferManager(mySim: Simulation, myAgent: Agent) :
     VaccinationCentreManager(Ids.transferManager, mySim, myAgent) {
 
@@ -23,7 +26,6 @@ class TransferManager(mySim: Simulation, myAgent: Agent) :
             MessageCodes.waitingTransferStart -> startTransfer(Ids.waitingTransferProcess, message)
 
             IdList.finish -> when (message.sender().id()) {
-
                 Ids.examinationTransferProcess -> transferDone(MessageCodes.examinationTransferEnd, message)
 
                 Ids.vaccinationTransferProcess -> transferDone(MessageCodes.vaccinationTransferEnd, message)

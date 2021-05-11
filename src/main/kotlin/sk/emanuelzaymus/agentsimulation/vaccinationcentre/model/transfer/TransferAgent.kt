@@ -7,6 +7,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 import kotlin.math.abs
 
+/**
+ * Does transfer of patient to examination, vaccination and waiting room.
+ */
 class TransferAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Ids.transferAgent, mySim, parent) {
 
     var examinationCount = 0

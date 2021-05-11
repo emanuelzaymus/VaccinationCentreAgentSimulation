@@ -6,8 +6,11 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent
 
+/**
+ * Executes the vaccination for patients.
+ */
 class VaccinationAgent(mySim: Simulation, parent: Agent, numberOfNurses: Int) :
-    VaccinationCentreActivityAgent<Nurse>(
+VaccinationCentreActivityAgent<Nurse>(
         Ids.vaccinationAgent, mySim, parent, numberOfNurses, { Nurse(it + 1, mySim) }
     ) {
 

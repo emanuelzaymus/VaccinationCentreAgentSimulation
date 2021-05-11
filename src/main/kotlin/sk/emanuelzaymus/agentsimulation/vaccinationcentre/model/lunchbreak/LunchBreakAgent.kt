@@ -8,6 +8,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
+/**
+ * Performs lunch break for worker - transfer to canteen, from canteen and lunch process.
+ */
 class LunchBreakAgent(mySim: Simulation, parent: Agent?) : VaccinationCentreAgent(Ids.lunchBreakAgent, mySim, parent),
     IWorkersRoomAgent<VaccinationCentreWorker> {
 

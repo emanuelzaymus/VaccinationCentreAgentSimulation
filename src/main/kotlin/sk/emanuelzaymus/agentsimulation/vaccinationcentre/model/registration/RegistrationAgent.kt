@@ -6,6 +6,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.activity.VaccinationCentreActivityAgent
 
+/**
+ * Registers patient for vaccination
+ */
 class RegistrationAgent(mySim: Simulation, parent: Agent, numberOfAdminWorkers: Int) :
     VaccinationCentreActivityAgent<AdministrativeWorker>(
         Ids.registrationAgent, mySim, parent, numberOfAdminWorkers, { AdministrativeWorker(it + 1, mySim) }

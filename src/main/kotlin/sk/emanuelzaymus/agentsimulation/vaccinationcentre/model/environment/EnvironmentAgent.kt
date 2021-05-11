@@ -6,6 +6,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.Ids
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
+/**
+ * Surroundings of the simulation, schedules patient arrivals.
+ */
 class EnvironmentAgent(mySim: Simulation, parent: Agent, numberOfPatients: Int, earlyArrivals: Boolean) :
     VaccinationCentreAgent(Ids.environmentAgent, mySim, parent) {
 

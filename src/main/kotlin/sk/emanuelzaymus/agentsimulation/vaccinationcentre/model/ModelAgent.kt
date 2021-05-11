@@ -30,6 +30,9 @@ class ModelAgent(private val mySim: Simulation) : VaccinationCentreAgent(Ids.mod
         addOwnMessage(MessageCodes.lunchBreakEnd)
     }
 
+    /**
+     * Starts the whole simulation, sends init messages.
+     */
     fun runSimulation() {
         val message = InitMessage(mySim)
         message.setAddressee(this)

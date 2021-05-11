@@ -24,7 +24,7 @@ class EnvironmentManager(mySim: Simulation, myAgent: Agent) :
     }
 
     private fun startPatientScheduling(message: MessageForm) {
-        message.setAddressee(myAgent().findAssistant(Ids.patientArrivalsScheduler))
+        message.setAddressee(Ids.patientArrivalsScheduler)
 
         startContinualAssistant(message)
     }
@@ -37,7 +37,7 @@ class EnvironmentManager(mySim: Simulation, myAgent: Agent) :
     }
 
     private fun noticeSchedulerPatientLeaving(message: MessageForm) {
-        message.setAddressee(myAgent().findAssistant(Ids.patientArrivalsScheduler))
+        message.setAddressee(Ids.patientArrivalsScheduler)
 
         notice(message)
     }

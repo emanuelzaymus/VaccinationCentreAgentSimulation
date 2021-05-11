@@ -17,6 +17,9 @@ object EarlyArrivalTimesGenerator : ArrivalTimesGenerator() {
         EmpiricPair(UniformContinuousRNG(minToSec(80), minToSec(240)), 0.1)
     )
 
+    /**
+     * Generates patient arrivals from which 90% will be earlier than it should by empirical distribution.
+     */
     override fun generateArrivalTimes(numberOfPatients: Int): List<Double> {
         val patientNumberRng = UniformDiscreteRNG(0, numberOfPatients)
         val notArrivingCount = (super.notArrivingRng.sample() * (numberOfPatients / NORMAL_PATIENT_COUNT)).toInt()

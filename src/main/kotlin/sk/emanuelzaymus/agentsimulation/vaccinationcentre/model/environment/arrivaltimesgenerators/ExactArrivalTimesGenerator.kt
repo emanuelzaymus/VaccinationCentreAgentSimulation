@@ -6,6 +6,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.WORKING_TIME
 
 object ExactArrivalTimesGenerator : ArrivalTimesGenerator() {
 
+    /**
+     * Generates exact arrivals every minute.
+     */
     override fun generateArrivalTimes(numberOfPatients: Int): List<Double> {
         val patientNumberRng = UniformDiscreteRNG(0, numberOfPatients)
         val betweenArrivalsDuration = WORKING_TIME / numberOfPatients
