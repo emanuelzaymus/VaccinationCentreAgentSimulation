@@ -5,6 +5,9 @@ import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreMessage
 
+/**
+ * Initial message.
+ */
 class InitMessage(private val mySim: Simulation) : VaccinationCentreMessage(mySim) {
 
     init {

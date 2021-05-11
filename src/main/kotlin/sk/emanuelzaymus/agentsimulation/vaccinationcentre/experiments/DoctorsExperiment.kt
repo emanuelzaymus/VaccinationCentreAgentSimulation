@@ -4,6 +4,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgent
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.thread
 
+/**
+ * Experiment for multiple simulation run for different number of doctors.
+ */
 class DoctorsExperiment(
     private val numberOfPatients: Int,
     private val numberOfAdminWorkers: Int,

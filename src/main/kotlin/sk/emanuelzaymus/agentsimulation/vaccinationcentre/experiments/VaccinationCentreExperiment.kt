@@ -4,6 +4,9 @@ import OSPABA.ISimDelegate
 import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.VaccinationCentreAgentSimulation
 
+/**
+ * Basic simulation run.
+ */
 open class VaccinationCentreExperiment {
 
     protected var onBeforeExperimentFun: (() -> Unit)? = null

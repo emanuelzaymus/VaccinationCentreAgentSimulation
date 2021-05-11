@@ -4,6 +4,9 @@ import OSPABA.Simulation
 import sk.emanuelzaymus.agentsimulation.utils.pool.IPooledObject
 import sk.emanuelzaymus.agentsimulation.utils.stopwatch.Stopwatch
 
+/**
+ * Patient that can wait for an activity.
+ */
 data class Patient(val mySim: Simulation) : IPooledObject {
 
     private val stopwatch = Stopwatch()

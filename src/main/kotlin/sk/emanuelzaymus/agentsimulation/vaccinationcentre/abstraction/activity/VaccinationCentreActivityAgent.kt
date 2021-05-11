@@ -11,6 +11,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.countLastStats
 
+/**
+ * Represents activity for vaccination centre with workers and waiting queue.
+ */
 abstract class VaccinationCentreActivityAgent<T : VaccinationCentreWorker>(
     id: Int, mySim: Simulation, parent: Agent?, numberOfWorkers: Int, init: (Int) -> T
 ) : VaccinationCentreAgent(id, mySim, parent), IStatisticsAgent<T> {

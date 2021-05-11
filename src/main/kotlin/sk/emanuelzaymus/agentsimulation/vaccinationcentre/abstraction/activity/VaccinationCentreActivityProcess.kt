@@ -5,6 +5,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.Message
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreProcess
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.WorkerState
 
+/**
+ * Process of the activity.
+ */
 abstract class VaccinationCentreActivityProcess(id: Int, mySim: Simulation, myAgent: CommonAgent) :
     VaccinationCentreProcess<Message>(id, mySim, myAgent) {
 

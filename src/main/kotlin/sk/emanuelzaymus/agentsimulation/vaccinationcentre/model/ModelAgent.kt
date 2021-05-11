@@ -6,6 +6,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.messages.InitMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreAgent
 
+/**
+ * Model agent controls the simulation, starts the simulation, sends patients to the
+ */
 class ModelAgent(private val mySim: Simulation) : VaccinationCentreAgent(Ids.modelAgent, mySim, null) {
 
     init {

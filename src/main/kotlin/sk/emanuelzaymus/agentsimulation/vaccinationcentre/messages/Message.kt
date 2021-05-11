@@ -5,6 +5,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.Patient
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreMessage
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.VaccinationCentreWorker
 
+/**
+ * Basic patient message.
+ */
 class Message(mySim: Simulation) : VaccinationCentreMessage(mySim) {
 
     val patient = Patient(mySim)

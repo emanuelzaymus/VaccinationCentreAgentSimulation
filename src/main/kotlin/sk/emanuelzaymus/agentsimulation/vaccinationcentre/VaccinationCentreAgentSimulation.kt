@@ -15,6 +15,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.vaccination.Vacc
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.vaccination.injections.InjectionsAgent
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.waiting.WaitingAgent
 
+/**
+ * Main simulation. All parameters needs to be set via primary constructor.
+ */
 class VaccinationCentreAgentSimulation(
     numberOfPatients: Int,
     numberOfAdminWorkers: Int,

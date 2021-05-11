@@ -4,6 +4,9 @@ import OSPABA.*
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.constants.MessageCodes
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 
+/**
+ * Abstract class for scheduling lunch break.
+ */
 abstract class LunchBreakScheduler(id: Int, mySim: Simulation, myAgent: CommonAgent) : Scheduler(id, mySim, myAgent) {
 
     protected abstract val debugName: String

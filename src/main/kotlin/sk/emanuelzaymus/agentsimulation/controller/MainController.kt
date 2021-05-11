@@ -20,6 +20,9 @@ import tornadofx.Controller
 import tornadofx.alert
 import tornadofx.onChange
 
+/**
+ * Main controller for communication with GUI.
+ */
 class MainController : Controller(), ISimDelegate {
 
     private val initReplicationsCount = 1

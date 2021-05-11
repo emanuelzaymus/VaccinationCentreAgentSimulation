@@ -12,6 +12,9 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.debug
 import sk.emanuelzaymus.agentsimulation.vaccinationcentre.model.lunchbreak.WorkersBreakMessage
 
+/**
+ * Manager for reasoning for VaccinationCentreActivityAgent.
+ */
 abstract class VaccinationCentreActivityManager(
     id: Int, private val mySim: Simulation, private val myAgent: VaccinationCentreActivityAgent<*>
 ) : VaccinationCentreManager(id, mySim, myAgent) {
