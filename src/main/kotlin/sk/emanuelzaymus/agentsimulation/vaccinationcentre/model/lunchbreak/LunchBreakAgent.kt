@@ -11,7 +11,7 @@ import sk.emanuelzaymus.agentsimulation.vaccinationcentre.abstraction.Vaccinatio
 /**
  * Performs lunch break for worker - transfer to canteen, from canteen and lunch process.
  */
-class LunchBreakAgent(mySim: Simulation, parent: Agent?) : VaccinationCentreAgent(Ids.lunchBreakAgent, mySim, parent),
+class LunchBreakAgent(mySim: Simulation, parent: Agent) : VaccinationCentreAgent(Ids.lunchBreakAgent, mySim, parent),
     IWorkersRoomAgent<VaccinationCentreWorker> {
 
     val workers = mutableListOf<VaccinationCentreWorker>()
